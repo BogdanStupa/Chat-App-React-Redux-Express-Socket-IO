@@ -1,7 +1,7 @@
 import React from "react";
 import { Reditect } from "react-router-dom";
 
-
+//add for signup something 
 const withAuthRedirect = (Component) => {
     const RedirectComponent = (props) => {
         console.log("withAuthTedirect")
