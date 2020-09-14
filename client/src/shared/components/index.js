@@ -1,9 +1,10 @@
 import ButtonComponent from "./button";
-import InputComponent from "./input";
+import InputFormComponent from "./input";
 import LabelComponent from "./label";
+
 
 export {
     ButtonComponent,
-    InputComponent,
+    InputFormComponent,
     LabelComponent
 };

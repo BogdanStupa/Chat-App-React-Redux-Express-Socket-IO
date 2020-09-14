@@ -1,0 +1,46 @@
+.auth-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .form-container{
+        width:30%;
+        margin-bottom: 2rem;
+        .form-title{
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: $header-color;
+        }
+    }
+
+    .info-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 30%;
+    }
+}
+
+@media (max-width: $break-point-small-width-auth + 1){
+    .app-wrapper{
+         min-width: 18rem;
+         .app-container{
+             min-width: 10rem;
+         }
+    }
+ }
+
+
+ @media (max-height: $break-point-small-height + 1){
+    .app-wrapper{
+        min-height: 24rem;
+        .app-container{
+            min-height: 15rem;
+            min-width: 15rem;
+        }
+    }
+}

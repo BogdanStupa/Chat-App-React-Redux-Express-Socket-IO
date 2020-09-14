@@ -7,14 +7,13 @@ import {
 import constants from "modules/constants";
 
 
-function SignUpFormContainer(){
-    const { 
+function SignInFormContainer(){
+    const {
         NICKNAME,
         PASSWORD,
-        CONFIRM_PASSWORD, 
-        SIGNUP
+        SIGNIN
     } = constants.LABELS.AUTH;
-    
+
     const height = "2.5rem";
     const marginTop = "1rem";
     
@@ -32,14 +31,8 @@ function SignUpFormContainer(){
                 height={height}
             />
 
-            <InputFormComponent
-                type="text"
-                value={CONFIRM_PASSWORD}
-                height={height}
-            />
-
             <ButtonComponent
-                text={SIGNUP}
+                text={SIGNIN}
                 height={height}
                 marginTop={marginTop}
 
@@ -48,4 +41,4 @@ function SignUpFormContainer(){
         );
 }
 
-export default SignUpFormContainer;
+export default SignInFormContainer;

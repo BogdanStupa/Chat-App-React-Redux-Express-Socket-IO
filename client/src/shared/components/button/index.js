@@ -1,22 +1,48 @@
 import React from "react";
+import classNames from "classnames";
+
 
 function ButtonComponent(props){
     const {
         text,
-        primaryButton,
+        primary,
         secondaryButton,
-        disabledButton,
-        linkButton,
-        defaultButton,
+        link,
         isFetching,
+        disabled,
+        outline,
+        marginTop,
+        height
     } = props;
 
+    const styleButton = classNames({
+        btn: true,
+        "btn--default": true && !link,
+        "btn--link": link,
+        "btn--disabled": disabled,
+        "btn--primary": !disabled && primary
+    });
+
+    const onClick = () => {
+
+    }
     return (
-        <button>
+        <button
+            className={styleButton}
+            disabled={isFetching}
+            onClick={onClick}
+            style={{
+                marginTop,
+                height
+            }}
+        >
             {
-                text
+                isFetching && !disabled 
+                ? "loading"
+                : text
             }
         </button>
+        
     );
 }
 

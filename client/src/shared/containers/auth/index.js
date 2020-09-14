@@ -4,8 +4,7 @@ function AuthContainer(props){
     const   {
         title,
         formContainer,
-        footerInfo,
-        footerInfoLink
+        footerInfo
     } = props;
     return (
         <section className="auth-wrapper"> 

@@ -11,7 +11,7 @@ import constants from "modules/constants";
 function SignUpEntry(){
     const {
         SIGNUP,
-        DONT_HAVE_AN_ACCOUNT,
+        ALREADY_HAVE_AN_ACCOUNT,
         SIGNIN
     } = constants.LABELS.AUTH;
 
@@ -23,7 +23,7 @@ function SignUpEntry(){
                 <SignUpFormContainer/>
             )}
             footerInfo={(
-                <LabelComponent text={DONT_HAVE_AN_ACCOUNT}>
+                <LabelComponent text={ALREADY_HAVE_AN_ACCOUNT}>
                     <ButtonComponent
                         text={SIGNIN}
                         link

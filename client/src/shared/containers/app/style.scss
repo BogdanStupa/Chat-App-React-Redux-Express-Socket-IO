@@ -42,19 +42,27 @@
             border-radius: .5rem;
             box-shadow: 0 0.5rem .5rem $app-border-color;
             background-color: $default-color;
+            position: relative;
         }
     }
 }
 
-@media (max-width: $break-point-small-width + 1){
-    .app-container{
-        min-width: 15rem;
+/* @media (max-width: $break-point-small-width + 1){
+   .app-wrapper{
+        min-width: 18rem;
+        .app-container{
+            min-width: 10rem;
+        }
+   }
+} 
+@media (max-height: $break-point-small-height + 1){
+    .app-wrapper{
+        min-height: 24rem;
+        .app-container{
+            min-height: 15rem;
+            min-width: 15rem;
+        }
     }
 }
 
-@media (max-height: $break-point-small-height + 1){
-    .app-container{
-        min-height: 15rem;
-        min-width: 15rem;
-    }
-}
+*/

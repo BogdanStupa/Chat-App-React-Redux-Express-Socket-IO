@@ -18,6 +18,15 @@ body{
 }
 
 .root{
+	position: relative;
 	height: 100%;
 	width: 100%;
+}
+
+.route-section{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
 }

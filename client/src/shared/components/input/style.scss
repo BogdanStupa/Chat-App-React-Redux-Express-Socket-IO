@@ -1,0 +1,83 @@
+.input-wrapper{
+    margin-top: 1rem;
+    transition: 0.8s;
+    input{
+        width: 100%;
+        height: 100%;
+        font-size: inherit;
+        box-shadow: none;
+        background-color: $input-form-color;
+        border-radius: 0px;
+        border-color: #ccc;
+        border-style: none none solid none;
+        color: $header-color;
+        transition:all .8s;
+    }
+    input:focus{
+        box-shadow: none;
+        outline: none;
+        border-color: $header-color;
+        font-weight: bold;
+    }
+    input::placeholder{
+        color:transparent;
+    }
+
+    textarea{
+        width: 100%;
+        height: 100%;
+        letter-spacing: 0.1rem;
+        font-size: inherit;
+        box-shadow: none;
+        background-color: $input-form-color;
+        resize:none;
+        overflow: auto;
+        outline: none;
+        -moz-appearance: none;
+        border:0;
+        padding: 0.25rem;
+        color: $header-color;
+    }
+
+    .input-error{
+        border-color: red;
+        color:red;
+    } 
+    .error-info{
+        overflow-wrap: break-word;
+        color: red;
+        font-size:0.7rem;
+        width:100%;
+    }
+  /*   
+    input{
+        box-shadow: none;
+        background-color: $input-form-color;
+        width:100%;
+        transition:all .5s;
+        padding: 0.2rem;
+    }
+    input::placeholder{
+        color:transparent;
+    }
+    input:focus{
+        box-shadow: none;
+        outline: none;
+        border-color:$header-color;
+    }
+    input:focus + label,
+    input:not(:placeholder-shown) + label
+    {
+        transform: translateY(-2.5rem) scale(.8);
+    }
+    
+    &:focus-within{
+        transform: scale(1.02, 1.02);
+    }
+    
+    .label-error{
+        color:red;
+    }
+    */
+}
+
