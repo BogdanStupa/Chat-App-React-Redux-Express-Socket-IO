@@ -1,23 +1,83 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as formActions from "redux/actions/form";
 
 
-
-function FormContainer(props){
+const FormContainer = React.memo(function(props) {
     const {
-        onSubmit,
-        children
+        render,
+        formActions,
+        values,
+        formName,
+        formData
     } = props;
-    
+
+    useEffect(() => {
+        formActions.initForm(formName, {
+            values,
+            errors: {},
+            touched: {}
+        });
+
+        return () => {}
+    }, []);
+
+    const getFormData = () => {
+        const {
+            formData,
+            formName
+        } = props;
+        return formData[formName];
+    };
+
+    const updateFormData = (params) => {
+        const {
+            formActions,
+            formName
+        } = props;
+
+        formActions.updateForm(formName,{
+            ...params
+        });
+    };
+
+    const handleChange = (event) => {
+        event.preventDefault();
+
+        const {
+            value,
+            name
+        } = event.target;
+        const { values } = getFormData();
+        values[name] = value;
+        updateFormData({
+            values
+        });
+    };
+
+
+
     return (
-        <form  
-            onSubmit={onSubmit}
-            className="form"
-        >
+        <div>
             {
-                children
+                render({handleChange})
             }
-        </form>   
+        </div>  
     );
+});
+
+
+const mapStateToProps = (state) => {
+    return {
+        formData: state.form
+    };
 }
 
-export default FormContainer;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        formActions: bindActionCreators(formActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer);

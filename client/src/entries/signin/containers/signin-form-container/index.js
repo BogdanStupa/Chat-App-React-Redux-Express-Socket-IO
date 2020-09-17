@@ -14,30 +14,52 @@ function SignInFormContainer(){
         SIGNIN
     } = constants.LABELS.AUTH;
 
+    const {
+        SIGNINFORM
+    } = constants.LABELS.FORMS;
+
     const height = "2.5rem";
     const marginTop = "1rem";
     
     return (
-        <FormContainer>
-            <InputFormComponent
-                type="text"
-                value={NICKNAME}
-                height={height}
-            />
+        <FormContainer
+            formName={SIGNINFORM}
+            values={{
+				nickname: "",
+				password: ""
+			}} 
+            render={({
+                    handleChange
+                }) => {
+                    return (
+                        <form>
+                            <InputFormComponent
+                                type="text"
+                                name={NICKNAME}
+                                placeholder={NICKNAME}
+                                height={height}
+                                onChange={handleChange}
+                            />
 
-            <InputFormComponent
-                type="text"
-                value={PASSWORD}
-                height={height}
-            />
+                            <InputFormComponent
+                                type="text"
+                                name={PASSWORD}
+                                placeholder={PASSWORD}
+                                height={height}
+                                onChange={handleChange}
+                            />
 
-            <ButtonComponent
-                text={SIGNIN}
-                height={height}
-                marginTop={marginTop}
-
-            />
-        </FormContainer>
+                            <ButtonComponent
+                                text={SIGNIN}
+                                height={height}
+                                marginTop={marginTop}
+                            />
+                        </form>
+                    )
+                }
+            }
+            
+        />
         );
 }
 

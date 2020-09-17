@@ -4,20 +4,20 @@ import classNames from "classnames";
 
 function InputFormComponent(props){
     const {
-        value,
         onChange,
         type,
+        name,
         autoFocus,
         disabled,
         hasError,
         errorMessage,
-        fullWidth,
         multiline,
         placeholder,
         width,
         height,
         fontSize="1.2rem"
     } = props;
+
 
     const inputStyle = classNames({
         "input-error":hasError
@@ -36,18 +36,17 @@ function InputFormComponent(props){
                 ? <textarea
                     className={inputStyle}
                     onChange={onChange}
-                    value={value}
+                    placeholder={placeholder}
                     disabled={disabled}
-                    >
-                    {value}
-                </textarea>
+                    name={name}
+                    />
                 : <input 
                     className={inputStyle}
                     type={type}
                     onChange={onChange}
-                    value={value}
                     placeholder={placeholder}
                     disabled={disabled}
+                    name={name}
                 
                 />
             }

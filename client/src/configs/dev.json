@@ -17,6 +17,10 @@
 			"NICKNAME_LENGHT_BETWEEN_2_AND_12": "The Nickname must have between 5 and 12 characters",
 			"PASSWORD_LENGHT_BETWEEN_5_AND_12": "The Password must have between 6 and 12 characters",
 			"PASSWORD_DOESNT_MATCH": "Password and confirm password must match"
+        },
+        "FORMS":{
+            "SIGNUPFORM":"SignUpForm",
+            "SIGNINFORM":"SignInForm"
         }
     }
 }

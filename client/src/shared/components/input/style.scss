@@ -20,7 +20,7 @@
         font-weight: bold;
     }
     input::placeholder{
-        color:transparent;
+        color: $header-color
     }
 
     textarea{
@@ -49,35 +49,4 @@
         font-size:0.7rem;
         width:100%;
     }
-  /*   
-    input{
-        box-shadow: none;
-        background-color: $input-form-color;
-        width:100%;
-        transition:all .5s;
-        padding: 0.2rem;
-    }
-    input::placeholder{
-        color:transparent;
-    }
-    input:focus{
-        box-shadow: none;
-        outline: none;
-        border-color:$header-color;
-    }
-    input:focus + label,
-    input:not(:placeholder-shown) + label
-    {
-        transform: translateY(-2.5rem) scale(.8);
-    }
-    
-    &:focus-within{
-        transform: scale(1.02, 1.02);
-    }
-    
-    .label-error{
-        color:red;
-    }
-    */
 }
-

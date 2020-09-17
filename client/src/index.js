@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import RoutesContainer from "routes";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import RoutesContainer from "routes";
 import "styles/index.scss";
+
+
+import store from "redux/store";
 
 import * as serviceWorker from './serviceWorker';
 
@@ -11,9 +15,11 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <RoutesContainer/>        
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <RoutesContainer/>        
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
     document.getElementById("root")
 )
