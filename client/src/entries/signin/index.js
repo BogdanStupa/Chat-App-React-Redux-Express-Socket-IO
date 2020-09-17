@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "shared/hocs";
 import { SignInFormContainer } from "./containers";
 import { AuthContainer } from "shared/containers";
@@ -9,13 +11,16 @@ import {
 import constants from "modules/constants";
 
 
-function SignInEntry(){
+const SignInEntry = ({ history }) => {
     const {
         SIGNIN,
         DONT_HAVE_AN_ACCOUNT,
         SIGNUP
     } = constants.LABELS.AUTH;
 
+    const onClick = () => {
+        history.push("/signup");
+   }
 
     return (
         <AuthContainer
@@ -28,6 +33,7 @@ function SignInEntry(){
                     <ButtonComponent
                         text={SIGNUP}
                         link
+                        onClick={onClick}
                     />    
                 </LabelComponent>
             )}
@@ -35,4 +41,6 @@ function SignInEntry(){
     )
 }
 
-export default withAuthRedirect(SignInEntry);
+export default compose(
+    React.memo
+)(SignInEntry);

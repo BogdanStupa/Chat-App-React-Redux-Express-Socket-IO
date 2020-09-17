@@ -1,66 +1,63 @@
 import React from "react";
-import { FormContainer } from "shared/containers";
+import { compose } from "redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers";
 import {
     InputFormComponent,
     ButtonComponent
 } from "shared/components";
 import constants from "modules/constants";
+import { schemaSignIn } from "modules/schems";
 
 
-function SignInFormContainer(){
+const SignInFormContainer = () => {
     const {
         NICKNAME,
         PASSWORD,
         SIGNIN
     } = constants.LABELS.AUTH;
 
-    const {
-        SIGNINFORM
-    } = constants.LABELS.FORMS;
-
     const height = "2.5rem";
-    const marginTop = "1rem";
+    const marginTop = "2rem";
+
+    const { handleSubmit, register, errors } = useForm({
+        resolver: yupResolver(schemaSignIn)
+    });
     
+    const onSubmit = (data) => {
+        console.log("Submit", data);
+    }
+
     return (
-        <FormContainer
-            formName={SIGNINFORM}
-            values={{
-				nickname: "",
-				password: ""
-			}} 
-            render={({
-                    handleChange
-                }) => {
-                    return (
-                        <form>
-                            <InputFormComponent
-                                type="text"
-                                name={NICKNAME}
-                                placeholder={NICKNAME}
-                                height={height}
-                                onChange={handleChange}
-                            />
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <InputFormComponent
+                type="text"
+                name={NICKNAME}
+                placeholder={NICKNAME}
+                height={height}
+                ref={register}
+                errors={errors.nickname?.message}
+            />
 
-                            <InputFormComponent
-                                type="text"
-                                name={PASSWORD}
-                                placeholder={PASSWORD}
-                                height={height}
-                                onChange={handleChange}
-                            />
+            <InputFormComponent
+                type="password"
+                name={PASSWORD}
+                placeholder={PASSWORD}
+                height={height}
+                ref={register}
+                errors={errors.password?.message}
+            />
 
-                            <ButtonComponent
-                                text={SIGNIN}
-                                height={height}
-                                marginTop={marginTop}
-                            />
-                        </form>
-                    )
-                }
-            }
-            
-        />
-        );
+            <ButtonComponent
+                type="submit"
+                text={SIGNIN}
+                height={height}
+                marginTop={marginTop}
+            />
+        </form>
+    );
 }
 
-export default SignInFormContainer;
+export default compose(
+    React.memo
+)(SignInFormContainer);

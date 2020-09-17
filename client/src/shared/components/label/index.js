@@ -2,7 +2,7 @@ import React from "react";
 import ClassNames from "classnames";
 
 
-function LabelComponent(props){
+const LabelComponent = React.memo( props => {
     const {
         text,
         children
@@ -14,6 +14,6 @@ function LabelComponent(props){
         {children}
     </label>
     );
-}
+});
 
 export default LabelComponent;

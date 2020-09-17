@@ -9,8 +9,7 @@ const FormContainer = React.memo(function(props) {
         render,
         formActions,
         values,
-        formName,
-        formData
+        formName
     } = props;
 
     useEffect(() => {
@@ -42,8 +41,8 @@ const FormContainer = React.memo(function(props) {
         });
     };
 
-    const handleChange = (event) => {
-        event.preventDefault();
+    const onChange = (data) => {
+        /* event.preventDefault();
 
         const {
             value,
@@ -53,15 +52,30 @@ const FormContainer = React.memo(function(props) {
         values[name] = value;
         updateFormData({
             values
-        });
+        }); */
+        console.log(data);
+        //validate form
     };
 
+    const onSubmit = (data) => {
+        /* event.preventDefault();
+
+        const { values, erros } = getFormData();
+        console.log(values, erros); */
+
+        console.log(data);
+
+        //validate form 
+    }
 
 
     return (
         <div>
             {
-                render({handleChange})
+                render({
+                    onChange, 
+                    onSubmit
+                })
             }
         </div>  
     );

@@ -2,17 +2,19 @@ import React from "react";
 import classNames from "classnames";
 
 
-function ButtonComponent(props){
+const ButtonComponent = React.memo( props => {
     const {
         text,
         primary,
+        type,
         secondaryButton,
         link,
         isFetching,
         disabled,
         outline,
         marginTop,
-        height
+        height,
+        onClick
     } = props;
 
     const styleButton = classNames({
@@ -23,12 +25,10 @@ function ButtonComponent(props){
         "btn--primary": !disabled && primary
     });
 
-    const onClick = () => {
-
-    }
     return (
         <button
             className={styleButton}
+            type={type}
             disabled={isFetching}
             onClick={onClick}
             style={{
@@ -44,6 +44,6 @@ function ButtonComponent(props){
         </button>
         
     );
-}
+});
 
 export default ButtonComponent;

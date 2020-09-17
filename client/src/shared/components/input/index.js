@@ -1,26 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
+import { compose } from "redux";
 
-
-function InputFormComponent(props){
+const InputFormComponent = (props, ref) => {
     const {
         onChange,
         type,
         name,
         autoFocus,
         disabled,
-        hasError,
-        errorMessage,
         multiline,
         placeholder,
         width,
         height,
+        errors,
         fontSize="1.2rem"
     } = props;
 
-
     const inputStyle = classNames({
-        "input-error":hasError
+        "input-error":errors
     });
 
     return (
@@ -47,14 +45,19 @@ function InputFormComponent(props){
                     placeholder={placeholder}
                     disabled={disabled}
                     name={name}
-                
+                    ref={ref}
                 />
             }
             {
-                hasError ? (<span className="error-info">{errorMessage}</span>) : null
+               errors ? (<span className="error-info">{errors}</span>) : null 
             }
         </div>
     );
-}
+};
 
-export default InputFormComponent;
+
+
+export default compose(
+    React.memo,
+    React.forwardRef
+)(InputFormComponent);

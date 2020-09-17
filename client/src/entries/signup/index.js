@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 import { SignUpFormContainer } from "./containers";
 import { AuthContainer } from "shared/containers";
 import {
@@ -8,12 +10,16 @@ import {
 import constants from "modules/constants";
 
 
-function SignUpEntry(){
+const SignUpEntry = ({ history }) => {
     const {
         SIGNUP,
         ALREADY_HAVE_AN_ACCOUNT,
         SIGNIN
     } = constants.LABELS.AUTH;
+
+   const onClick = () => {
+        history.push("/signin");
+   }
 
 
     return (
@@ -27,11 +33,14 @@ function SignUpEntry(){
                     <ButtonComponent
                         text={SIGNIN}
                         link
+                        onClick={onClick}
                     />    
                 </LabelComponent>
             )}
         />
     );
-}
+};
 
-export default SignUpEntry;
+export default compose(
+    React.memo
+)(SignUpEntry);

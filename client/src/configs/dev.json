@@ -10,17 +10,21 @@
             "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
 			"DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
 			"SIGNIN": "Sign In",
-			"SIGNUP": "Sign Up",
-			"PLEASE_ENTER_YOUR_PASSWORD": "Please, enter your password",
-			"PLEASE_ENTER_YOUR_NICKNAME": "Please, enter your nickname",
+            "SIGNUP": "Sign Up",
+            "MIN_LENGHT_NICKNAME_NUMBER": 5,
+            "MIN_LENGHT_PASSWORD_NUMBER": 5,
+            "NICKNAME_MIN_LENGHT":"Nickname must have at least 5 characters",
+            "PASSWORD_MIN_LENGHT":"Password must have at least 5 characters",
+            "MAX_LENGHT_NICKNAME_NUMBER": 12,
+            "MAX_LENGHT_PASSWORD_NUMBER": 12,
+            "NICKNAME_MAX_LENGHT":"Nickname must have not more 12 characters",
+            "PASSWORD_MAX_LENGHT":"Password must have not more 12 characters",
+			"PASSWORD_REQUIRED": "Password is required",
+            "NICKNAME_REQUIRED": "Nickname is required",
+            "NICKNAME_MATCHES": "Nickname should only consist of A-Z, a-z, 0-9 characters",
+            "PASSWORD_MATCHES": "Pssword should only consist of A-Z, a-z, ()., *, &, ^) characters",
 			"PLEASE_CONFIRM_PASSWORD": "Please, confirm your password",
-			"NICKNAME_LENGHT_BETWEEN_2_AND_12": "The Nickname must have between 5 and 12 characters",
-			"PASSWORD_LENGHT_BETWEEN_5_AND_12": "The Password must have between 6 and 12 characters",
 			"PASSWORD_DOESNT_MATCH": "Password and confirm password must match"
-        },
-        "FORMS":{
-            "SIGNUPFORM":"SignUpForm",
-            "SIGNINFORM":"SignInForm"
         }
     }
 }
