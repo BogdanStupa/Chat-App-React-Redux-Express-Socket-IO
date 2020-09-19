@@ -1,0 +1,36 @@
+
+@host=http://0.0.0.0:7000
+
+GET {{host}}
+
+###
+
+POST {{host}}/auth/signup?nickname="slebwanickname" HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "nickname": "lebwa",
+    "password": "nkwefnpkwem`3e1re1kj",
+}
+
+
+###
+
+POST {{host}}/auth/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "nickname": "lebwa",
+    "password": "nkwefnpkwem`3e1re1kj",
+}
+
+###
+
+POST {{host}}/test HTTP/1.1
+Content-Type: application/json
+
+{
+    "nickname": "lebwa",
+    "password": "nkwefnpkwem`3e1re1kj",
+}

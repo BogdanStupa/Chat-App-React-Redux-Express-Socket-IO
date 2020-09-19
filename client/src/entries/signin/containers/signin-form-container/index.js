@@ -32,7 +32,7 @@ const SignInFormContainer = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <InputFormComponent
                 type="text"
-                name={NICKNAME}
+                name="nickname"
                 placeholder={NICKNAME}
                 height={height}
                 ref={register}
@@ -41,7 +41,7 @@ const SignInFormContainer = () => {
 
             <InputFormComponent
                 type="password"
-                name={PASSWORD}
+                name="password"
                 placeholder={PASSWORD}
                 height={height}
                 ref={register}

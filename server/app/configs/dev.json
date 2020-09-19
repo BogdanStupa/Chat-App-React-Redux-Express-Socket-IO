@@ -1,0 +1,13 @@
+{
+    "GENERAL": {
+        "SERVER_HTTP_PORT": 7000,
+        "SERVER_HTTP_IP": "0.0.0.0" 
+    },
+    "WINSTON":{
+        "LOG_FILE": "./logs/dev.log"
+    },
+    "MONGOOSE":{
+        "URL": "mongodb://127.0.0.1:27017/",
+		"DB": "chatappdevdatabase"
+    }
+}
