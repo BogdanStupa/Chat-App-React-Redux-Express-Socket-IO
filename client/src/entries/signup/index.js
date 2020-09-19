@@ -1,6 +1,5 @@
 import React from "react";
 import { compose } from "redux";
-import { Redirect } from "react-router-dom";
 import { SignUpFormContainer } from "./containers";
 import { AuthContainer } from "shared/containers";
 import {

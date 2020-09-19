@@ -1,5 +1,5 @@
 import React from "react";
-import { compose } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import {
@@ -9,9 +9,13 @@ import {
 import constants from "modules/constants";
 import { schemaSignUp } from "modules/schems";
 
+import { 
+    signUpRequest
+}  from "redux/actions/auth";
 
 
-const SignUpFormContainer = () => {
+
+const SignUpFormContainer = React.memo(() => {
     const { 
         NICKNAME,
         PASSWORD,
@@ -26,10 +30,13 @@ const SignUpFormContainer = () => {
         resolver: yupResolver(schemaSignUp)
     });
 
+    const dispatch = useDispatch();
+    
+
     const onSubmit = (data) => {
         console.log("Submit", data);
+        dispatch(signUpRequest(data));
     }
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,8 +72,7 @@ const SignUpFormContainer = () => {
             />
         </form>
     );
-};
+});
 
-export default compose(
-    React.memo
-)(SignUpFormContainer);
+
+export default SignUpFormContainer;
