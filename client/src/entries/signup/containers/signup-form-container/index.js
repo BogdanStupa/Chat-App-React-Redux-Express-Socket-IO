@@ -49,6 +49,7 @@ const SignUpFormContainer = React.memo(() => {
                 name="nickname"
                 placeholder={NICKNAME}
                 height={height}
+                isFetching={isFetching}
                 ref={register}
                 errors={errors.nickname?.message}
             />        
@@ -57,6 +58,7 @@ const SignUpFormContainer = React.memo(() => {
                 name="password"
                 placeholder={PASSWORD}
                 height={height}
+                isFetching={isFetching}
                 ref={register}
                 errors={errors.password?.message}
             />
@@ -65,6 +67,7 @@ const SignUpFormContainer = React.memo(() => {
                 name="confirmPassword"
                 placeholder={CONFIRM_PASSWORD}
                 height={height}
+                isFetching={isFetching}
                 ref={register}
                 errors={errors.confirmPassword?.message}
             />

@@ -1,7 +1,11 @@
 import {
     AUTH_SIGNUP_REQUEST,
     AUTH_SIGNUP_SUCCESS,
-    AUTH_SIGNUP_ERROR
+    AUTH_SIGNUP_ERROR,
+
+    AUTH_SIGNIN_REQUEST,
+    AUTH_SIGNIN_SUCCESS,
+    AUTH_SIGNIN_ERROR
 } from "redux/constants/auth";
 
 
@@ -18,11 +22,12 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch(action.type){
+        //-------SIGN UP ----------------
+
         case AUTH_SIGNUP_REQUEST:
             return {
                 ...state,
                 signUp: {
-                    ...state.signUp,
                     isFetching: true
                 }
             };
@@ -37,10 +42,36 @@ const authReducer = (state = initialState, action) => {
             };
 
         case AUTH_SIGNUP_ERROR:
-            console.log("IN REDUCER", action.payload);
             return {
                 ...state,
                 signUp: {
+                    isFetching: false,
+                    errors: action.payload
+                }
+            };
+        //-------SIGN IN ----------------
+
+        case AUTH_SIGNIN_REQUEST:
+            return {
+                ...state,
+                signIn: {
+                    isFetching: true
+                }
+            };
+
+        case AUTH_SIGNIN_SUCCESS:
+            return {
+                ...state,
+                signIn: {
+                    isFetching: false,
+                    data: action.payload
+                }
+            };
+
+        case AUTH_SIGNIN_ERROR:
+            return {
+                ...state,
+                signIn: {
                     isFetching: false,
                     errors: action.payload
                 }

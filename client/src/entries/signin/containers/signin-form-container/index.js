@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
@@ -8,6 +9,7 @@ import {
 } from "shared/components";
 import constants from "modules/constants";
 import { schemaSignIn } from "modules/schems";
+import { signInRequest } from "redux/actions/auth";
 
 
 const SignInFormContainer = () => {
@@ -23,9 +25,16 @@ const SignInFormContainer = () => {
     const { handleSubmit, register, errors } = useForm({
         resolver: yupResolver(schemaSignIn)
     });
-    
+
+    const dispatch = useDispatch();
+
+    const isFetching = useSelector(state => state.auth.signIn.isFetching);
+
     const onSubmit = (data) => {
-        console.log("Submit", data);
+        dispatch(signInRequest({ 
+            nickname: data.nickname,
+            password: data.password 
+        }));
     }
 
     return (
@@ -35,6 +44,8 @@ const SignInFormContainer = () => {
                 name="nickname"
                 placeholder={NICKNAME}
                 height={height}
+                autoFocus
+                isFetching={isFetching}
                 ref={register}
                 errors={errors.nickname?.message}
             />
@@ -44,6 +55,7 @@ const SignInFormContainer = () => {
                 name="password"
                 placeholder={PASSWORD}
                 height={height}
+                isFetching={isFetching}
                 ref={register}
                 errors={errors.password?.message}
             />
@@ -53,6 +65,7 @@ const SignInFormContainer = () => {
                 text={SIGNIN}
                 height={height}
                 marginTop={marginTop}
+                isFetching={isFetching}
             />
         </form>
     );

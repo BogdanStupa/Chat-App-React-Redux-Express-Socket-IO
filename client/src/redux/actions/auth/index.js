@@ -13,10 +13,7 @@ import {
 export const signUpRequest = (data) => {
     return {
         type: AUTH_SIGNUP_REQUEST,
-        payload: {
-            nickname: data.nickname,
-            password: data.password
-        }
+        payload: data
     };
 }
 
@@ -41,10 +38,7 @@ export const signUpError = (error) => {
 export const signInRequest = (data) => {
     return {
         type: AUTH_SIGNIN_REQUEST,
-        payload: {
-            nickname: data.nickname,
-            password: data.password
-        }
+        payload: data
     };
 }
 

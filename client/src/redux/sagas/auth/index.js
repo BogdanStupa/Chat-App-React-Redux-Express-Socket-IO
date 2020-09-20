@@ -23,11 +23,17 @@ const SIGNIN_URL = constants.API.ROOT + constants.API.ACTIONS.AUTH_SIGNIN;
 
 
 function fetchSignUpRequest(data){
-    return axios.post(SIGNUP_URL, data);
+    return axios.post(SIGNUP_URL, { 
+        nickname: data.nickname,
+        password: data.password
+    });
 } 
 
 function fetchSignInRequest(data){
-    return axios.post(SIGNIN_URL, data);
+    return axios.post(SIGNIN_URL, { 
+        nickname: data.nickname,
+        password: data.password
+    });
 }
 
 
