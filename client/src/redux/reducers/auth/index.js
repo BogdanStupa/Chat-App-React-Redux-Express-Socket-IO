@@ -31,21 +31,18 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 signUp: {
-                    ...state.signUp,
                     isFetching: false,
                     data: action.payload
                 }
             };
 
         case AUTH_SIGNUP_ERROR:
+            console.log("IN REDUCER", action.payload);
             return {
                 ...state,
                 signUp: {
-                    ...state.signUp,
                     isFetching: false,
-                    errors: {
-                        ...action.payload
-                    }
+                    errors: action.payload
                 }
             };
         

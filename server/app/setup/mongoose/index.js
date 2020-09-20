@@ -31,6 +31,6 @@ module.exports = () => {
     });
 
     mongoose.connection.on("error", (error) => {
-        logger.info(`Mongoose: Error. ${error}`);
+        logger.error(`Mongoose: Error. ${error}`);
     });
 }

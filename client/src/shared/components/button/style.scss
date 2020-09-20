@@ -29,6 +29,12 @@
         height: 100%;
     }
 
+    &--disabled {
+        width: 100%;
+        height: 100%;
+        background-color: #ccc;
+    }
+
     &--link{
         text-decoration: underline;
         border: 0;

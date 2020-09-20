@@ -7,11 +7,8 @@ const ButtonComponent = React.memo( props => {
         text,
         primary,
         type,
-        secondaryButton,
         link,
         isFetching,
-        disabled,
-        outline,
         marginTop,
         height,
         onClick
@@ -19,10 +16,10 @@ const ButtonComponent = React.memo( props => {
 
     const styleButton = classNames({
         btn: true,
-        "btn--default": true && !link,
+        "btn--default": true && !link && !isFetching,
         "btn--link": link,
-        "btn--disabled": disabled,
-        "btn--primary": !disabled && primary
+        "btn--disabled": isFetching,
+        "btn--primary": !isFetching && primary
     });
 
     return (
@@ -37,7 +34,7 @@ const ButtonComponent = React.memo( props => {
             }}
         >
             {
-                isFetching && !disabled 
+                isFetching 
                 ? "loading"
                 : text
             }

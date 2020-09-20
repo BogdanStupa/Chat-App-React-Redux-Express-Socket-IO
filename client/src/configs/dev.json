@@ -25,6 +25,13 @@
             "PASSWORD_MATCHES": "Pssword should only consist of A-Z, a-z, ()., *, &, ^) characters",
 			"PLEASE_CONFIRM_PASSWORD": "Please, confirm your password",
 			"PASSWORD_DOESNT_MATCH": "Password and confirm password must match"
+        }   
+    },
+    "API":{
+        "ROOT": "http://0.0.0.0:7000",
+        "ACTIONS":{
+            "AUTH_SIGNUP":"/auth/signup",
+            "AUTH_SIGNIN":"/auth/signin"
         }
     }
 }

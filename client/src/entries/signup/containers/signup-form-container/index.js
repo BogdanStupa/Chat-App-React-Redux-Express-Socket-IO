@@ -31,16 +31,20 @@ const SignUpFormContainer = React.memo(() => {
     });
 
     const dispatch = useDispatch();
-    
+
+    const isFetching = useSelector(state => state.auth.signUp.isFetching);
 
     const onSubmit = (data) => {
-        console.log("Submit", data);
-        dispatch(signUpRequest(data));
+        dispatch(signUpRequest({ 
+            nickname: data.nickname,
+            password: data.password
+        }));
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <InputFormComponent
+                autoFocus
                 type="text"
                 name="nickname"
                 placeholder={NICKNAME}
@@ -67,6 +71,7 @@ const SignUpFormContainer = React.memo(() => {
             <ButtonComponent
                 type="submit"
                 text={SIGNUP}
+                isFetching={isFetching}
                 height={height}
                 marginTop={marginTop}
             />

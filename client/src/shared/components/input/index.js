@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames";
 import { compose } from "redux";
 
@@ -8,7 +8,7 @@ const InputFormComponent = (props, ref) => {
         type,
         name,
         autoFocus,
-        disabled,
+        isFetching,
         multiline,
         placeholder,
         width,
@@ -18,7 +18,8 @@ const InputFormComponent = (props, ref) => {
     } = props;
 
     const inputStyle = classNames({
-        "input-error":errors
+        "input-error":errors,
+        "disabled": isFetching
     });
 
     return (
@@ -35,7 +36,7 @@ const InputFormComponent = (props, ref) => {
                     className={inputStyle}
                     onChange={onChange}
                     placeholder={placeholder}
-                    disabled={disabled}
+                    disabled={isFetching}
                     name={name}
                     />
                 : <input 
@@ -43,7 +44,8 @@ const InputFormComponent = (props, ref) => {
                     type={type}
                     onChange={onChange}
                     placeholder={placeholder}
-                    disabled={disabled}
+                    disabled={isFetching}
+                    autoFocus={autoFocus}
                     name={name}
                     ref={ref}
                 />
