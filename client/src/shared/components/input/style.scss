@@ -1,6 +1,6 @@
 .input-wrapper{
-    margin-top: 1.5rem;
-    transition: 0.8s;
+    display: flex;
+    flex-direction: column;
     input{
         margin: 0;
         width: 100%;
@@ -54,5 +54,6 @@
         color: red;
         font-size:0.7rem;
         width:100%;
+        margin-top: .2rem;
     }
 }

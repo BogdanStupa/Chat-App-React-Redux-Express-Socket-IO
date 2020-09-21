@@ -3,11 +3,11 @@ import UserModel from "../../models/user";
 export const addUser = model => {
     const user = UserModel({
         nickname: model.nickname,
-        password: model.password,
-        profileColor: model.profileColor
+        password: model.password
     });
     return user.save();
 }
+ 
+export const findOneUser = (model) => UserModel.findOne(model);
 
-/* 
-exports.findOneUser = (query, params) */
+export const getAllUsers = () => UserModel.find();

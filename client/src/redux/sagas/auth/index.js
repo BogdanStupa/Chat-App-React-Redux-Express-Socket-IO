@@ -30,7 +30,7 @@ function fetchSignUpRequest(data){
 } 
 
 function fetchSignInRequest(data){
-    return axios.post(SIGNIN_URL, { 
+    return axios.post(SIGNIN_URL,{ 
         nickname: data.nickname,
         password: data.password
     });
@@ -39,9 +39,16 @@ function fetchSignInRequest(data){
 
 function* workerSignUp(props){
     try{
-        const data = yield call(fetchSignUpRequest, props.payload);
-        yield put(signUpSuccess(data));
+        const response = yield call(fetchSignUpRequest, props.payload);
+        console.log("response", response);
+        yield put(signUpSuccess(response)); 
+        
+       /*  if(response.success && response.token &&  response.user){
+            login(response.token, response.user);
+        }
+ */
     }catch(error){
+        console.log("Error: ",error);
         yield put(signUpError(error));
     }
 

@@ -39,27 +39,28 @@ const SignInFormContainer = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <InputFormComponent
-                type="text"
-                name="nickname"
-                placeholder={NICKNAME}
-                height={height}
-                autoFocus
-                isFetching={isFetching}
-                ref={register}
-                errors={errors.nickname?.message}
-            />
+                <InputFormComponent
+                    type="text"
+                    name="nickname"
+                    placeholder={NICKNAME}
+                    height={height}
+                    autoFocus
+                    marginTop="1.5rem"
+                    isFetching={isFetching}
+                    ref={register}
+                    errors={errors.nickname?.message}
+                />
 
-            <InputFormComponent
-                type="password"
-                name="password"
-                placeholder={PASSWORD}
-                height={height}
-                isFetching={isFetching}
-                ref={register}
-                errors={errors.password?.message}
-            />
-
+                <InputFormComponent
+                    type="password"
+                    name="password"
+                    placeholder={PASSWORD}
+                    height={height}
+                    marginTop="1.5rem"
+                    isFetching={isFetching}
+                    ref={register}
+                    errors={errors.password?.message}
+                />
             <ButtonComponent
                 type="submit"
                 text={SIGNIN}

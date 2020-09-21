@@ -13,6 +13,7 @@ const InputFormComponent = (props, ref) => {
         placeholder,
         width,
         height,
+        marginTop,
         errors,
         fontSize="1.2rem"
     } = props;
@@ -26,8 +27,8 @@ const InputFormComponent = (props, ref) => {
         <div className="input-wrapper"
             style={{
                 width,
-                height,
-                fontSize
+                fontSize,
+                marginTop
             }}
         >
             {
@@ -38,6 +39,11 @@ const InputFormComponent = (props, ref) => {
                     placeholder={placeholder}
                     disabled={isFetching}
                     name={name}
+                    style={{
+                        minHeight:height
+                    }}
+                    name={name}
+                    ref={ref}
                     />
                 : <input 
                     className={inputStyle}
@@ -46,12 +52,15 @@ const InputFormComponent = (props, ref) => {
                     placeholder={placeholder}
                     disabled={isFetching}
                     autoFocus={autoFocus}
+                    style={{
+                        minHeight:height
+                    }}
                     name={name}
                     ref={ref}
                 />
             }
             {
-               errors ? (<span className="error-info">{errors}</span>) : null 
+               errors ? (<div className="error-info">{errors}</div>) : null 
             }
         </div>
     );

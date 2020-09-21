@@ -6,6 +6,11 @@
     "WINSTON":{
         "LOG_FILE": "./logs/dev.log"
     },
+    "VALIDATION_MESSAGES":{
+        "INCORRECT_PASSWORD": "Incorrect password",
+        "USER_ALREADY_EXIST":"User with shuch nickname already exist",
+        "INVALID_USER_DATA":"Invalid user data"
+    },
     "MONGOOSE":{
         "URL": "mongodb://127.0.0.1:27017/",
 		"DB": "chatappdevdatabase"
