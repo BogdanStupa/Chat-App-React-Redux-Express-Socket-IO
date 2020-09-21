@@ -1,5 +1,5 @@
-const authRoute = absoluteRequire("routes/auth");
+import authRoute from "./auth";
 
-module.exports = (app) => {
+export default (app) => {
     app.use(authRoute);
 }

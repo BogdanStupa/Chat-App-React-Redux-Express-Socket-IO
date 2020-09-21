@@ -1,8 +1,6 @@
-const {
-    UserModel
-} = absoluteRequire("db/models/user");
+import UserModel from "../../models/user";
 
-exports.addUser = model => {
+export const addUser = model => {
     const user = UserModel({
         nickname: model.nickname,
         password: model.password,

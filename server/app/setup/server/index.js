@@ -1,15 +1,16 @@
-const http = require("http");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+//const http = require("http");
+import http from "http";
+import bodyParser from "body-parser";
+import cors from "cors";
 
-const constants = absoluteRequire("modules/constants");
-const logger = absoluteRequire("modules/winston");
-const expressRoutes = absoluteRequire("routes"); 
+import constants from "../../modules/constants";
+import logger from "../../modules/winston";
+import expressRoutes from "../../routes"; 
 
 
 require("dotenv").config();
 
-module.exports = (app) => {
+export default (app) => {
     const server = http.createServer(app);
     const port = process.env.PORT || constants.GENERAL.SERVER_HTTP_PORT;
     const httpId = process.env.IP || constants.GENERAL.SERVER_HTTP_IP;

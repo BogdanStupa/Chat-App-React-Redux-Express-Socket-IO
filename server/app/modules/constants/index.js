@@ -1,4 +1,5 @@
-const devConfig = absoluteRequire("configs/dev.json");
-const prodConfig = absoluteRequire("configs/prod.json");
+import devConfig from "../../configs/dev.json";
+import prodConfig from "../../configs/prod.json";
 
-module.exports = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
+
+export default process.env.NODE_ENV === "production" ? prodConfig : devConfig;

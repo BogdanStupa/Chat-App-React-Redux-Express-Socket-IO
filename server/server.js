@@ -1,7 +1,5 @@
-global.absoluteRequire = name => require(`${__dirname}/app/${name}`);
-
-const express = require("express");
-const setupApp = absoluteRequire("setup");
+import express from "express";
+import setupApp from "./app/setup";
 const app = express();
 
 setupApp(app);

@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
-const constants = absoluteRequire("modules/constants");
-const logger = absoluteRequire("modules/winston");
+import mongoose from "mongoose";
+import logger from "../../modules/winston";
+import constants from "../../modules/constants";
 
-module.exports = () => {
+
+export default () => {
     const URI =  constants.MONGOOSE.URL + constants.MONGOOSE.DB;
     mongoose.connect(URI,{ 
         useCreateIndex: true,

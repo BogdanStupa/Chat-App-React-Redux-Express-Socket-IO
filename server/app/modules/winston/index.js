@@ -1,7 +1,7 @@
-const winston = require("winston");
-const constants = absoluteRequire("modules/constants");
+import winston from "winston";
+import constants from "../constants";
 
-module.exports = winston.createLogger({
+export default winston.createLogger({
     transports:[
         new winston.transports.Console(),
         new winston.transports.File({

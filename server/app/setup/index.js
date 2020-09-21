@@ -1,8 +1,8 @@
-const setupServer = absoluteRequire("setup/server");
-const setupMongoose = absoluteRequire("setup/mongoose");
+import setupServer from "./server";
+import setupMongoose from "./mongoose";
 
 
-module.exports = (app) => {
+export default (app) => {
     setupServer(app);
     setupMongoose();
 }
