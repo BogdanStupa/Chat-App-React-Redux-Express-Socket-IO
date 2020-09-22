@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { withRouter } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers";
 import {
     InputFormComponent,
@@ -15,7 +16,7 @@ import {
 
 
 
-const SignUpFormContainer = React.memo(() => {
+const SignUpFormContainer = React.memo((props) => {
     const { 
         NICKNAME,
         PASSWORD,
@@ -33,6 +34,16 @@ const SignUpFormContainer = React.memo(() => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(state => state.auth.signUp.isFetching);
+    const isAuth = useSelector(state => state.auth.isAuth);
+
+    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
+
+    useEffect(() => {
+        if(isAuth){
+            props.history.push(redirect);
+        }
+        return () => {};
+    },[isAuth]);
 
     const onSubmit = (data) => {
         dispatch(signUpRequest({ 
@@ -86,4 +97,4 @@ const SignUpFormContainer = React.memo(() => {
 });
 
 
-export default SignUpFormContainer;
+export default withRouter(SignUpFormContainer);

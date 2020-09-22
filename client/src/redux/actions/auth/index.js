@@ -6,6 +6,8 @@ import {
     AUTH_SIGNIN_REQUEST,
     AUTH_SIGNIN_SUCCESS,
     AUTH_SIGNIN_ERROR,
+
+    IS_AUTH
 } from "redux/constants/auth";
 
 
@@ -54,5 +56,13 @@ export const signInError = (error) => {
     return {
         type: AUTH_SIGNIN_ERROR,
         payload: error
+    };
+}
+
+//---------------------IS AUTH------------------
+
+export const isAuth = (data) => {
+    return {
+        type: IS_AUTH
     };
 }

@@ -1,7 +1,5 @@
 import React from "react";
 import { compose } from "redux";
-import { Redirect } from "react-router-dom";
-import { withAuthRedirect } from "shared/hocs";
 import { SignInFormContainer } from "./containers";
 import { AuthContainer } from "shared/containers";
 import {

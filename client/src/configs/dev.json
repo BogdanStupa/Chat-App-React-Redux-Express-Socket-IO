@@ -1,4 +1,9 @@
 {
+    "GLOBAL":{
+        "USER_COOKIE_NAME": "user",
+        "USER_COOKIE_TOKEN":"token",
+        "EXPIRES": 3
+    },
     "LABELS":{
         "MAIN":{
             "APP_NAME": "Chat App"

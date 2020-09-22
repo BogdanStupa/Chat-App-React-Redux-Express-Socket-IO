@@ -1,5 +1,4 @@
 import React from "react";
-import { withAuthRedirect } from "shared/hocs";
 import {
     LabelComponent,
     InputFormComponent
@@ -11,4 +10,4 @@ function ChatEntry(){
     );
 }
 
-export default withAuthRedirect(ChatEntry);
+export default ChatEntry;

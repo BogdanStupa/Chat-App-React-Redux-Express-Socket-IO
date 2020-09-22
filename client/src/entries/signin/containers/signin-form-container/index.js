@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { compose } from "redux";
 import { useForm } from "react-hook-form";
+import { withRouter } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers";
 import {
     InputFormComponent,
@@ -12,7 +13,7 @@ import { schemaSignIn } from "modules/schems";
 import { signInRequest } from "redux/actions/auth";
 
 
-const SignInFormContainer = () => {
+const SignInFormContainer = (props) => {
     const {
         NICKNAME,
         PASSWORD,
@@ -29,8 +30,18 @@ const SignInFormContainer = () => {
     const dispatch = useDispatch();
 
     const isFetching = useSelector(state => state.auth.signIn.isFetching);
+    const isAuth = useSelector(state => state.auth.isAuth);
 
-    const onSubmit = (data) => {
+    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
+
+    useEffect(() => {
+        if(isAuth){
+            props.history.push(redirect);
+        }
+        return () => {};
+    },[isAuth]);
+
+    const onSubmit = data => {
         dispatch(signInRequest({ 
             nickname: data.nickname,
             password: data.password 
@@ -73,5 +84,6 @@ const SignInFormContainer = () => {
 }
 
 export default compose(
-    React.memo
+    React.memo,
+    withRouter
 )(SignInFormContainer);

@@ -4,7 +4,10 @@ import {
     SignInEntry,
     ChatEntry
 } from "entries";
-import { AppContainer} from "shared/containers";
+import { 
+    AppContainer, 
+    PrivateRoute
+} from "shared/containers";
 import {
     Switch,
     Route,
@@ -12,8 +15,7 @@ import {
 } from "react-router-dom";
 
 
-
-function RoutesContainer({ location }){
+const RoutesContainer = ({ location }) => {
     return (
         <AppContainer>
             <section className="route-section">
@@ -28,11 +30,9 @@ function RoutesContainer({ location }){
                         component={SignUpEntry}
                         exact
                     />
-                    <Route
-                        path="/"
-                        component={ChatEntry}
-                        exact
-                    />
+                    <PrivateRoute path="/">
+                        <ChatEntry/>
+                    </PrivateRoute>
                 </Switch>
             </section>
         </AppContainer>

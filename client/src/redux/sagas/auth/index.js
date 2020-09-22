@@ -8,12 +8,16 @@ import {
     signUpError,
     signInSuccess,
     signInError,
+    isAuth
  }  from "redux/actions/auth";
 import { 
     AUTH_SIGNUP_REQUEST,
     AUTH_SIGNIN_REQUEST
 } from "redux/constants/auth";
-
+import {
+    login,
+    logout
+} from "modules/utils";
 import axios from "axios";
 import constants from "modules/constants";
 
@@ -39,24 +43,31 @@ function fetchSignInRequest(data){
 
 function* workerSignUp(props){
     try{
-        const response = yield call(fetchSignUpRequest, props.payload);
-        console.log("response", response);
-        yield put(signUpSuccess(response)); 
+        const { data } = yield call(fetchSignUpRequest, props.payload);
+        yield put(signUpSuccess(data)); 
         
-       /*  if(response.success && response.token &&  response.user){
-            login(response.token, response.user);
+        if(data.success && data.token &&  data.user){
+            const auth = yield login(data.user, data.token);
+            yield put(isAuth(auth));
+        }else{
+
         }
- */
     }catch(error){
-        console.log("Error: ",error);
         yield put(signUpError(error));
     }
 
 }
 function* workerSignIn(props){
     try{
-        const data = yield call(fetchSignInRequest, props.payload);
+        const { data } = yield call(fetchSignInRequest, props.payload);
         yield put(signInSuccess(data));
+        
+        if(data.success && data.token &&  data.user){
+            const auth = yield login(data.user, data.token);
+            yield put(isAuth(auth));
+        }else{
+
+        }
     }catch(error){
         yield put(signInError(error));
     }

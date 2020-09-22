@@ -8,7 +8,7 @@ client/node_modules/*
 server/node_modules/*
 
 #logs
-server/logs/dev.log
+/server/logs/*
 
 #env
 .env
