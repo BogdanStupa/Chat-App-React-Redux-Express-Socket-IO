@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LabelCompenent /> LabelCompenentit should be renderd matches the snapshots 1`] = `"<label class=\\"label\\"></label>"`;
