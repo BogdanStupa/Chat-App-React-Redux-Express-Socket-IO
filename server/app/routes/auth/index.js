@@ -6,11 +6,12 @@ import {
 } from "../../db/controllers/auth";
 
 
+
 const authRouter = express.Router();
 
 authRouter.post("/auth/signup", postSignUp);
 authRouter.post("/auth/signin", postSignIn);
-authRouter.get("/auth", checkAllUsers);
+authRouter.get("/dev/auth", checkAllUsers);
 
 
 export default authRouter;

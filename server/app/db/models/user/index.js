@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const userSchema = new mongoose.Schema({
     nickname: {
         type: String,
@@ -9,7 +10,19 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    profileColor: {
+        type: String,
+        required: true
+    },
+    contacts: [
+        {
+            contactUserId:{
+                type: mongoose.Schema.Types.ObjectId,
+                required: true
+            }
+        }
+    ]
 });
 
 

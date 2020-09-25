@@ -25,6 +25,8 @@ const initialState = {
     isAuth: Cookies.getJSON(constants.GLOBAL.USER_COOKIE_NAME) || null
 }
 
+console.log(Cookies.getJSON(constants.GLOBAL.TOKEN_COOKIE_NAME));
+
 const authReducer = (state = initialState, action) => {
     switch(action.type){
         //-------SIGN UP ----------------
@@ -86,7 +88,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...initialState,
-                 isAuth: true
+                 isAuth: Cookies.getJSON(constants.GLOBAL.USER_COOKIE_NAME) || null
             }    
         
         default:

@@ -8,8 +8,12 @@
     },
     "VALIDATION_MESSAGES":{
         "INCORRECT_PASSWORD": "Incorrect password",
+        "USER_WITH_SHICH_NICKNAME_DOESNT_EXIST": "User with such a nickname doesn't exist",
         "USER_ALREADY_EXIST":"User with shuch nickname already exist",
-        "INVALID_USER_DATA":"Invalid user data"
+        "INVALID_USER_DATA":"Invalid user data",
+        "INVALID_TOKEN":"Invalid token",
+        "TOKEN_IS_NOT_SUPPLIED":"Token is not supplied",
+        "NOT_FOUND_AUTHORIZATION": "not found header: authorization"
     },
     "MONGOOSE":{
         "URL": "mongodb://127.0.0.1:27017/",

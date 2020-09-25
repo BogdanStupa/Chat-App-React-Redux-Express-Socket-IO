@@ -2,11 +2,11 @@ import {
     addUser,
     findOneUser,
     getAllUsers
-} from "../../../db/repositories/auth";
+} from "../../../db/repositories/user";
 import bcrypt from "bcrypt";
 import constants from "../../../modules/constants";
 import { createJwtToken } from "../../../modules/utils";
-
+import randomColor  from "../../../modules/random-color"; 
 
 export const postSignUp = async (req, res) => {
     const {
@@ -21,16 +21,24 @@ export const postSignUp = async (req, res) => {
             const hashedPassword = await bcrypt.hash(password,10);
             const newUser = await addUser({
                 nickname: nickname,
-                password: hashedPassword
+                password: hashedPassword,
+                profileColor: randomColor()
             });
+            const token =  createJwtToken({
+                    nickname,
+                    _id: newUser._id
+                });
             if(newUser){
                 res.status(200).json({
                     success: true,
-                    user: newUser,
-                    token:createJwtToken({
-                        nickname,
-                        id: newUser._id
-                    })
+                    errors: {},
+                    token: `Bearer ${token}`,
+                    user: { 
+                        nickname: newUser.nickname,
+                        _id: newUser._id,
+                        profileColor: newUser.profileColor,
+                        contacts: newUser.contacts
+                    }
                 });
             }else{
                 res.status(401).json({
@@ -41,7 +49,7 @@ export const postSignUp = async (req, res) => {
         }else{
             res.status(401).json({
                 success: false,
-                error: constants.VALIDATION_MESSAGES.USER_ALREADY_EXIST
+                errors: constants.VALIDATION_MESSAGES.USER_ALREADY_EXIST
             });
         }
     } catch(error){
@@ -63,14 +71,20 @@ export const postSignIn = async (req, res) => {
             nickname: nickname
         });
         if(user._id && await bcrypt.compare(password, user.password)){
+            const token =  createJwtToken({
+                nickname,
+                _id: user._id
+            });
             res.status(200).send({
                 success: true,
                 errors: {},
-                token: createJwtToken({
-                    nickname,
-                    id: user._id
-                }),
-                user: user
+                token: `Bearer ${token}`,
+                user: {
+                    nickname: user.nickname,
+                    _id: user._id,
+                    profileColor: user.profileColor,
+                    contacts: user.contacts
+                }
             });
         }else{
             res.status(401).json({
@@ -84,12 +98,6 @@ export const postSignIn = async (req, res) => {
             errors: error.message
         });
     } 
-}
-
-
-
-export function authenticateToken(req, res, next){
-
 }
 
 

@@ -1,4 +1,3 @@
-//const http = require("http");
 import http from "http";
 import bodyParser from "body-parser";
 import cors from "cors";
