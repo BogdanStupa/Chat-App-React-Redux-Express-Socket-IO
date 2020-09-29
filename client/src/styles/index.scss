@@ -1,8 +1,14 @@
 @import "./utils/variables.scss";
 @import "./base/base";
+@import "../entries/chat/index.scss";
 @import "../shared/containers/app/style.scss";
 @import "../shared/containers/auth/style.scss";
 @import "../shared/components/label/style.scss";
 @import "../shared/components/input/style.scss";
 @import "../shared/components/button/style.scss";
+@import "../shared/components/drop-down-menu/style.scss";
+@import "../entries/chat/components/user-info-component/index.scss";
+@import "../entries/chat/wrappers/action-wrapper/index.scss";
+@import "../entries/chat/wrappers/chat-wrapper/index.scss";
+
 

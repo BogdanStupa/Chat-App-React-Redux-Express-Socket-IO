@@ -2,11 +2,15 @@
     "GLOBAL":{
         "USER_COOKIE_NAME": "user",
         "USER_COOKIE_TOKEN":"token",
-        "EXPIRES": 3
+        "EXPIRES": 3,
+        "DOMAIN": "localhost"
     },
     "LABELS":{
         "MAIN":{
             "APP_NAME": "Chat App"
+        },
+        "CHAT":{
+            "LOGOUT": "Logout"
         },
         "AUTH":{
             "NICKNAME": "Nickname",

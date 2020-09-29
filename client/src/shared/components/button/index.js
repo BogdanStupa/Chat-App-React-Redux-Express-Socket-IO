@@ -11,7 +11,10 @@ const ButtonComponent = React.memo( props => {
         isFetching,
         marginTop,
         height,
-        onClick
+        width,
+        textDecoration,
+        onClick,
+        children
     } = props;
 
     const styleButton = classNames({
@@ -30,13 +33,18 @@ const ButtonComponent = React.memo( props => {
             onClick={onClick}
             style={{
                 marginTop,
-                height
+                height,
+                width,
+                textDecoration
             }}
         >
             {
                 isFetching 
                 ? "loading"
                 : text
+            }
+            {
+                children
             }
         </button>
         

@@ -16,31 +16,11 @@
             color: $header-color;
         }
     }
-
+    
     .info-container{
         display: flex;
         flex-direction: column;
         justify-content: center;
         width: 30%;
-    }
-}
-
-@media (max-width: $break-point-small-width-auth + 1){
-    .app-wrapper{
-         min-width: 18rem;
-         .app-container{
-             min-width: 10rem;
-         }
-    }
- }
-
-
- @media (max-height: $break-point-small-height + 1){
-    .app-wrapper{
-        min-height: 24rem;
-        .app-container{
-            min-height: 15rem;
-            min-width: 15rem;
-        }
     }
 }

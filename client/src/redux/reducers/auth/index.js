@@ -9,6 +9,7 @@ import {
 
     IS_AUTH
 } from "redux/constants/auth";
+import { RESET } from "redux/constants/main";
 import Cookies from "js-cookie";
 import constants from "modules/constants";
 
@@ -91,6 +92,9 @@ const authReducer = (state = initialState, action) => {
                  isAuth: Cookies.getJSON(constants.GLOBAL.USER_COOKIE_NAME) || null
             }    
         
+        case RESET:
+            return initialState;
+
         default:
             return state;
     }

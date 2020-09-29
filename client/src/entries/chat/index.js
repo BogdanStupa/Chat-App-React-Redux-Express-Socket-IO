@@ -1,12 +1,16 @@
 import React from "react";
 import {
-    LabelComponent,
-    InputFormComponent
-} from "shared/components";
+    ActionWrapper,
+    ChatWrapper
+ } from "./wrappers";
 
-function ChatEntry(){
+const ChatEntry = () => {
+    //socket start chanel 
     return (
-        "Chat App"
+        <div className="chat-entry-wrapper"> 
+            <ActionWrapper/>
+            <ChatWrapper/>
+        </div>
     );
 }
 

@@ -1,0 +1,24 @@
+.action-wrapper{
+    border-radius: .5rem 0 0 .5rem;
+    flex-grow: 1;
+    flex-shrink: 4;
+    background-color: #ffffff;
+    border-right: .15rem solid $header-color;
+
+    display: flex;
+    flex-direction: column;
+
+    .header-container{
+        height: 20%;
+        min-height: 6.5rem;
+        display: flex;
+        justify-content: space-between;
+        .header-actions{
+            display: flex;
+            margin-right: .5rem;
+        }
+        .header-info{
+            width: 50%;
+        }
+    }
+}

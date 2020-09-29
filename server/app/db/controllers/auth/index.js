@@ -36,8 +36,7 @@ export const postSignUp = async (req, res) => {
                     user: { 
                         nickname: newUser.nickname,
                         _id: newUser._id,
-                        profileColor: newUser.profileColor,
-                        contacts: newUser.contacts
+                        profileColor: newUser.profileColor
                     }
                 });
             }else{
@@ -82,8 +81,7 @@ export const postSignIn = async (req, res) => {
                 user: {
                     nickname: user.nickname,
                     _id: user._id,
-                    profileColor: user.profileColor,
-                    contacts: user.contacts
+                    profileColor: user.profileColor
                 }
             });
         }else{

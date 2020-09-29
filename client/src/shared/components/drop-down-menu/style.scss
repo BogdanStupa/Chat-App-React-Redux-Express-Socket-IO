@@ -1,0 +1,13 @@
+.drop-down-wrapper{
+    .tooltip{
+        background-color: $default-color;
+        li{
+            border: 0.05rem solid $app-border-color;
+            list-style-type: none;
+        }  
+    }
+    .tooltip-hidden{
+        visibility: hidden;
+        pointer-events: none;
+    }  
+}

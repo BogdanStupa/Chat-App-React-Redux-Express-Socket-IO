@@ -1,18 +1,25 @@
 import React from "react";
-import ClassNames from "classnames";
 
 
 const LabelComponent = React.memo( props => {
     const {
         text,
-        children
+        children,
+        color
     } = props;
 
+
+
     return (
-    <label className="label">
-        {text}
-        {children}
-    </label>
+        <label 
+            className="label"
+            style={{
+                color
+            }}
+        >
+            {text}
+            {children}
+        </label>
     );
 });
 
