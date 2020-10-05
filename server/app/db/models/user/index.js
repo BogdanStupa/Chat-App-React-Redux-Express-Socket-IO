@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import contactSchema from "../contact";
 
 const userSchema = new mongoose.Schema({
     nickname: {
@@ -17,10 +17,7 @@ const userSchema = new mongoose.Schema({
     },
     contacts: [
         {
-            contactUserId:{
-                type: mongoose.Schema.Types.ObjectId,
-                required: true
-            }
+            type: contactSchema
         }
     ]
 });

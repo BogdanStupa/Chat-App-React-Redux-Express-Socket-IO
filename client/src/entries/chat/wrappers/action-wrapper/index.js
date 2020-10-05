@@ -27,7 +27,7 @@ const ActionWrapper = props => {
             props.history.push("/signin");
         }
     },[isAuth]);
-    const handleLogout = async () => logout();
+    const handleLogout = () => logout();
     
     const { nickname, profileColor } = getUser() || {}
 

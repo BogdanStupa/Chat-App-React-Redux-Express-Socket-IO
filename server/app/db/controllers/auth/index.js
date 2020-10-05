@@ -8,16 +8,26 @@ import constants from "../../../modules/constants";
 import { createJwtToken } from "../../../modules/utils";
 import randomColor  from "../../../modules/random-color"; 
 
+
+/*
+    req = {
+        body: {
+            nickname,
+            password
+        }
+    }
+*/
 export const postSignUp = async (req, res) => {
-    const {
-        nickname,
-        password
-    } = req.body;
     try {
-        const user = findOneUser({
+        const {
+            nickname,
+            password
+        } = req.body;
+        
+        const user = await findOneUser({
             nickname: nickname
         });
-        if(!user._id){
+        if(!user || !user._id || typeof user._id === "undefined"){
             const hashedPassword = await bcrypt.hash(password,10);
             const newUser = await addUser({
                 nickname: nickname,
@@ -59,16 +69,27 @@ export const postSignUp = async (req, res) => {
     } 
 }
 
-
+/*
+    req = {
+        body: {
+            nickname,
+            password
+        }
+    }
+*/
 export const postSignIn = async (req, res) => {
-    const {
-        nickname,
-        password
-    } = req.body;
     try {
+        const {
+            nickname,
+            password
+        } = req.body;
+
         const user = await findOneUser({
             nickname: nickname
         });
+        if(!user){
+            throw new Error(constants.VALIDATION_MESSAGES.SUCH_USER_DOESNT_EXIST);
+        }
         if(user._id && await bcrypt.compare(password, user.password)){
             const token =  createJwtToken({
                 nickname,

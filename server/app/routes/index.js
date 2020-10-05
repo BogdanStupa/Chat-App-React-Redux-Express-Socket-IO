@@ -1,7 +1,11 @@
-import authRoute from "./auth";
-import contactRoute from "./contact";
+import authRouter from "./auth";
+import contactRouter from "./contact";
+import conversationRouter from "./conversation";
+import messageRouter from "./message";
 
 export default (app) => {
-    app.use(authRoute);
-    app.use(contactRoute);
+    app.use(authRouter);
+    app.use(contactRouter);
+    app.use(conversationRouter);
+    app.use(messageRouter);
 }

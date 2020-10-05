@@ -8,23 +8,43 @@ import {
 
 
 
-
+/*
+    req = {
+        body: {
+            nickname
+        }
+    }
+*/
 export const postAddContact = async (req, res) => {
-    const {
-        nickname: contactUserNickname
-    } = req.body;
-    const {
-        _id: contactOwnerId
-    } = req.currentUser;
-
     try {   
-        const contactUser = await findOneUser({ nickname: contactUserNickname });
-        if(contactUser._id){
+        const { nickname: contactUserNickname } = req.body;
+        const { _id: contactOwnerId } = req.currentUser;
+        
+        const contactUser = await findOneUser({ 
+                nickname: contactUserNickname 
+            },{
+                nickname: false,
+                profileColor: false,
+                contacts: false,
+                password: false
+            }
+        );
+
+        if(contactUser && contactUser._id){
+            const checkedContact = await findOneUser({
+                _id: contactOwnerId,
+                contacts: {
+                    $elemMatch: { contactUserId: contactUser._id }
+                }
+            });
+            if(checkedContact && checkedContact._id){
+                throw new Error(constants.VALIDATION_MESSAGES.ALREADY_IN_CONTACTS);
+            }
             await findUserByIdAndUpdate(
                 contactOwnerId,
                 { $addToSet: {
                         contacts: {  
-                            constactUserId: contactUser._id
+                            contactUserId: contactUser._id
                         } 
                     } 
                 }
@@ -38,7 +58,7 @@ export const postAddContact = async (req, res) => {
             res.status(401)
                 .json({
                     success: false,
-                    errors: constants.USER_WITH_SHICH_NICKNAME_DOESNT_EXIST
+                    errors: constants.VALIDATION_MESSAGES.USER_WITH_SHICH_NICKNAME_DOESNT_EXIST
                 });
         }
     }catch(error){
@@ -50,14 +70,22 @@ export const postAddContact = async (req, res) => {
     }
 }
 
-export const deleteContact = async (req, res) => {
-    const { _id: deleteUserId } = req.body;
-    const { _id: userId } = req.currentUser;  
+/*
+    req = {
+        body: {
+            _id
+        }
+    }
+*/
+export const deleteContact = async (req, res) => {  
     try{
+        const { _id: deleteUserId } = req.body;
+        const { _id: userId } = req.currentUser;
+
         await findUserByIdAndUpdate(userId, {
             $pull: { 
-                contacts: { 
-                    contactUserId: deleteUserId 
+                contacts: {
+                        contactUserId: deleteUserId
                 } 
             }
         });
@@ -75,11 +103,19 @@ export const deleteContact = async (req, res) => {
     }
 }
 
+
+/*
+    req = {
+        body:{}
+    }
+*/
 export const getContacts = async (req, res) => {
-    const { _id } = req.currentUser;
     try{
+        const { _id } = req.currentUser;
+
         const user = await findUserById(_id);
-        if(user._id){
+
+        if(user && user._id){
             const contacts = await findUser({
                     _id: { $in: user.contacts.map(item => item.contactUserId) }
                 },{

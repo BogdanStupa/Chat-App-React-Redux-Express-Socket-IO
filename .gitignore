@@ -13,6 +13,9 @@ server/node_modules/*
 #env
 .env
 
+#rest
+.rest
+
 # dependencies
 /node_modules
 /.pnp

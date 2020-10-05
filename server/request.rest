@@ -1,6 +1,7 @@
 
 @host=http://0.0.0.0:7000
 
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImxlYndhIiwiX2lkIjoiNWY3NTJiMTFiOGY1NjM3ZjBlMjBkNmMzIiwiaWF0IjoxNjAxOTE4NTkyLCJleHAiOjE2MDE5MjIxOTJ9.Hp1D3U9s2JAeoS-1L3-WVNQlY0-QS9tadAS28Ri6tJU
 
 ################# Auth Route BEGIN ###################################
 
@@ -8,7 +9,18 @@ GET {{host}}/dev/auth
 
 ###
 
-POST {{host}}/auth/signup 
+POST {{host}}/auth/signin
+Content-Type: application/json
+
+{
+    "nickname": "lebwa",
+    "password": "lebwa"
+}
+
+###
+
+
+POST {{host}}/auth/signin
 Content-Type: application/json
 
 {
@@ -18,11 +30,12 @@ Content-Type: application/json
 
 ################# Auth Route BEND ###################################
 
+
 ################# Contact Route BEGIN ###################################
 
 POST  {{host}}/secure/contact
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY2ZTJjM2VmOTlmMTM3ODJlMzgwZTU2IiwiaWF0IjoxNjAxMDcwNzMzLCJleHAiOjE2MDEwNzQzMzN9.i3_Fys372-mlIivjes2sJHaM9P9dO2bkFuLpixwZYuY
+Authorization: {{token}}
 
 {
     "nickname": "lebwa"
@@ -33,15 +46,83 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc
 
 DELETE {{host}}/secure/contact
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY2ZTJjM2VmOTlmMTM3ODJlMzgwZTU2IiwiaWF0IjoxNjAxMDcwNzMzLCJleHAiOjE2MDEwNzQzMzN9.i3_Fys372-mlIivjes2sJHaM9P9dO2bkFuLpixwZYuY
+Authorization: {{token}}
 
 {
-    "nickname": "lebwa"
+    "_id": "5f752b11b8f5637f0e20d6c3"
 }
 
 ###
 
-GET {{host}}/secure/contact 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY2ZTJjM2VmOTlmMTM3ODJlMzgwZTU2IiwiaWF0IjoxNjAxMDcwNzMzLCJleHAiOjE2MDEwNzQzMzN9.i3_Fys372-mlIivjes2sJHaM9P9dO2bkFuLpixwZYuY
+GET {{host}}/secure/contact
+Authorization: {{token}}
+
 
 ################# Contact Route END ###################################
+
+
+################# Conversation Route START ###################################
+
+PUT {{host}}/secure/conversation
+Content-Type: application/json
+Authorization:  {{token}}
+
+{
+    "_id": "5f752b11b8f5637f0e20d6c3",
+    "conversation": {
+			
+	}
+}
+
+###
+
+GET {{host}}/secure/conversation    
+Authorization: {{token}}
+
+###
+
+DELETE {{host}}/secure/conversation
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "_id": "5f752b14b8f5637f0e20d6c4"
+}
+################# Conversation Route END ###################################
+
+
+################# Message Route START ###################################
+
+POST {{host}}/secure/message
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "_id":"5f752b11b8f5637f0e20d6c3",
+    "message": "oookey "
+}
+
+
+###
+
+GET {{host}}/secure/message
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "_id":"5f752b14b8f5637f0e20d6c4"
+}
+
+###
+
+DELETE {{host}}/secure/message
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "_id":"5f752b14b8f5637f0e20d6c4",
+    "messageId": "5f7b562d778f30bf175d7d46"
+}
+
+
+################# Message Route END ###################################

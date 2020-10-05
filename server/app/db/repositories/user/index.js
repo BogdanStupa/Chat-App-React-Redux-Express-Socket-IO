@@ -1,4 +1,3 @@
-import { query } from "express";
 import UserModel from "../../models/user";
 
 export const addUser = model => {
@@ -10,7 +9,7 @@ export const addUser = model => {
     return user.save();
 }
  
-export const findOneUser = (model) => UserModel.findOne(model);
+export const findOneUser = (model, params) => UserModel.findOne(model, params);
 
 export const getAllUsers = () => UserModel.find();
 
@@ -18,5 +17,5 @@ export const findUser = (model, params) => UserModel.find(model, params);
 
 export const findUserByIdAndUpdate = (_id, update) => UserModel.findByIdAndUpdate(_id, update);
 
-export const findUserById = (_id) => UserModel.findById(_id);
+export const findUserById = _id => UserModel.findById(_id);
 
