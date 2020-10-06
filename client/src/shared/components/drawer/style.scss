@@ -1,0 +1,42 @@
+.drawer {
+    border-radius: .5rem 0 0 .5rem;
+    overflow: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    background-color: #ffffff;
+    z-index: 2;
+    transform: scale(0,1);
+    transform-origin: left;
+    transition: all .5s ease;
+
+    &.open {
+        visibility: visible;
+        transform: scale(1,1);
+
+        .drawer-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: auto;
+
+            .drawer-header {
+                display: flex;
+                background-color: blue;
+                padding: .5rem;
+                align-items: flex-end;
+                width:100%;
+                min-height: 9rem;
+
+                .drawer-header-content{
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    } 
+    
+}   

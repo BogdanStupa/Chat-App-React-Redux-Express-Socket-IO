@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     UserInfoComponent,
     InputSearchComponent
@@ -10,29 +10,51 @@ import {
 import {
     ButtonComponent,
     DropDownMenuComponent,
-    IconComponent
+    IconComponent,
+    DrawerComponent
 } from "shared/components";
 import constants from "modules/constants";
 import {
     getUser,
     logout
 } from "modules/utils";
+import { openDrawer } from "redux/actions/drawer";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
+
+
+const drawerNames = {
+    contactList: "constactList",
+    searchContact: "searchContact"
+}
 
 
 const ActionWrapper = props => {
     const isAuth = useSelector(state => state.auth.isAuth);
+    const { nickname, profileColor } = getUser() || {}
 
+    const dispatch = useDispatch();
     useEffect(() => {
         if(!isAuth){
             props.history.push("/signin");
         }
     },[isAuth]);
+
     const handleLogout = () => logout();
     
-    const { nickname, profileColor } = getUser() || {}
+
+    const handleOpenCotactDrawer = () => {
+        dispatch(openDrawer(drawerNames.contactList));
+    }
+    const handleOpenSearchCotactDrawer = () => {
+        dispatch(openDrawer(drawerNames.searchContact));
+    }
+    
+
 
     return (
-        <div className="action-wrapper">
+        <div className="actions-wrapper">
             <header className="header-container">
                 <div className="header-info">
                     <UserInfoComponent
@@ -42,31 +64,44 @@ const ActionWrapper = props => {
                 </div>
                 
                 <div className="header-actions">
-                    <ButtonComponent 
-                        width="2rem"
-                        height="2rem"
-                        link
+                    <Tippy
+                        placement="bottom-start"
+                        content={constants.LABELS.CHAT.SEARCH_CONTACT}
                     >
-                        <IconComponent
-                            fill="#555657"
-                            icon="account-plus"
-                            width="1.5rem"
-                            height="1.5rem"
-                        />
-                    </ButtonComponent>
-                    <ButtonComponent 
-                        width="2rem"
-                        height="2rem"
-                        link
+                        <ButtonComponent 
+                            width="2rem"
+                            height="2rem"
+                            link
+                            onClick={handleOpenSearchCotactDrawer}
+                        >
+                            <IconComponent
+                                fill="#555657"
+                                icon="account-plus"
+                                width="1.5rem"
+                                height="1.5rem"
+                            />
+                        </ButtonComponent>    
+                    </Tippy>
+                    
+                    <Tippy 
+                        placement="bottom" 
+                        content={constants.LABELS.CHAT.CONTACTS}
                     >
-                        <IconComponent
-                            fill="#555657"
-                            icon="message-text"
-                            width="1.5rem"
-                            height="1.5rem"
-                        />
-                    </ButtonComponent>
-
+                        <ButtonComponent 
+                            width="2rem"
+                            height="2rem"
+                            link
+                            onClick={handleOpenCotactDrawer}
+                        >
+                            <IconComponent
+                                fill="#555657"
+                                icon="message-text"
+                                width="1.5rem"
+                                height="1.5rem"
+                            />
+                        </ButtonComponent>
+                    </Tippy>
+                        
                     <DropDownMenuComponent
                         icon={<IconComponent
                                 fill= "#555657"
@@ -83,8 +118,8 @@ const ActionWrapper = props => {
                                 text: "Settings"
                             }
                         ]}
-                    />
-                    
+                    />                                        
+        
                 </div>
             </header>
             <div>
@@ -94,6 +129,21 @@ const ActionWrapper = props => {
             <ConversationList
             
             />
+            <DrawerComponent
+                drawerName={drawerNames.contactList}
+                title={constants.LABELS.CHAT.CONTACTS}
+                icon="arrow-left"
+            >
+                
+            </DrawerComponent>
+
+            <DrawerComponent
+                drawerName={drawerNames.searchContact}
+                title={constants.LABELS.CHAT.SEARCH_CONTACT}
+                icon="arrow-left"
+            >
+                
+            </DrawerComponent>
 
             
         </div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { forwardRef } from "react";
+import { compose } from "redux";
 import classNames from "classnames";
 
 
-const ButtonComponent = React.memo( props => {
+const ButtonComponent = forwardRef((props, ref) => {
     const {
         text,
         primary,
@@ -37,6 +38,7 @@ const ButtonComponent = React.memo( props => {
                 width,
                 textDecoration
             }}
+            ref={ref}
         >
             {
                 isFetching 
@@ -51,4 +53,6 @@ const ButtonComponent = React.memo( props => {
     );
 });
 
-export default ButtonComponent;
+export default compose(
+    React.memo
+)(ButtonComponent);;

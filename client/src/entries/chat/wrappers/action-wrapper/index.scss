@@ -1,10 +1,9 @@
-.action-wrapper{
+.actions-wrapper{
     border-radius: .5rem 0 0 .5rem;
-    flex-grow: 1;
-    flex-shrink: 4;
+    width: 30%;
     background-color: #ffffff;
     border-right: .15rem solid $header-color;
-
+    position: relative;
     display: flex;
     flex-direction: column;
 
