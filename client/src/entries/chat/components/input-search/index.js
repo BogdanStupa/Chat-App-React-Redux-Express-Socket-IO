@@ -6,7 +6,10 @@ import {
 
 
 
-const InputSearchComponent = () => {
+const InputSearchComponent = props => {
+    const {
+        fontSize
+    } = props;
     const onChange = () => {}
 
     return (
@@ -16,6 +19,7 @@ const InputSearchComponent = () => {
             onChange={onChange}
             height="2.5rem"
             paddingLeft={35}
+            fontSize={fontSize}
             iconComponent={() => (
                 <IconComponent
                     fill="#555657"

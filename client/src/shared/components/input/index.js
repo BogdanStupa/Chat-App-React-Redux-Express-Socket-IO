@@ -4,22 +4,31 @@ import { compose } from "redux";
 
 const InputFormComponent = (props, ref) => {
     const {
-        onChange,
         type,
         name,
+
+        onChange,
+        onFocus,
+        
+        keyDown,
+
         autoFocus,
         isFetching,
         multiline,
         placeholder,
-        width,
-        height,
-        marginTop,
+        sendMessage,
+        
         errors,
         search,
+        
         iconComponent,
-        paddingLeft,
+  
         maxLength,
-        fontSize="1.2rem"
+        width,
+        height,
+        fontSize,
+        paddingLeft,
+        marginTop,
     } = props;
 
     const inputStyle = classNames({
@@ -28,8 +37,18 @@ const InputFormComponent = (props, ref) => {
         "search": search
     });
 
+    const onKeyDown = event => {
+        if(sendMessage && event.key === "Enter" && !event.shiftKey){
+            event.preventDefault();
+            keyDown();
+            return false;
+        }
+        return true;
+     }
+
     return (
-        <div className="input-wrapper"
+        <div 
+            className="input-wrapper"
             style={{
                 width,
                 height,
@@ -37,19 +56,28 @@ const InputFormComponent = (props, ref) => {
                 marginTop
             }}
         >
-            <div className="input-content">
+            <div 
+                className="input-content"
+                style={{
+                    width,
+                    height
+                }}
+            >
                 {
                     multiline 
                     ? <textarea
                         className={inputStyle}
                         onChange={onChange}
+                        onFocus={onFocus}
+                        onKeyDown={onKeyDown}
                         placeholder={placeholder}
                         disabled={isFetching}
                         maxLength={maxLength}
                         name={name}
                         style={{
                             minHeight:height,
-                            paddingLeft
+                            paddingLeft,
+                            fontSize
                         }}
                         name={name}
                         ref={ref}
@@ -58,6 +86,7 @@ const InputFormComponent = (props, ref) => {
                         className={inputStyle}
                         type={type}
                         onChange={onChange}
+                        onKeyDown={onKeyDown}
                         placeholder={placeholder}
                         disabled={isFetching}
                         autoFocus={autoFocus}

@@ -1,23 +1,43 @@
 import React from "react";
+import classNames from "classnames";
+
 
 const UserInfoComponent = props => {
     const {
-        nickname,
-        profileColor
+        profile,
+        title,
+        rowMode
     } = props;
     
-    const profileText = nickname.slice(0,2);
+    const profileText = profile.label.slice(0,2); //test this on undefined
+
+    const containerStyles = classNames({
+        "user-info": true,
+        "column-mode": !rowMode,
+        "row-mode": rowMode
+    });
 
     return (
-        <div className="user-info">
+        <div className={containerStyles}>
             <div 
                 className="user-info-profile" 
                 style={{
-                    backgroundColor: profileColor
+                    backgroundColor: profile.backgroundColor,
+                    width: profile.width,
+                    height: profile.height,
+                    fontSize: profile.fontSize
                 }}>
                     {profileText}
             </div>
-            <p className="user-info-nickname">{nickname}</p>
+            <p 
+                className="user-info-nickname"
+                style={{
+                    fontSize: title.fontSize,
+                    color: title.color
+                }}
+            >
+                    {title.nickname}
+            </p>
         </div>
     );
 };

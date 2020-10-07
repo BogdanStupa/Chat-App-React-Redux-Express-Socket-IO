@@ -23,7 +23,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 
-
 const drawerNames = {
     contactList: "constactList",
     searchContact: "searchContact"
@@ -31,19 +30,12 @@ const drawerNames = {
 
 
 const ActionWrapper = props => {
-    const isAuth = useSelector(state => state.auth.isAuth);
     const { nickname, profileColor } = getUser() || {}
-
     const dispatch = useDispatch();
-    useEffect(() => {
-        if(!isAuth){
-            props.history.push("/signin");
-        }
-    },[isAuth]);
 
+    
     const handleLogout = () => logout();
     
-
     const handleOpenCotactDrawer = () => {
         dispatch(openDrawer(drawerNames.contactList));
     }
@@ -51,15 +43,37 @@ const ActionWrapper = props => {
         dispatch(openDrawer(drawerNames.searchContact));
     }
     
+    const handleClickConversaionItem = () => {
 
+    }
 
+    const handleDeleteConversationItem = () => {
+
+    }
+
+    const getConversations = () => {
+
+    }
+    const items = ""
+    const isFetching = false;
+
+    
     return (
         <div className="actions-wrapper">
             <header className="header-container">
                 <div className="header-info">
                     <UserInfoComponent
-                        nickname={nickname}
-                        profileColor={profileColor}
+                        profile={{
+                            label: nickname,
+                            backgroundColor: profileColor,
+                            width: "4rem",
+                            height: "4rem",
+                            fontSize: 32
+                        }}
+                        title={{
+                            nickname: nickname,
+                            fontSize: 18
+                        }}
                     />
                 </div>
                 
@@ -124,10 +138,14 @@ const ActionWrapper = props => {
             </header>
             <div>
                 <InputSearchComponent
+                    fontSize={20}
                 />
             </div>
             <ConversationList
-            
+                items={items}
+                isFetching={isFetching}
+                onClickItem={handleClickConversaionItem}
+                onDeleteItem={handleDeleteConversationItem}
             />
             <DrawerComponent
                 drawerName={drawerNames.contactList}

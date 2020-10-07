@@ -13,7 +13,7 @@ const selectIsOpen = createSelector(
     [ 
         (state,drawerName) => state.drawer[drawerName] || { [drawerName]: { isOpen: false }}
     ],
-    (drawerNames) => drawerNames.isOpen || false
+    drawerNames => drawerNames.isOpen || false
 );
 
 

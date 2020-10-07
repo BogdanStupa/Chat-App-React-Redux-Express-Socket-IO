@@ -1,7 +1,7 @@
 .input-wrapper{
     display: flex;
     flex-direction: column;
-
+    
     .input-content{
         position: relative;
         display: flex;
@@ -40,12 +40,12 @@
             background-color: $input-form-color;
             resize:none;
             overflow: auto;
-            outline: none;
             -moz-appearance: none;
             border:0;
             padding: 0.25rem;
             color: $header-color;
         }
+
         .input-icon{
             background-color:$input-form-color;
             position: absolute;

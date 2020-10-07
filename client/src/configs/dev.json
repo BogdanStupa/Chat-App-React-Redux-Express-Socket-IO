@@ -14,7 +14,8 @@
             "NEW_CONVERSATION": "New Conversation",
             "CONTACTS": "Contacts",
             "SEARCH_CONTACT": "Search contact",
-            "DOTS_TIPPY": "..."
+            "DOTS_TIPPY": "...",
+            "WRITE_MESSAGE_TEXT":"Write a message ..."
         },
         "AUTH":{
             "NICKNAME": "Nickname",
