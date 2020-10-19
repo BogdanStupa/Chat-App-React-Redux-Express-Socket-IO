@@ -1,8 +1,9 @@
 
 @host=http://0.0.0.0:7000
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImxlYndhIiwiX2lkIjoiNWY3NTJiMTFiOGY1NjM3ZjBlMjBkNmMzIiwiaWF0IjoxNjAxOTE4NTkyLCJleHAiOjE2MDE5MjIxOTJ9.Hp1D3U9s2JAeoS-1L3-WVNQlY0-QS9tadAS28Ri6tJU
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY3NTJiMTRiOGY1NjM3ZjBlMjBkNmM0IiwiaWF0IjoxNjAyOTYyNTQ0LCJleHAiOjE2MDI5NjYxNDR9.LDUEtVANPpShoOgfXbIFn0PuDJDwi9o9EIp0d_tU81o
 
+@name=vasyl
 ################# Auth Route BEGIN ###################################
 
 GET {{host}}/dev/auth 
@@ -26,6 +27,16 @@ Content-Type: application/json
 {
     "nickname": "vasyl",
     "password": "vasyl"
+}
+
+###
+
+POST {{host}}/auth/signin
+Content-Type: application/json
+
+{
+    "nickname": "vadum",
+    "password": "vadum"
 }
 
 ################# Auth Route BEND ###################################
@@ -68,9 +79,9 @@ Content-Type: application/json
 Authorization:  {{token}}
 
 {
-    "_id": "5f752b11b8f5637f0e20d6c3",
+    "_id": "5f8b445b3357364bafc8321d",
     "conversation": {
-			
+        
 	}
 }
 
@@ -99,7 +110,7 @@ Authorization: {{token}}
 
 {
     "_id":"5f752b11b8f5637f0e20d6c3",
-    "message": "oookey "
+    "message": "hello, lebwa !"
 }
 
 
@@ -110,7 +121,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-    "_id":"5f752b14b8f5637f0e20d6c4"
+    "_id":"5f752b11b8f5637f0e20d6c3"
 }
 
 ###

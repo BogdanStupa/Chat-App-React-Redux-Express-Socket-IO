@@ -4,6 +4,8 @@ import LabelComponent from "./label";
 import DropDownMenuComponent from "./drop-down-menu";
 import IconComponent from "./icon";
 import DrawerComponent from "./drawer";
+import ProfileCircle from "./profile-circle";
+
 
 export {
     ButtonComponent,
@@ -11,5 +13,6 @@ export {
     LabelComponent,
     DropDownMenuComponent,
     IconComponent,
-    DrawerComponent
+    DrawerComponent,
+    ProfileCircle
 };

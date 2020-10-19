@@ -45,7 +45,9 @@
         "ROOT": "http://0.0.0.0:7000",
         "ACTIONS":{
             "AUTH_SIGNUP":"/auth/signup",
-            "AUTH_SIGNIN":"/auth/signin"
-        }
+            "AUTH_SIGNIN":"/auth/signin",
+            "CONVERSATION": "/secure/conversation",
+            "CONTACT": "/secure/contact"
+        }       
     }
 }

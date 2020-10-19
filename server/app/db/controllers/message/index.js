@@ -1,7 +1,7 @@
 import moment from "moment";
 import { 
     findConversationAndUpdate,
-    getConversationsOfUser
+    getConversationOfUser
 } from "../../repositories/conversation";
 import { 
     addMessage,
@@ -93,12 +93,12 @@ export const getMessages = async (req, res) => {
         const { _id: partnerId } = req.body;
         const { _id: ownerId } = req.currentUser;
 
-        const messagesInConversation = await getConversationsOfUser({ ownerId, partnerId });
+        const messagesInConversation = await getConversationOfUser({ ownerId, partnerId });
         
         const { messages: messagesId } = messagesInConversation;
         
         const userMessages = [];
-        
+
         for(const id of messagesId){
             const message = await getUserMessage({ _id: id });
             userMessages.push(message);
@@ -143,7 +143,7 @@ export const deleteMessage = async (req, res) => {
             }
         );
 
-        const partnerConversation = await getConversationsOfUser({
+        const partnerConversation = await getConversationOfUser({
             ownerId,
             partnerId
         });

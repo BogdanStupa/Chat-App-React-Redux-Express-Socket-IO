@@ -12,8 +12,10 @@ const MessageListContainer = props => {
     } = props;
 
     return (
-        <MessageComponent/>
-    )
+        <div className="message-list-container">
+                
+        </div>
+    );
 } 
 
 export default MessageListContainer;

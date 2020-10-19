@@ -5,8 +5,12 @@ import {
     findConversationAndDelete
 } from "../../repositories/conversation";
 import {
-    deleteUserMessage
+    deleteUserMessage,
+    getUserMessage
 } from "../../repositories/message";
+import {
+    findOneUser
+} from "../../repositories/user";
 import _ from "lodash";
 
 
@@ -50,11 +54,44 @@ export const updateConversation = async (req, res) => {
 export const getConversations = async (req, res) => {
     try{
         const { _id: ownerId } = req.currentUser;
-        const conversation = await getConversationsOfUser({ ownerId }) || [];
+        const conversations = await getConversationsOfUser({ ownerId }) || [];
+
+        const result = [];
+
+        for(let conversation of conversations){
+            if(conversation.partnerId){
+                const partner = await findOneUser(conversation.partnerId, { 
+                    _id: false,
+                    password: false,
+                    contacts: false,
+                    __v: false
+                });
+                const lastMessage = await getUserMessage({ 
+                    senderId: ownerId,
+                    receivedId: conversation.partnerId
+                },{
+                    senderId: false,
+                    receivedId: false,
+                    __v: false
+                });
+                result.push({
+                    unreadMessages: conversation.unreadMessages,
+                    messages: conversation.messages,
+                    _id: conversation._id,
+                    partner: {
+                        partnerId: conversation.partnerId,
+                        nickname: partner.nickname,
+                        profileColor: partner.profileColor,
+                        lastMessage
+                    }
+                });
+            }
+        }
+
         res.status(200)
             .json({
                 success: true,
-                conversation
+                conversations: result 
             });
     } catch(error){
         res.status(500)

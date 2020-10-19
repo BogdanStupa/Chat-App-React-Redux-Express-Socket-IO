@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-
+import { ProfileCircle } from "shared/components";
 
 const UserInfoComponent = props => {
     const {
@@ -9,8 +9,6 @@ const UserInfoComponent = props => {
         rowMode
     } = props;
     
-    const profileText = profile.label.slice(0,2); //test this on undefined
-
     const containerStyles = classNames({
         "user-info": true,
         "column-mode": !rowMode,
@@ -19,21 +17,15 @@ const UserInfoComponent = props => {
 
     return (
         <div className={containerStyles}>
-            <div 
-                className="user-info-profile" 
-                style={{
-                    backgroundColor: profile.backgroundColor,
-                    width: profile.width,
-                    height: profile.height,
-                    fontSize: profile.fontSize
-                }}>
-                    {profileText}
-            </div>
+            <ProfileCircle
+                profile={profile}
+            />
             <p 
                 className="user-info-nickname"
                 style={{
                     fontSize: title.fontSize,
-                    color: title.color
+                    color: title.color,
+                    fontWeight:"bold"
                 }}
             >
                     {title.nickname}

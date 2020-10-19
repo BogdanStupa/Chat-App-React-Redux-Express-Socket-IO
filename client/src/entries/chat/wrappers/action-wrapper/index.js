@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 import {
     UserInfoComponent,
     InputSearchComponent
@@ -16,11 +19,14 @@ import {
 import constants from "modules/constants";
 import {
     getUser,
+    getToken,
     logout
 } from "modules/utils";
 import { openDrawer } from "redux/actions/drawer";
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import {
+    getConversationsRequest,
+    getCurrentConversationRequest
+} from "redux/actions/conversation";
 
 
 const drawerNames = {
@@ -28,34 +34,59 @@ const drawerNames = {
     searchContact: "searchContact"
 }
 
+const conversationSelector = createSelector(
+    [
+        state => state.conversations.conversationItems
+    ],
+    conversations => { 
+        return { 
+            conversationItems: conversations.conversationItemsArray || [],
+            isFetching: conversations.isFetching || false
+        };
+    }
+);
+
 
 const ActionWrapper = props => {
-    const { nickname, profileColor } = getUser() || {}
+    const { nickname, profileColor } = getUser() || {};
+    const { token } = getToken() || {};
     const dispatch = useDispatch();
 
-    
+    useEffect(() => {
+        dispatch(getConversationsRequest(token));
+    },[]);
+    const { conversationItems, isFetching } = useSelector(state => conversationSelector(state));
+    /*
+    *   items: [
+    *       {
+    *           unreadMesages: int,
+    *           messages: array [],
+    *           _id: string,
+    *           partner: {
+    *               partnerId: string,
+    *               nickname: string,
+    *               profileColor: string,
+    *               lastMessage: {
+    *                   dataTime: data,
+    *                   message: string,
+    *                   _id: string
+    *               }
+    *           }
+    *       }
+    *   ]
+    */
+
     const handleLogout = () => logout();
     
-    const handleOpenCotactDrawer = () => {
-        dispatch(openDrawer(drawerNames.contactList));
-    }
-    const handleOpenSearchCotactDrawer = () => {
-        dispatch(openDrawer(drawerNames.searchContact));
-    }
-    
-    const handleClickConversaionItem = () => {
+    const handleOpenCotactDrawer = () => dispatch(openDrawer(drawerNames.contactList));
 
-    }
+    const handleOpenSearchCotactDrawer = () => dispatch(openDrawer(drawerNames.searchContact));
+    
+    const handleClickConversaionItem = conversation => dispatch(getCurrentConversationRequest(conversation));
 
     const handleDeleteConversationItem = () => {
 
     }
-
-    const getConversations = () => {
-
-    }
-    const items = ""
-    const isFetching = false;
 
     
     return (
@@ -142,7 +173,7 @@ const ActionWrapper = props => {
                 />
             </div>
             <ConversationList
-                items={items}
+                items={conversationItems}
                 isFetching={isFetching}
                 onClickItem={handleClickConversaionItem}
                 onDeleteItem={handleDeleteConversationItem}
@@ -163,7 +194,6 @@ const ActionWrapper = props => {
                 
             </DrawerComponent>
 
-            
         </div>
     )
 }

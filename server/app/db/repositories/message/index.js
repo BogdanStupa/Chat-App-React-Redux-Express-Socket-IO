@@ -11,6 +11,6 @@ export const addMessage = model => {
     return newMessage.save();
 }
 
-export const getUserMessage = model => MessageModel.findOne(model);
+export const getUserMessage = (model, params) => MessageModel.findOne(model, params);
 
 export const deleteUserMessage = query => MessageModel.deleteMany(query);

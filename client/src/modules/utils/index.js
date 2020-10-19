@@ -22,6 +22,8 @@ export const removeToken = () => removeCookie(constants.GLOBAL.USER_COOKIE_TOKEN
 
 export const getUser = () => getCookieJson(constants.GLOBAL.USER_COOKIE_NAME);
 
+export const getToken = () => getCookieJson(constants.GLOBAL.TOKEN_COOKIE_NAME);
+
 
 const resetRedux = () => {
     store.dispatch(reset());
