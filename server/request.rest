@@ -1,9 +1,11 @@
 
 @host=http://0.0.0.0:7000
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY3NTJiMTRiOGY1NjM3ZjBlMjBkNmM0IiwiaWF0IjoxNjAyOTYyNTQ0LCJleHAiOjE2MDI5NjYxNDR9.LDUEtVANPpShoOgfXbIFn0PuDJDwi9o9EIp0d_tU81o
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImxlYndhIiwiX2lkIjoiNWY3NTJiMTFiOGY1NjM3ZjBlMjBkNmMzIiwiaWF0IjoxNjAzNTE2MzE2LCJleHAiOjE2MDM1MTk5MTZ9.f6cin8Dt_m2Jwi2EuzovLHHIHGUhF1Q2p0jD_Nl_N4U
 
-@name=vasyl
+@name=lebwa
+
+@id=5f752b14b8f5637f0e20d6c4
 ################# Auth Route BEGIN ###################################
 
 GET {{host}}/dev/auth 
@@ -109,20 +111,16 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-    "_id":"5f752b11b8f5637f0e20d6c3",
-    "message": "hello, lebwa !"
+    "_id":"5f752b14b8f5637f0e20d6c4",
+    "message": "This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message "
 }
 
 
 ###
 
-GET {{host}}/secure/message
+GET {{host}}/secure/message5f752b11b8f5637f0e20d6c3
 Content-Type: application/json
 Authorization: {{token}}
-
-{
-    "_id":"5f752b11b8f5637f0e20d6c3"
-}
 
 ###
 
@@ -136,4 +134,4 @@ Authorization: {{token}}
 }
 
 
-################# Message Route END ###################################
+# ################# Message Route END ###################################

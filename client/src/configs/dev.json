@@ -47,7 +47,8 @@
             "AUTH_SIGNUP":"/auth/signup",
             "AUTH_SIGNIN":"/auth/signin",
             "CONVERSATION": "/secure/conversation",
-            "CONTACT": "/secure/contact"
+            "CONTACT": "/secure/contact",
+            "MESSAGE": "/secure/message"
         }       
     }
 }

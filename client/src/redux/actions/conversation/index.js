@@ -37,15 +37,17 @@ export const getCurrentConversationRequest = conversation => {
     };
 }
 
-export const getCurrentConversationSuccess = () => {
+export const getCurrentConversationSuccess = data => {
     return {
-        type: GET_CURRENT_CONVERSATION_SUCCESS
+        type: GET_CURRENT_CONVERSATION_SUCCESS,
+        payload: data
     };
 }
 
-export const getCurrentConversationFail = () => {
+export const getCurrentConversationFail = error => {
     return {
-        type: GET_CURRENT_CONVERSATION_FAIL
+        type: GET_CURRENT_CONVERSATION_FAIL,
+        payload: error
     };
 }
 

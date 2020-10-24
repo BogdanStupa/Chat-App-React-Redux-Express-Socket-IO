@@ -4,7 +4,7 @@
     margin-top: .2rem;
     background-color: $default-color;
     .conversation-item-cart-container {
-        margin-left: .5rem;
+        padding-left: .5rem;
         display: flex;
         flex-direction: column;
         .conversation-item-cart-header {
@@ -19,8 +19,9 @@
             justify-content: space-between;
             .conversation-item-cart-last-message {
                 opacity: .8;
-                text-overflow: ellipsis;
                 overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;       
             }
             .conversation-item-cart-unread-messages{
                 width: auto;

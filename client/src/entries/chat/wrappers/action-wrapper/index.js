@@ -47,7 +47,7 @@ const conversationSelector = createSelector(
 );
 
 
-const ActionWrapper = props => {
+const ActionWrapper = () => {
     const { nickname, profileColor } = getUser() || {};
     const { token } = getToken() || {};
     const dispatch = useDispatch();
@@ -82,7 +82,9 @@ const ActionWrapper = props => {
 
     const handleOpenSearchCotactDrawer = () => dispatch(openDrawer(drawerNames.searchContact));
     
-    const handleClickConversaionItem = conversation => dispatch(getCurrentConversationRequest(conversation));
+    const handleClickConversaionItem = conversation => {
+        dispatch(getCurrentConversationRequest(conversation));
+    }
 
     const handleDeleteConversationItem = () => {
 
@@ -177,6 +179,7 @@ const ActionWrapper = props => {
                 isFetching={isFetching}
                 onClickItem={handleClickConversaionItem}
                 onDeleteItem={handleDeleteConversationItem}
+                token={token}
             />
             <DrawerComponent
                 drawerName={drawerNames.contactList}

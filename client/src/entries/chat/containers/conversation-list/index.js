@@ -15,7 +15,8 @@ const ConversationList = props => {
         items,
         isFetching,
         onClickItem,
-        onDeleteItem
+        onDeleteItem,
+        token
     } = props;
     /*
     *   items: [
@@ -59,10 +60,12 @@ const ConversationList = props => {
                                     messageText: item.partner.lastMessage ? item.partner.lastMessage.message : "no messages yet...",
                                     dateTime: item.partner.lastMessage ? item.partner.lastMessage.dateTime : null
                                 }} 
+                                partnerId={item.partner.partnerId}
                                 unreadMessages={item.unreadMessages}
                                 nickname={item.partner.nickname}
                                 onClickItem={onClickItem}
                                 isActive={item._id === activeConversationId ? true : false}
+                                token={token}
                         /> 
                     )
                 

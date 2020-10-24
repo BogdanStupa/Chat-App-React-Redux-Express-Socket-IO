@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { ProfileCircle } from "shared/components";
-
+import { toConversationDate } from "modules/utils";
 
 
 const ConversationItemCart = props => {
@@ -10,16 +10,20 @@ const ConversationItemCart = props => {
         message,
         unreadMessages,
         nickname,
+        partnerId,
         onClickItem,
         id,
-        isActive
+        isActive,
+        token
     } = props;
 
 
     const handleClickItem = () => onClickItem({
-                                    id,
+                                    conversationId: id,
                                     nickname,
-                                    profileColor: profile.backgroundColor
+                                    profileColor: profile.backgroundColor,
+                                    partnerId: partnerId,
+                                    token
                                 });
 
     const styles = classNames({
@@ -32,6 +36,9 @@ const ConversationItemCart = props => {
             className={styles}
             tabIndex="0"
             onClick={handleClickItem}
+            style={{
+                height:profile.height
+            }}
         >
             <ProfileCircle
                 profile={profile}
@@ -45,7 +52,7 @@ const ConversationItemCart = props => {
                 
                 <div className="conversation-item-cart-header">
                     <div style={{fontSize: 16, fontWeight: "bold"}}>{nickname}</div>
-                    <div>{message.dateTime}</div>
+                    <div>{message.dateTime ? toConversationDate(message.dateTime) : null}</div>
                 </div>
                 <div className="conversation-item-cart-last-message-container">
                     <div className="conversation-item-cart-last-message">{message.messageText}</div>

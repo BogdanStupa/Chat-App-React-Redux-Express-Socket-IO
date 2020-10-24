@@ -6,6 +6,7 @@ const InputFormComponent = (props, ref) => {
     const {
         type,
         name,
+        value,
 
         onChange,
         onFocus,
@@ -70,6 +71,7 @@ const InputFormComponent = (props, ref) => {
                         onChange={onChange}
                         onFocus={onFocus}
                         onKeyDown={onKeyDown}
+                        value={value}
                         placeholder={placeholder}
                         disabled={isFetching}
                         maxLength={maxLength}
@@ -90,6 +92,7 @@ const InputFormComponent = (props, ref) => {
                         placeholder={placeholder}
                         disabled={isFetching}
                         autoFocus={autoFocus}
+                        value={value}
                         maxLength={maxLength}
                         style={{
                             minHeight:height,

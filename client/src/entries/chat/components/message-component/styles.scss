@@ -1,0 +1,26 @@
+.conversation-message{
+    height: auto;
+    padding: .5rem ;
+    width: auto;
+    max-width: 50%;
+    margin-top: 1rem;
+    align-self: flex-start;
+    background-color: $message-text-color;
+    margin-left: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    &.posted-by-current-user {
+        background-color: $message-text-color;
+        align-self: flex-end;
+        margin-left: 0;
+        margin-right: 1rem;
+    }
+
+    .date-send{
+        padding-top: .5rem;
+        font-size: .7rem;
+        align-self: flex-end;
+    }
+}
+

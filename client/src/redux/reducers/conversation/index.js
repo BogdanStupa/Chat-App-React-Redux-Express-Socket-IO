@@ -23,6 +23,7 @@ const initialState = {
         isActive: false,
         partnerNickname: null,
         partnerProfileColor: null,
+        partnerId:null,
         conversationId: null,
         conversationMessages: []
     }
@@ -68,17 +69,17 @@ const conversationsReducer = (state = initialState, action) => {
                     isFetching: true,
                     isActive: true,
                     partnerNickname: action.payload.nickname,
+                    partnerId: action.payload.partnerId,
                     partnerProfileColor: action.payload.profileColor,
-                    conversationId: action.payload.id
+                    conversationId: action.payload.conversationId
                 }
             };
 
-        case GET_CURRENT_CONVERSATION_SUCCESS: 
+        case GET_CURRENT_CONVERSATION_SUCCESS:
             return {
                 ...state,
-                ...state.conversations,
                 currentConversation: {
-                    ...state.conversations.currentConversation,
+                    ...state.currentConversation,
                     isFetching: false,
                     isActive: true,
                     conversationMessages: action.payload
@@ -88,9 +89,8 @@ const conversationsReducer = (state = initialState, action) => {
         case GET_CURRENT_CONVERSATION_FAIL: 
             return {
                 ...state,
-                ...state.conversations,
                 currentConversation: {
-                    ...state.conversations.currentConversation,
+                    ...state.currentConversation,
                     isFetching: false,
                     isActive: true,
                     errors: action.payload

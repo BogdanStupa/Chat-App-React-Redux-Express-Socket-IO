@@ -83,31 +83,31 @@ export const postMessage = async (req, res) => {
 
 /*
     req = {
-        body: {
-            _id
+        params: {
+            id
         }
     }
 */
 export const getMessages = async (req, res) => {
     try {
-        const { _id: partnerId } = req.body;
+        const { id: partnerId } = req.params;
         const { _id: ownerId } = req.currentUser;
 
         const messagesInConversation = await getConversationOfUser({ ownerId, partnerId });
         
         const { messages: messagesId } = messagesInConversation;
         
-        const userMessages = [];
+        const conversationMessages = [];
 
         for(const id of messagesId){
             const message = await getUserMessage({ _id: id });
-            userMessages.push(message);
+            conversationMessages.push(message);
         }
-
+        
         res.status(200)
             .json({
                 status: true,
-                messages: userMessages
+                messages: conversationMessages
             });
 
     } catch(error){

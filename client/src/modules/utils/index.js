@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import constants from "modules/constants";
 import { reset } from "redux/actions/main";
 import store from "redux/store";
-
+import moment from "moment";
 
 const setCookie = (name, value, expires) => Cookies.set(name, value, { expires });
 
@@ -43,4 +43,20 @@ export const login = async (user, token) => {
 
 export const isEmptyObject = (value) => {
     return value && Object.keys(value).length === 0 && value.constructor === Object;
+}
+
+export const toConversationDate = date => {
+    const diffD = moment(moment.utc().toDate()).diff(date, "days");
+    const diffH = moment(moment.utc().toDate()).diff(date, "hours");
+
+    if(diffH <= 0){
+        return moment(date).fromNow(true);
+    }
+    if( diffD <= 0){
+        return moment(date).format("HH:mm");
+    }
+    if(diffD <= 6){
+        return diffD === 1 ? "yesterday" : moment(date).format("dddd");
+    }
+    return moment(date).format('DD/MM/YYYY');
 }

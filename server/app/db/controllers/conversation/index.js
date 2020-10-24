@@ -66,17 +66,17 @@ export const getConversations = async (req, res) => {
                     contacts: false,
                     __v: false
                 });
-                const lastMessage = await getUserMessage({ 
-                    senderId: ownerId,
-                    receivedId: conversation.partnerId
+                const lastMessageId = conversation.messages.pop() || null;
+                const lastMessage = lastMessageId ? await getUserMessage({ 
+                    _id: lastMessageId
                 },{
                     senderId: false,
                     receivedId: false,
                     __v: false
-                });
+                }) : null;
+
                 result.push({
                     unreadMessages: conversation.unreadMessages,
-                    messages: conversation.messages,
                     _id: conversation._id,
                     partner: {
                         partnerId: conversation.partnerId,

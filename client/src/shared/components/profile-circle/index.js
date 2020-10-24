@@ -18,8 +18,10 @@ const ProfileCircle = props => {
             className="user-info-profile" 
             style={{
                 backgroundColor: backgroundColor,
-                width: width,
-                height: height,
+                width:width,
+                height:height,
+                minWidth: width,
+                minHeight: height,
                 fontSize: fontSize
             }}>
                 {profileText}
