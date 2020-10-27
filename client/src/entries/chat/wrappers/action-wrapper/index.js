@@ -82,9 +82,7 @@ const ActionWrapper = () => {
 
     const handleOpenSearchCotactDrawer = () => dispatch(openDrawer(drawerNames.searchContact));
     
-    const handleClickConversaionItem = conversation => {
-        dispatch(getCurrentConversationRequest(conversation));
-    }
+    const handleClickConversaionItem = conversation => dispatch(getCurrentConversationRequest(conversation));
 
     const handleDeleteConversationItem = () => {
 

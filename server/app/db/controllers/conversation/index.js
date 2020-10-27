@@ -30,7 +30,7 @@ export const updateConversation = async (req, res) => {
         } = req.body;
         const { _id: ownerId } = req.currentUser;
 
-        await findConversationAndUpdate({ ownerId, partnerId }, { conversation });
+        await findConversationAndUpdate({ ownerId, partnerId }, { ...conversation });
 
         res.status(201).json({
             success: true

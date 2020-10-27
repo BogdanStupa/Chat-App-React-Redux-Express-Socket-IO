@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { ConversationItemCart } from "entries/chat/components";
 
-const currentConversationActiveConversationSelector = createSelector(
+const currentConversationIsActiveSelector = createSelector(
     [
         state => state.conversations.currentConversation
     ],
@@ -37,7 +37,9 @@ const ConversationList = props => {
     *       }
     *   ]
     */
-   const activeConversationId = useSelector(state => currentConversationActiveConversationSelector(state));
+    const activeConversationId = useSelector(state => currentConversationIsActiveSelector(state));
+
+    console.log("CONVERSATION LIST");
 
     return (
         <div className="chat-lists">

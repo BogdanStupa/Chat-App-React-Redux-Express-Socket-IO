@@ -17,12 +17,14 @@ const ConversationItemCart = props => {
         token
     } = props;
 
+    console.log("CONVERSATION ITEM CART", nickname);
 
     const handleClickItem = () => onClickItem({
                                     conversationId: id,
                                     nickname,
                                     profileColor: profile.backgroundColor,
                                     partnerId: partnerId,
+                                    unreadMessages,
                                     token
                                 });
 

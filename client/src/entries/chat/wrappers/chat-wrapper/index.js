@@ -47,9 +47,6 @@ const currentConversationProfileInfoSelector = createSelector(
 );
 
 
-
-
-
 const ChatWrapper = () => {
     const { _id } = getUser() || {};
     const { token } = getToken() || {};
@@ -95,6 +92,7 @@ const ChatWrapper = () => {
                                 <section className="chat-conversation">
                                     <MessageListContainer
                                         userId={_id}
+                                        unreadMessages
                                     />
 
                                 </section>

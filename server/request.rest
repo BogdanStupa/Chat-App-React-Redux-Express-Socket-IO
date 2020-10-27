@@ -1,7 +1,7 @@
 
 @host=http://0.0.0.0:7000
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImxlYndhIiwiX2lkIjoiNWY3NTJiMTFiOGY1NjM3ZjBlMjBkNmMzIiwiaWF0IjoxNjAzNTE2MzE2LCJleHAiOjE2MDM1MTk5MTZ9.f6cin8Dt_m2Jwi2EuzovLHHIHGUhF1Q2p0jD_Nl_N4U
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6ImxlYndhIiwiX2lkIjoiNWY3NTJiMTFiOGY1NjM3ZjBlMjBkNmMzIiwiaWF0IjoxNjAzNzA1MTA3LCJleHAiOjE2MDM3MDg3MDd9.ftM50NYkNJ1CtkpzL9BBtgcICdixGHil9nbLJELWQDI
 
 @name=lebwa
 
@@ -81,9 +81,9 @@ Content-Type: application/json
 Authorization:  {{token}}
 
 {
-    "_id": "5f8b445b3357364bafc8321d",
+    "_id": "5f752b11b8f5637f0e20d6c3",
     "conversation": {
-        
+        "unreadMessages": 0 
 	}
 }
 
@@ -112,7 +112,7 @@ Authorization: {{token}}
 
 {
     "_id":"5f752b14b8f5637f0e20d6c4",
-    "message": "This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message This is large message "
+    "message": "vk;jnncdkknlkndvkcndkl))))))"
 }
 
 
