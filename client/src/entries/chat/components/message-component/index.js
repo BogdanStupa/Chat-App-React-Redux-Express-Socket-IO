@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import VisibilitySensor from "react-visibility-sensor";
+import VizSensor from "react-visibility-sensor";
 
 
 
@@ -21,11 +21,10 @@ const MessageComponent = React.forwardRef((props, ref) => {
         "posted-by-current-user": sender,
     });
 
-    const [wasNotVisbile, setWasNotVisible] = useState(isUnreadMessage);
+    let wasNotVisbile = isUnreadMessage;
 
     useEffect(() => {
         if(toThisScrolling && ref) {
-            console.log(toThisScrolling, ref);
             toThisScrolling(ref);
         }
     },[ref]);
@@ -33,15 +32,15 @@ const MessageComponent = React.forwardRef((props, ref) => {
     const handleChangeVisibility = isVisible => {
         if(isVisible && wasNotVisbile){
             handleVisibleMessage(ref);
-            setWasNotVisible(false);
+            wasNotVisbile = false;
         }
     }
-    //console.log("MESSAGE COMPONENT", id)
+    
     return (
-        <VisibilitySensor 
+        <VizSensor 
             onChange={handleChangeVisibility}
             containment={containmentDOMRect}
-            offset={{ top: -10 }}
+            offset={{ top: 100, bottom: 100 }}
         >
             <div 
                 className={styles}
@@ -54,7 +53,7 @@ const MessageComponent = React.forwardRef((props, ref) => {
                     {date}
                 </div>
             </div>
-        </VisibilitySensor>
+        </VizSensor>
     );
 });
 

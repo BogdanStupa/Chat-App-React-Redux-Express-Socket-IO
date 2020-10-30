@@ -36,9 +36,9 @@ const ChatWrapper = () => {
 
     const dispatch = useDispatch();
 
-    const handleSendMessage = (partnerId, message, token) => {
+    const handleSendMessage = (partnerId, message, token, conversationId) => {
         if(message){
-            dispatch(postMessageRequest({ partnerId, message, token }));
+            dispatch(postMessageRequest({ partnerId, message, token, conversationId }));
         }    
     }
 
@@ -84,6 +84,7 @@ const ChatWrapper = () => {
                                         placeholder={constants.LABELS.CHAT.WRITE_MESSAGE_TEXT}
                                         keyDown={handleSendMessage}
                                         sendMessage
+                                        autoFocus
                                         token={token}
                                     />
                                 </footer>

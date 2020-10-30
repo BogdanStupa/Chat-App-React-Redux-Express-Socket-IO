@@ -11,6 +11,7 @@ import {
     SET_IS_SCROLLING_IN_CONVERSATIONS,
 
     ADD_MESSAGE_TO_CURRENT_CONVERSATION,    
+    ADD_PARTNER_MESSAGE_TO_CONVERSATION,    
     INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
 
     SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
@@ -89,6 +90,13 @@ export const setIsScrolling = () => {
 export const addMessageInCurrentConversation = data => {
     return {
         type: ADD_MESSAGE_TO_CURRENT_CONVERSATION,
+        payload: data
+    };
+}
+
+export const addPartnerMessageInConversation = data => {
+    return {
+        type: ADD_PARTNER_MESSAGE_TO_CONVERSATION,
         payload: data
     };
 }

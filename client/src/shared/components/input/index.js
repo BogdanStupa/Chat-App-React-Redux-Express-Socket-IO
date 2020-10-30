@@ -45,7 +45,7 @@ const InputFormComponent = (props, ref) => {
             return false;
         }
         return true;
-     }
+    }
 
     return (
         <div 
@@ -75,6 +75,7 @@ const InputFormComponent = (props, ref) => {
                         placeholder={placeholder}
                         disabled={isFetching}
                         maxLength={maxLength}
+                        autoFocus={autoFocus}
                         name={name}
                         style={{
                             minHeight:height,

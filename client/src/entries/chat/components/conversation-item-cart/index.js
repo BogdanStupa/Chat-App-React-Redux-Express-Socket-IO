@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { 
     conversationItemSelector,
-    currentConversationItemSelector
+    currentConversationItemSelector,
+    unreadMessagesSelector
  } from "selectors";
 import ConversationItemCart from "./conversation-item-cart-component";
 
@@ -14,10 +15,10 @@ const ConversationItemCartContainer = props => {
         token
     } = props;
     const activeConversationId = useSelector(state => currentConversationItemSelector(state,"conversationId"));
-    const unreadMessages = useSelector(state => currentConversationItemSelector(state, "unreadMessages"));
-    const item = useSelector(state => conversationItemSelector(state, id));
-
-    return (
+    const item = useSelector(state => conversationItemSelector(state, id)) || {};
+    const unreadMessages = useSelector(state => unreadMessagesSelector(state,id));
+    
+    return (    
         <ConversationItemCart
             id={id}
             unreadMessages={unreadMessages}

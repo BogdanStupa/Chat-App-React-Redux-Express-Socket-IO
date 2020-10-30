@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from "redux-saga/effects";
+import { put, call, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 import { POST_MESSAGE_REQUEST } from "redux/constants/message";
 import {
@@ -34,7 +34,8 @@ function fetchPostMessage(data){
         payload: {
             partnerId,
             message,
-            token
+            token,
+            conversationId
         }
     }
 */
@@ -42,7 +43,8 @@ function* postMessageWorker(props){
     try{
         const { data } = yield call(fetchPostMessage, props.payload);
         yield put(postMessageSuccess());
-        yield put(addMessageInCurrentConversation(data.resultAddMessage));
+        const conversationId = props.payload.conversationId;
+        yield put(addMessageInCurrentConversation({ ...data.resultAddMessage, conversationId }));
     }catch(error){
         yield put(postMessageFail());
     }
@@ -50,7 +52,7 @@ function* postMessageWorker(props){
 
 
 const sagas = [
-    takeLatest(POST_MESSAGE_REQUEST, postMessageWorker)
+    takeEvery(POST_MESSAGE_REQUEST, postMessageWorker)
 ];
 
 

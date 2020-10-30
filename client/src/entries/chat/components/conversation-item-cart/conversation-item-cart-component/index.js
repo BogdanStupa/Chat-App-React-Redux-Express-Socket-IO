@@ -36,7 +36,7 @@ const ConversationItemCart = props => {
             tabIndex="0"
             onClick={handleClickItem}
             style={{
-                height:profile.height
+                height:profile.height + 5  
             }}
         >
             <ProfileCircle
@@ -51,7 +51,13 @@ const ConversationItemCart = props => {
                 
                 <div className="conversation-item-cart-header">
                     <div style={{fontSize: 16, fontWeight: "bold"}}>{nickname}</div>
-                    <div>{message.dateTime ? toConversationDate(message.dateTime) : null}</div>
+                    <div style={{
+                            maxWidth:"3rem",
+                            
+                        }}
+                    >
+                        {message.dateTime ? toConversationDate(message.dateTime) : null}
+                        </div>
                 </div>
                 <div className="conversation-item-cart-last-message-container">
                     <div className="conversation-item-cart-last-message">{message.messageText}</div>

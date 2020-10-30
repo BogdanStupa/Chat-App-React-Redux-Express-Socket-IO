@@ -50,7 +50,7 @@ export const postMessage = async (req, res) => {
             }
         );
         
-        await findConversationAndUpdate({
+        const partnerConversation =  await findConversationAndUpdate({
                 ownerId: receivedId,
                 partnerId: senderId,
             },{
@@ -69,7 +69,10 @@ export const postMessage = async (req, res) => {
         global.io.to(receivedId).emit("message.new",{
             senderId,
             message: model.message,
-            dateTime: model.dateTime
+            dateTime: model.dateTime,
+            _id: resultAddMessage._id,
+            conversationId: partnerConversation._id,
+            unreadMessages: partnerConversation.unreadMessages + 1
         });
 
         res.status(200)

@@ -8,7 +8,8 @@ import {
     sendUpdateCurrentConversationRequest
  } from "redux/actions/conversation";
 import {
-    currentConversationItemSelector
+    currentConversationItemSelector,
+    unreadMessagesSelector          
 } from "selectors";
 
 
@@ -62,7 +63,6 @@ const MessageListContainer = props => {
     const styles = classNames({
         "message-list-container":true
     });
-
 
     return (
         <div id="messageListContainer" className={styles}>

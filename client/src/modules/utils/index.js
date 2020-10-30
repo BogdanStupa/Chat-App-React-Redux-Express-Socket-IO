@@ -49,14 +49,11 @@ export const toConversationDate = date => {
     const diffD = moment(moment.utc().toDate()).diff(date, "days");
     const diffH = moment(moment.utc().toDate()).diff(date, "hours");
 
-    if(diffH <= 0){
-        return moment(date).fromNow(true);
-    }
-    if( diffD <= 0){
+    if(diffH <= 0 || diffD <= 0){
         return moment(date).format("HH:mm");
     }
     if(diffD <= 6){
-        return diffD === 1 ? "yesterday" : moment(date).format("dddd");
+        return moment(date).format("DD/MM HH:mm");
     }
-    return moment(date).format('DD/MM/YYYY');
+    return moment(date).format("DD/MM/YYYY HH:mm");
 }

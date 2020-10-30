@@ -12,6 +12,7 @@ import {
     GET_CURRENT_CONVERSATION_NO,
 
     ADD_MESSAGE_TO_CURRENT_CONVERSATION,
+    ADD_PARTNER_MESSAGE_TO_CONVERSATION,
     INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
 
     SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
@@ -50,13 +51,12 @@ const initialState = {
     currentConversation: {
         isFetching: false,
         isActive: false,
-        isScrolling: true,
         isUpdating: false,
         partnerNickname: null,
         partnerProfileColor: null,
         partnerId:null,
         conversationId: null,
-        unreadMessages: null,
+        unreadMessages: 0,
         conversationMessages: []
     }
 };
@@ -137,20 +137,67 @@ const conversationsReducer = (state = initialState, action) => {
         case ADD_MESSAGE_TO_CURRENT_CONVERSATION:
             return {
                 ...state,
-                currentConversation:{
+                conversationItemsArray:{
+                    ...state.conversationItemsArray,
+                    [action.payload.conversationId]:{
+                        ...state.conversationItemsArray[action.payload.conversationId],
+                        unreadMessages: 0,
+                        partner: {
+                            ...state.conversationItemsArray[action.payload.conversationId].partner,
+                            lastMessage: {
+                                ...state.conversationItemsArray[action.payload.conversationId].partner.lastMessage,
+                                message: action.payload.message,
+                                _id: action.payload._id,
+                                dateTime: action.payload.dateTime
+                            }
+                        }
+                    }
+                },
+                currentConversation: {
                     ...state.currentConversation,
-                    conversationMessages: [...state.currentConversation.conversationMessages, action.payload]
+                    unreadMessages: 0,
+                    conversationMessages: [...state.currentConversation.conversationMessages, { 
+                        message: action.payload.message,
+                        _id: action.payload._id,
+                        dateTime: action.payload.dateTime,
+                        senderId: action.payload.senderId
+                    }]
                 }
             };
         
-        case SET_IS_SCROLLING_IN_CONVERSATIONS:
+        case ADD_PARTNER_MESSAGE_TO_CONVERSATION:
+            console.log(action.payload);
             return {
-                ...state, 
-                currentConversation: {
+                ...state,
+                conversationItemsArray: {
+                    ...state.conversationItemsArray,
+                    [action.payload.conversationId]: {
+                        ...state.conversationItemsArray[action.payload.conversationId],
+                        _id: action.payload.conversationId,
+                        unreadMessages: action.payload.unreadMessages,
+                        partner: {
+                            ...state.conversationItemsArray[action.payload.conversationId].partner,
+                            lastMessage: {
+                                ...state.conversationItemsArray[action.payload.conversationId].partner.lastMessage,
+                                message: action.payload.message,
+                                _id: action.payload._id,
+                                dateTime: action.payload.dateTime
+                            }
+                        }
+                    }
+                },
+                currentConversation: state.currentConversation.conversationId == action.payload.conversationId ? {
                     ...state.currentConversation,
-                    isScrolling: false
-                }
+                    unreadMessages: action.payload.unreadMessages,
+                    conversationMessages: [...state.currentConversation.conversationMessages, { 
+                        message: action.payload.message,
+                        _id: action.payload._id,
+                        dateTime: action.payload.dateTime,
+                        senderId: action.payload.senderId
+                    }]
+                } : state.currentConversation
             };
+        
 
         case SEND_UPDATE_CURRENT_CONVERSATION_REQUEST:
             return {

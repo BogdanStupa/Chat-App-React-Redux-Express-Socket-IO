@@ -1,12 +1,19 @@
 import socketIOClient from "socket.io-client";
-import constants from "modules/constants";
-import { put, call, takeLatest, cancel, fork } from "redux-saga/effects";
+import { put, call, takeLatest, cancel, fork, take, takeEvery } from "redux-saga/effects";
+import { eventChannel } from "redux-saga";
 import { START_CHANEL, STOP_CHANEL } from "redux/constants/socket";
 import { 
+    startChanel,
     stopChanel,
     serverOn,
     serverOff
  } from "redux/actions/socket";
+ import {
+    addPartnerMessageInConversation,
+    addMessageInCurrentConversation
+ } from "redux/actions/conversation";
+import constants from "modules/constants";
+
 
 const ROOT_URL = constants.API.ROOT;
 
@@ -20,20 +27,42 @@ const connectSocket = () => {
     });
 }
 
-function* readMessages(socket) {
-    socket.on("message.new", data => {
-        console.log(data);
-        //add messages
+function subscribe(socket){
+    return eventChannel(emmit => {
+        socket.on("message.new", data => {
+            emmit(addPartnerMessageInConversation(data));
+         });
+        socket.on("disconnect", () => {
+            emmit(startChanel());
+        });
+
+        return () => {};
     });
 }
 
+function* read(socket) {
+    try{
+        const channel = yield call(subscribe, socket); 
+        while(true){
+            const action = yield take(channel);
+            yield put(action);
+        }
+    }catch(error){
+
+    } 
+}
+
 function* startChat(socket, userId) {
-    yield socket.emit("start-chat", userId);
+    try{
+        yield socket.emit("start-chat", userId);
+    } finally{
+
+    }
 }
 
 function* handleIO(socket, userId){
     yield fork(startChat, socket, userId);
-    yield fork(readMessages, socket);
+    yield fork(read, socket);
 }
 
 function* startChanelWorker(props){
