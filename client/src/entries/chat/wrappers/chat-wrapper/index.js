@@ -1,5 +1,4 @@
 import React from "react";
-import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
 import {
     UserInfoComponent
@@ -17,42 +16,22 @@ import constants from "modules/constants";
 import {
     postMessageRequest
 } from "redux/actions/message";
+import { 
+    currentConversationProfileInfoSelector
+ } from "./selector";
+ import {
+    isFetchingOfConversationsSelector,
+    currentConversationItemSelector
+ } from "selectors";
 
-
-const currentConversationIsActiveSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation => currentConversation.isActive
-);
-
-const currentConversationIsFetchingSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation => currentConversation.isFetching
-);
-
-const currentConversationProfileInfoSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation => {
-        return {
-            partnerNickname: currentConversation.partnerNickname,
-            partnerProfileColor: currentConversation.partnerProfileColor
-
-        }
-    }
-);
 
 
 const ChatWrapper = () => {
     const { _id } = getUser() || {};
     const { token } = getToken() || {};
 
-    const isActive = useSelector(state => currentConversationIsActiveSelector(state));
-    const isFetching = useSelector(state => currentConversationIsFetchingSelector(state));
+    const isActive = useSelector(state => currentConversationItemSelector(state, "isActive"));
+    const isFetching = useSelector(state => isFetchingOfConversationsSelector(state));
     const partnerProfileInfo = useSelector(state => currentConversationProfileInfoSelector(state));
 
     const dispatch = useDispatch();
@@ -63,10 +42,11 @@ const ChatWrapper = () => {
         }    
     }
 
+    console.log("CHAT WRAPPER");
     return (
         <div className="chat-wrapper">
             {   
-                isActive 
+                isActive
                 ? (<div className="chat-container">
                     <header className="chat-header">
                         <UserInfoComponent
@@ -92,7 +72,7 @@ const ChatWrapper = () => {
                                 <section className="chat-conversation">
                                     <MessageListContainer
                                         userId={_id}
-                                        unreadMessages
+                                        token={token}
                                     />
 
                                 </section>

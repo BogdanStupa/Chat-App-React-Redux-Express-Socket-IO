@@ -4,6 +4,7 @@ import authSagas from "redux/sagas/auth";
 import contactSaga from "redux/sagas/contact";
 import conversationSagas from "redux/sagas/conversation";
 import messageSagas from "./message";
+import socketSagas from "./socket";
 
 
 export default function* rootSaga(){
@@ -12,6 +13,7 @@ export default function* rootSaga(){
         ...authSagas,
         ...contactSaga,
         ...conversationSagas,
-        ...messageSagas
+        ...messageSagas,
+        ...socketSagas
     ]);
 }

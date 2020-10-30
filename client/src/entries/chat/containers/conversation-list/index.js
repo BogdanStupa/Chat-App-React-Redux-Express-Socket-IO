@@ -1,19 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import { ConversationItemCart } from "entries/chat/components";
+import { ConversationItemCartContainer } from "entries/chat/components";
+import { 
+    isFetchingOfConversationsSelector,
+    idConversationsSelector 
+} from "selectors";
 
-const currentConversationIsActiveSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation => currentConversation.isActive ? currentConversation.conversationId : null
-);
+
 
 const ConversationList = props => {
     const {
-        items,
-        isFetching,
         onClickItem,
         onDeleteItem,
         token
@@ -37,36 +33,18 @@ const ConversationList = props => {
     *       }
     *   ]
     */
-    const activeConversationId = useSelector(state => currentConversationIsActiveSelector(state));
-
-    console.log("CONVERSATION LIST");
-
+    const isFetching = useSelector(state => isFetchingOfConversationsSelector(state));
+    const items = useSelector(state => idConversationsSelector(state));
     return (
         <div className="chat-lists">
             {
                 !isFetching 
                 ? 
                     items.map(item => 
-                        <ConversationItemCart
-                                key={item._id}
-                                id={item._id}
-                                unreadMessages={item.unreadMessages}
-                                profile={{
-                                    label: item.partner.nickname,
-                                    backgroundColor: item.partner.profileColor,
-                                    width: 45,
-                                    height: 45,
-                                    fontSize: 24
-                                }}
-                                message={{
-                                    messageText: item.partner.lastMessage ? item.partner.lastMessage.message : "no messages yet...",
-                                    dateTime: item.partner.lastMessage ? item.partner.lastMessage.dateTime : null
-                                }} 
-                                partnerId={item.partner.partnerId}
-                                unreadMessages={item.unreadMessages}
-                                nickname={item.partner.nickname}
+                        <ConversationItemCartContainer
+                                key={item}
+                                id={item}
                                 onClickItem={onClickItem}
-                                isActive={item._id === activeConversationId ? true : false}
                                 token={token}
                         /> 
                     )

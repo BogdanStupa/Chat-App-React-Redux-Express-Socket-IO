@@ -1,0 +1,46 @@
+.conversation-item-cart-component {
+    width: 100%;
+    display: flex;
+    margin-top: .2rem;
+    background-color: $default-color;
+    .conversation-item-cart-container {
+        padding-left: .5rem;
+        display: flex;
+        flex-direction: column;
+        .conversation-item-cart-header {
+            width: 100%;
+            font-size: .8em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .conversation-item-cart-last-message-container {
+            display: flex;
+            justify-content: space-between;
+            .conversation-item-cart-last-message {
+                opacity: .8;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;       
+            }
+            .conversation-item-cart-unread-messages{
+                width: auto;
+                min-width: 1.2rem;
+                height: auto;
+                background-color: red;
+                border-radius: 50%;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    &:hover {
+        background-color: $app-border-color;
+    }
+    &.isActive{
+        background-color: $header-color;
+        outline: none;
+    }
+}

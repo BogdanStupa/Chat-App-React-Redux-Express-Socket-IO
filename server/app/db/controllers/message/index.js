@@ -66,9 +66,16 @@ export const postMessage = async (req, res) => {
             }
         );
 
+        global.io.to(receivedId).emit("message.new",{
+            senderId,
+            message: model.message,
+            dateTime: model.dateTime
+        });
+
         res.status(200)
             .json({
-                success: true
+                success: true,
+                resultAddMessage 
             });
 
     }catch(error){

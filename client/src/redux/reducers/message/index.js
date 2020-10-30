@@ -6,7 +6,7 @@ import {
 import { RESET } from "redux/constants/main";
 
 const initialState = {
-    isFetching: false
+    isSendingMessage: false
 }
 
 const messageReducer = (state=initialState, action) => {
@@ -14,19 +14,19 @@ const messageReducer = (state=initialState, action) => {
         case POST_MESSAGE_REQUEST:
             return {
                 ...state,
-                isFetching: true
+                isSendingMessage: true
             };
         
         case POST_MESSAGE_SUCCESS:
                 return {
                     ...state,
-                    isFetching: false
+                    isSendingMessage: false
                 };
 
         case POST_MESSAGE_FAIL:
                 return {
                     ...state,
-                    isFetching: false
+                    isSendingMessage: false
                 };
 
         case RESET:

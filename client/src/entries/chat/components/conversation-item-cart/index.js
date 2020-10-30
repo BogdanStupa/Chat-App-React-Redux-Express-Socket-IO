@@ -1,72 +1,45 @@
 import React from "react";
-import classNames from "classnames";
-import { ProfileCircle } from "shared/components";
-import { toConversationDate } from "modules/utils";
+import { useSelector } from "react-redux";
+import { 
+    conversationItemSelector,
+    currentConversationItemSelector
+ } from "selectors";
+import ConversationItemCart from "./conversation-item-cart-component";
 
 
-const ConversationItemCart = props => {
+const ConversationItemCartContainer = props => {
     const {
-        profile,
-        message,
-        unreadMessages,
-        nickname,
-        partnerId,
         onClickItem,
         id,
-        isActive,
         token
     } = props;
+    const activeConversationId = useSelector(state => currentConversationItemSelector(state,"conversationId"));
+    const unreadMessages = useSelector(state => currentConversationItemSelector(state, "unreadMessages"));
+    const item = useSelector(state => conversationItemSelector(state, id));
 
-    console.log("CONVERSATION ITEM CART", nickname);
-
-    const handleClickItem = () => onClickItem({
-                                    conversationId: id,
-                                    nickname,
-                                    profileColor: profile.backgroundColor,
-                                    partnerId: partnerId,
-                                    unreadMessages,
-                                    token
-                                });
-
-    const styles = classNames({
-        "conversation-item-cart-component": true,
-        "isActive": isActive
-    });
-    
     return (
-        <div 
-            className={styles}
-            tabIndex="0"
-            onClick={handleClickItem}
-            style={{
-                height:profile.height
+        <ConversationItemCart
+            id={id}
+            unreadMessages={unreadMessages}
+            profile={{
+                label: item.partner.nickname,
+                backgroundColor: item.partner.profileColor,
+                width: 45,
+                height: 45,
+                fontSize: 24
             }}
-        >
-            <ProfileCircle
-                profile={profile}
-            />  
-            <div 
-                className="conversation-item-cart-container"
-                style={{
-                    width:`calc(100% - ${profile.width}px)`
-                }}    
-            >
-                
-                <div className="conversation-item-cart-header">
-                    <div style={{fontSize: 16, fontWeight: "bold"}}>{nickname}</div>
-                    <div>{message.dateTime ? toConversationDate(message.dateTime) : null}</div>
-                </div>
-                <div className="conversation-item-cart-last-message-container">
-                    <div className="conversation-item-cart-last-message">{message.messageText}</div>
-                    {
-                        unreadMessages ? <div className="conversation-item-cart-unread-messages">{unreadMessages}</div> : null 
-                    }
-                     </div>
-
-            </div>
-
-        </div>
+            message={{
+                messageText: item.partner.lastMessage ? item.partner.lastMessage.message : "no messages yet...",
+                dateTime: item.partner.lastMessage ? item.partner.lastMessage.dateTime : null
+            }} 
+            partnerId={item.partner.partnerId}
+            unreadMessages={item.unreadMessages}
+            nickname={item.partner.nickname}
+            onClickItem={onClickItem}
+            isActive={item._id === activeConversationId ? true : false}
+            token={token}
+        /> 
     );
 }   
 
-export default ConversationItemCart;
+export default ConversationItemCartContainer;

@@ -3,13 +3,19 @@ import {
     GET_CONVERSATIONS_SUCCESS,
     GET_CONVERSATIONS_FAIL,
     
-    SET_UNREAD_MESSAGES_INCONVERSATIONS,
-    SET_IS_SCROLLING_INCONVERSATIONS,
+    SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
+    SET_IS_SCROLLING_IN_CONVERSATIONS,
 
     GET_CURRENT_CONVERSATION_REQUEST,
     GET_CURRENT_CONVERSATION_SUCCESS,
     GET_CURRENT_CONVERSATION_FAIL,
-    GET_CURRENT_CONVERSATION_NO
+    GET_CURRENT_CONVERSATION_NO,
+
+    ADD_MESSAGE_TO_CURRENT_CONVERSATION,
+    INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
+
+    SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
+    SEND_UPDATE_CURRENT_CONVERSATION_DONE
 } from "redux/constants/conversation";
 import {
     RESET
@@ -17,11 +23,12 @@ import {
 
 
 const initialState = {
-    conversationItems: {
-        isFetching: false,
-        conversationItemsArray: []
-        /*
-            conversationItemsArray = [{
+    isFetching: false,
+    conversationItemsArray: {},
+    idConversations: [],
+    /*
+        conversationItemsArray = {
+            _id: {
                 unreadMessages: integer,
                 _id: string,
                 partner: {
@@ -34,13 +41,17 @@ const initialState = {
                         dateTime: data
                     }
                 }
-            }]    
-        */
-    },
+            }
+        }, 
+        idConversations: [{
+                _id: string,    
+        }] 
+    */
     currentConversation: {
         isFetching: false,
         isActive: false,
         isScrolling: true,
+        isUpdating: false,
         partnerNickname: null,
         partnerProfileColor: null,
         partnerId:null,
@@ -52,56 +63,45 @@ const initialState = {
 
 const conversationsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CONVERSATIONS_REQUEST:        
+        case GET_CONVERSATIONS_REQUEST: 
             return {
                 ...state,
-                ...state.conversations,
-                conversationItems: {
-                    isFetching: true
-                }
+                isFetching: true
             };
-            
-        case GET_CONVERSATIONS_SUCCESS: 
+
+        case GET_CONVERSATIONS_SUCCESS:
             return {
                 ...state,
-                ...state.conversations,
-                conversationItems: {
-                    isFetching: false,
-                    conversationItemsArray: action.payload
-                }
+                isFetching: false,
+                conversationItemsArray: action.payload.conversationItemsArray,
+                idConversations: action.payload.idConversations
             };
 
         case GET_CONVERSATIONS_FAIL:
             return {
                 ...state,
-                ...state.conversations,
-                conversationItems: {
-                    isFetching: false,
-                    errors: action.payload,
-                    conversationItemsArray: []
-                }
+                isFetching: false,
+                errors: action.payload,
+                conversationItemsArray: []
             };
             
-        case SET_UNREAD_MESSAGES_INCONVERSATIONS: 
+        case SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION:
             return {
-                ...state,                 
-                conversationItems: {
-                    ...state.conversationItems,
-                    conversationItemsArray: state.conversationItems.conversationItemsArray
-                        .map(item => 
-                            item._id === action.payload.conversationId ? { 
-                                ...item, 
-                                unreadMessages: action.payload.unreadMessages 
-                            } : item
-                        )
+                ...state,
+                conversationItemsArray: {
+                    ...state.conversationItemsArray,
+                    [action.payload.conversationId]: { 
+                        ...state.conversationItemsArray[action.payload.conversationId], 
+                        unreadMessages: action.payload.unreadMessages 
+                    }
                 }
             };
 
-        case GET_CURRENT_CONVERSATION_REQUEST: 
+        case GET_CURRENT_CONVERSATION_REQUEST:
             return {
                 ...state,
-                ...state.conversations,
                 currentConversation: {
+                    ...state.currentConversation,
                     isFetching: true,
                     isActive: true,
                     partnerNickname: action.payload.nickname,
@@ -133,8 +133,17 @@ const conversationsReducer = (state = initialState, action) => {
                     errors: action.payload
                 }
             }; 
+
+        case ADD_MESSAGE_TO_CURRENT_CONVERSATION:
+            return {
+                ...state,
+                currentConversation:{
+                    ...state.currentConversation,
+                    conversationMessages: [...state.currentConversation.conversationMessages, action.payload]
+                }
+            };
         
-        case SET_IS_SCROLLING_INCONVERSATIONS:
+        case SET_IS_SCROLLING_IN_CONVERSATIONS:
             return {
                 ...state, 
                 currentConversation: {
@@ -143,11 +152,26 @@ const conversationsReducer = (state = initialState, action) => {
                 }
             };
 
+        case SEND_UPDATE_CURRENT_CONVERSATION_REQUEST:
+            return {
+                ...state, 
+                currentConversation: {
+                    ...state.currentConversation,
+                    isUpdating: true
+                }
+            };
+        case SEND_UPDATE_CURRENT_CONVERSATION_DONE:
+                return {
+                    ...state, 
+                    currentConversation: {
+                        ...state.currentConversation,
+                        isUpdating: false
+                    }
+                };
 
         case GET_CURRENT_CONVERSATION_NO: 
             return {
                 ...state,
-                ...state.conversations,
                 currentConversation: {
                     isFetching: false,
                     isActive: false

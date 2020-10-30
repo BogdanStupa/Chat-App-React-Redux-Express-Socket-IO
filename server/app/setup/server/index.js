@@ -1,6 +1,8 @@
 import http from "http";
 import bodyParser from "body-parser";
 import cors from "cors";
+import socketIO from "socket.io";
+import jwt from "jsonwebtoken";
 
 import constants from "../../modules/constants";
 import logger from "../../modules/winston";
@@ -21,18 +23,32 @@ export default (app) => {
     expressRoutes(app);
 
     app.get("/", (req, res) => {
-        res.end("test app");
+        res.send({response:  "test app" }).status(200);
     });
 
     app.post("/test", (req, res) => {
         console.log(req.headers);
         res.send();
     });
+    
+    global.io = socketIO(server);
+
+    global.io.on("connection", (socket) => {
+        console.log("New client connected", socket.id);
+
+        socket.on("start-chat", userId => {
+            console.log("USER_ID", userId);
+            socket.join(`${userId}`);
+        });
+
+        socket.on("disconnect",() =>{
+            console.log("Client disconnected");
+        });
+    }); 
 
     server.listen(port, () => {
         logger.info(`HTTP Server: Listering on http://${httpId}:${port}`);
     });
-
 
 
     return server;

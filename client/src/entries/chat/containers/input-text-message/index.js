@@ -1,17 +1,13 @@
 import React, {useState } from "react";
 import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
 import {
     InputFormComponent
 } from "shared/components";
+import {
+    currentConversationItemSelector,
+    isSendingMessageSelector
+} from "selectors";
 
-
-const conversationPartnerIdSelector = createSelector(
-    [
-        state => state.conversations.currentConversation.partnerId
-    ],
-    partnerId => partnerId
-);
 
 const InputTextMessage = props => {
     const {
@@ -19,7 +15,8 @@ const InputTextMessage = props => {
         keyDown
     } = props;
 
-    const partnerId = useSelector(state => conversationPartnerIdSelector(state));
+    const partnerId = useSelector(state => currentConversationItemSelector(state, "partnerId"));
+    const isFetchingMessage = useSelector(state => isSendingMessageSelector(state));   
     const [message, setMessage] = useState("");
 
     const onKeyDown = () => {
@@ -34,6 +31,7 @@ const InputTextMessage = props => {
                 keyDown={onKeyDown} 
                 onChange={handleChangeValue} 
                 value={message}
+                isFetching={isFetchingMessage}
             />
 }
 

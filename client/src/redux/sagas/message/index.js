@@ -5,6 +5,9 @@ import {
     postMessageSuccess,
     postMessageFail
 } from "redux/actions/message";
+import { 
+    addMessageInCurrentConversation
+ } from "redux/actions/conversation";
 import constants from "modules/constants";
 
 
@@ -38,8 +41,8 @@ function fetchPostMessage(data){
 function* postMessageWorker(props){
     try{
         const { data } = yield call(fetchPostMessage, props.payload);
-        console.log(data);
         yield put(postMessageSuccess());
+        yield put(addMessageInCurrentConversation(data.resultAddMessage));
     }catch(error){
         yield put(postMessageFail());
     }

@@ -6,9 +6,17 @@ import {
     GET_CURRENT_CONVERSATION_SUCCESS,
     GET_CURRENT_CONVERSATION_FAIL,
     GET_CURRENT_CONVERSATION_NO,
-    SET_UNREAD_MESSAGES_INCONVERSATIONS,
-    SET_IS_SCROLLING_INCONVERSATIONS
+
+    SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
+    SET_IS_SCROLLING_IN_CONVERSATIONS,
+
+    ADD_MESSAGE_TO_CURRENT_CONVERSATION,    
+    INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
+
+    SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
+    SEND_UPDATE_CURRENT_CONVERSATION_DONE,
 } from "redux/constants/conversation";
+
 
 export const getConversationsRequest = token => {
     return {
@@ -59,16 +67,54 @@ export const getCurrentConversationNo = () => {
     };
 }
 
-export const setUnreadMessagesInConversationsRequest = data => {
+
+
+
+export const setUnreadMessagesInCurrentConversationRequest = data => {
     return {
-        type: SET_UNREAD_MESSAGES_INCONVERSATIONS,
+        type: SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
         payload: data
     };
 }
 
-export const setIsScrollingRequest = () => {
+export const setIsScrolling = () => {
     return {
-        type: SET_IS_SCROLLING_INCONVERSATIONS,
+        type: SET_IS_SCROLLING_IN_CONVERSATIONS,
+    };
+}
+
+
+
+
+export const addMessageInCurrentConversation = data => {
+    return {
+        type: ADD_MESSAGE_TO_CURRENT_CONVERSATION,
+        payload: data
+    };
+}
+
+export const incrementUnreadMessagesInCurrentConversation = () => {
+    return {
+        type: INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION
+    };
+}
+/*
+    data: {
+        partnerId,
+        unreadMessages: int,
+        token
+    }
+*/
+export const sendUpdateCurrentConversationRequest = data => {
+    return {
+        type: SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
+        payload: data
+    };
+}
+
+export const sendUpdateCurrentConversationDone = () => {
+    return {
+        type: SEND_UPDATE_CURRENT_CONVERSATION_DONE
     };
 }
 

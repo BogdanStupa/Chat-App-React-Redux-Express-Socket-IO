@@ -2,13 +2,15 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import {
     GET_CONVERSATIONS_REQUEST,
-    GET_CURRENT_CONVERSATION_REQUEST
+    GET_CURRENT_CONVERSATION_REQUEST,
+    SEND_UPDATE_CURRENT_CONVERSATION_REQUEST
 } from "redux/constants/conversation";
 import {
     getConversationsSuccess,
     getConversationsFail,
     getCurrentConversationSuccess,
-    getCurrentConversationFail
+    getCurrentConversationFail,
+    sendUpdateCurrentConversationDone
 } from "redux/actions/conversation";
 import constants from "modules/constants";
 
@@ -35,11 +37,34 @@ function fetchMessagesOfConversation(data){
     });
 }
 
+function fetchSendingUpdateConversaion(data){;
+    return axios.put(CONVERSATIONS_URL, 
+        {
+            _id: data.partnerId,
+            conversation:{  
+                unreadMessages: data.unreadMessages
+            }
+        },
+        {
+            headers: {
+                "Authorization": data.token,
+            }
+        }
+    );
+}
+
 
 function* getConversationsWorker(props) {
     try{
-        const { data: { conversations } } = yield call(fetchGetConversations, props.payload);   
-        yield put(getConversationsSuccess(conversations));
+        const { data: { conversations } } = yield call(fetchGetConversations, props.payload);  
+        const idConversations = conversations.map(item => item._id);
+        const conversationItemsArray = {};
+        idConversations.forEach((item, index) => {
+            conversationItemsArray[item] = {
+                ...conversations[index]
+            }
+        });
+        yield put(getConversationsSuccess({ idConversations, conversationItemsArray }));
     }catch(error){
         yield put(getConversationsFail(error));
     }
@@ -59,9 +84,19 @@ function* getMessagesOfCurrentConversationsWorker(props){
     }
 }
 
+function* sendUpdateConversationWorker(props){
+    try {
+        yield call(fetchSendingUpdateConversaion,props.payload);
+        yield put(sendUpdateCurrentConversationDone());
+    } catch (error) {
+        yield put(sendUpdateCurrentConversationDone());
+    }
+}
+
 const sagas = [
     takeLatest(GET_CONVERSATIONS_REQUEST, getConversationsWorker),
-    takeLatest(GET_CURRENT_CONVERSATION_REQUEST, getMessagesOfCurrentConversationsWorker)
+    takeLatest(GET_CURRENT_CONVERSATION_REQUEST, getMessagesOfCurrentConversationsWorker),
+    takeLatest(SEND_UPDATE_CURRENT_CONVERSATION_REQUEST, sendUpdateConversationWorker)
 ];
 
 export default sagas;

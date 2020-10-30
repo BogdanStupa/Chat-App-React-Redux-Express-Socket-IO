@@ -34,17 +34,6 @@ const drawerNames = {
     searchContact: "searchContact"
 }
 
-const conversationSelector = createSelector(
-    [
-        state => state.conversations.conversationItems
-    ],
-    conversations => { 
-        return { 
-            conversationItems: conversations.conversationItemsArray || [],
-            isFetching: conversations.isFetching || false
-        };
-    }
-);
 
 
 const ActionWrapper = () => {
@@ -55,7 +44,7 @@ const ActionWrapper = () => {
     useEffect(() => {
         dispatch(getConversationsRequest(token));
     },[]);
-    const { conversationItems, isFetching } = useSelector(state => conversationSelector(state));
+   // const { conversationItems, isFetching } = useSelector(state => conversationSelector(state));
     /*
     *   items: [
     *       {
@@ -75,7 +64,6 @@ const ActionWrapper = () => {
     *       }
     *   ]
     */
-
     const handleLogout = () => logout();
     
     const handleOpenCotactDrawer = () => dispatch(openDrawer(drawerNames.contactList));
@@ -84,10 +72,7 @@ const ActionWrapper = () => {
     
     const handleClickConversaionItem = conversation => dispatch(getCurrentConversationRequest(conversation));
 
-    const handleDeleteConversationItem = () => {
-
-    }
-
+    const handleDeleteConversationItem = () => {}
     
     return (
         <div className="actions-wrapper">
@@ -173,8 +158,6 @@ const ActionWrapper = () => {
                 />
             </div>
             <ConversationList
-                items={conversationItems}
-                isFetching={isFetching}
                 onClickItem={handleClickConversaionItem}
                 onDeleteItem={handleDeleteConversationItem}
                 token={token}

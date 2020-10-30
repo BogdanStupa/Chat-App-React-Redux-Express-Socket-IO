@@ -1,93 +1,66 @@
 import React, { useEffect, createRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSelector } from "reselect";
 import classNames from "classnames";
 import { toConversationDate } from "modules/utils";
 import { MessageComponent } from "entries/chat/components";
 import { 
-    setUnreadMessagesInConversationsRequest,
-    setIsScrollingRequest
+    setUnreadMessagesInCurrentConversationRequest,
+    sendUpdateCurrentConversationRequest
  } from "redux/actions/conversation";
+import {
+    currentConversationItemSelector
+} from "selectors";
 
 
-const currentConversationMessagesSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation  => {
-        return { 
-            conversationMessages: currentConversation.conversationMessages,
-            unreadMessages: currentConversation.unreadMessages,
-            conversationId: currentConversation.conversationId
-        }        
-    }
-);
-// conversationMessages: [
-//     {
-//       message: string,
-//       _id: string,
-//       senderId: string,
-//       receivedId: string,
-//       dateTime: date
-//     },
-// ]
-const isScrollingSelector = createSelector(
-    [
-        state => state.conversations.currentConversation
-    ],
-    currentConversation  => currentConversation.isScrolling
-);
 
 
 const MessageListContainer = props => {
-    const { userId } = props;
-
     const { 
-        conversationMessages = [], 
-        unreadMessages = 0, 
-        conversationId
-    } = useSelector(state => currentConversationMessagesSelector(state));
-    const isScrolling = useSelector(state => isScrollingSelector(state));
+        userId,
+        token
+     } = props;
 
-    const [getElement, setGetElement] = useState(null);
-    const [refs, setRefs] = useState([]);
+    const conversationId = useSelector(state => currentConversationItemSelector(state, "conversationId"));
+    const partnerId = useSelector(state => currentConversationItemSelector(state, "partnerId"));
+    const conversationMessages = useSelector(state => currentConversationItemSelector(state, "conversationMessages")) || [];
+    // conversationMessages: [
+    //     {
+    //       message: string,
+    //       _id: string,
+    //       senderId: string,
+    //       receivedId: string,
+    //       dateTime: date
+    //     },
+    // ]
+    const unreadMessages = useSelector(state => currentConversationItemSelector(state, "unreadMessages"));
 
     const messagesLength = conversationMessages.length;
     const lastUnreadMessage = messagesLength - unreadMessages;
+    const refs = Array(messagesLength).fill().map(() => createRef());
     let unreadMessagesCount = unreadMessages;
-
-    console.log("MESSAGE LIST CONTAINER");
-
+    let DOMcontainer;
+    
     const dispatch = useDispatch();
     useEffect(() => {
-        setRefs(Array(messagesLength).fill().map(() => createRef()));
-        
-        const DOMcontainer =  document.getElementById("messageListContainer");
-        setGetElement(() => DOMcontainer);
-        if(!unreadMessages){
-            DOMcontainer.scrollTo(0,DOMcontainer.scrollHeight);
-        }
-
-        return () => {
-            //dispatch chenges on server
-        }
-
-    },[conversationMessages]);
+        DOMcontainer =  document.getElementById("messageListContainer");
+        !unreadMessages && DOMcontainer.scrollTo(0,DOMcontainer.scrollHeight);
+    },[messagesLength]);
 
 
-    const toScroll = ref => {
-        ref.current.scrollIntoView();
-        dispatch(setIsScrollingRequest());
-    }
-    
+    const toScroll = ref => ref.current.scrollIntoView();
+
     const handleVisibleMessage = () => {
         --unreadMessagesCount;
-        dispatch(setUnreadMessagesInConversationsRequest({ conversationId, unreadMessages: unreadMessagesCount }));
+        dispatch(setUnreadMessagesInCurrentConversationRequest({ conversationId, unreadMessages: unreadMessagesCount }));
+        dispatch(sendUpdateCurrentConversationRequest({
+            partnerId, 
+            unreadMessages: unreadMessagesCount,
+            token
+        }));
     }
 
     const styles = classNames({
-        "message-list-container":true,
-        "scrolling": isScrolling 
+        "message-list-container":true
     });
 
 
@@ -104,7 +77,8 @@ const MessageListContainer = props => {
                             toThisScrolling={i === lastUnreadMessage ? toScroll : null }
                             isUnreadMessage={i >= lastUnreadMessage}
                             handleVisibleMessage={handleVisibleMessage}
-                            containmentDOMRect={getElement}
+                            containmentDOMRect={DOMcontainer}
+                            id={i}
                         />
                     })
                 }

@@ -30,7 +30,7 @@ const RoutesContainer = ({ location }) => {
                         component={SignUpEntry}
                         exact
                     />
-                    <PrivateRoute path="/">
+                    <PrivateRoute exact path="/">
                         <ChatEntry/>
                     </PrivateRoute>
                 </Switch>

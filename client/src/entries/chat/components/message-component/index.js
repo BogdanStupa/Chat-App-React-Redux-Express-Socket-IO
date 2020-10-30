@@ -12,7 +12,8 @@ const MessageComponent = React.forwardRef((props, ref) => {
         date,
         toThisScrolling,
         isUnreadMessage,
-        containmentDOMRect
+        containmentDOMRect,
+        id
     } = props;  
 
     const styles=classNames({
@@ -24,6 +25,7 @@ const MessageComponent = React.forwardRef((props, ref) => {
 
     useEffect(() => {
         if(toThisScrolling && ref) {
+            console.log(toThisScrolling, ref);
             toThisScrolling(ref);
         }
     },[ref]);
@@ -34,7 +36,7 @@ const MessageComponent = React.forwardRef((props, ref) => {
             setWasNotVisible(false);
         }
     }
-
+    //console.log("MESSAGE COMPONENT", id)
     return (
         <VisibilitySensor 
             onChange={handleChangeVisibility}
