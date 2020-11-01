@@ -17,17 +17,12 @@ import {
     DrawerComponent
 } from "shared/components";
 import constants from "modules/constants";
-import {
-    getUser,
-    getToken,
-    logout
-} from "modules/utils";
 import { openDrawer } from "redux/actions/drawer";
 import {
     getConversationsRequest,
     getCurrentConversationRequest
 } from "redux/actions/conversation";
-
+import { logoutRequest } from "redux/actions/auth";
 
 const drawerNames = {
     contactList: "constactList",
@@ -36,13 +31,12 @@ const drawerNames = {
 
 
 
-const ActionWrapper = () => {
-    const { nickname, profileColor } = getUser() || {};
-    const { token } = getToken() || {};
+const ActionWrapper = ({ user }) => {
+    const { nickname, profileColor, _id } = user || {};
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getConversationsRequest(token));
+        dispatch(getConversationsRequest());
     },[]);
    // const { conversationItems, isFetching } = useSelector(state => conversationSelector(state));
     /*
@@ -64,7 +58,7 @@ const ActionWrapper = () => {
     *       }
     *   ]
     */
-    const handleLogout = () => logout();
+    const handleLogout = () => dispatch(logoutRequest({ _id }));
     
     const handleOpenCotactDrawer = () => dispatch(openDrawer(drawerNames.contactList));
 
@@ -160,7 +154,6 @@ const ActionWrapper = () => {
             <ConversationList
                 onClickItem={handleClickConversaionItem}
                 onDeleteItem={handleDeleteConversationItem}
-                token={token}
             />
             <DrawerComponent
                 drawerName={drawerNames.contactList}

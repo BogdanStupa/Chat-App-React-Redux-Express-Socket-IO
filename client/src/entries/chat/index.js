@@ -5,19 +5,22 @@ import {
     ChatWrapper
  } from "./wrappers";
  import { startChanel } from "redux/actions/socket";
-import { getUser } from "modules/utils";
+import { getUser, getToken } from "modules/utils";
 
 
 
 const ChatEntry = () => {
     const user = getUser() || {}; 
+
+    console.log("CHAT ENTRY");
+
     const dispatch = useDispatch();
     dispatch(startChanel(user._id));
-    console.log("CHAT ENTRY");
+    
     return (
         <div className="chat-entry-wrapper"> 
-            <ActionWrapper/>
-            <ChatWrapper/>
+            <ActionWrapper user={user}/>
+            <ChatWrapper user={user}/>
         </div>
     );
 }

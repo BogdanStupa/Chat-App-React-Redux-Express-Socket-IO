@@ -13,7 +13,12 @@ import {
     sendUpdateCurrentConversationDone
 } from "redux/actions/conversation";
 import constants from "modules/constants";
-
+import { 
+    refreshAccessTokenWorker 
+} from "../saga-utils";
+import {
+    getToken
+} from "modules/utils";
 
 
 const CONVERSATIONS_URL = constants.API.ROOT + constants.API.ACTIONS.CONVERSATION;
@@ -23,7 +28,7 @@ const MESSAGE_URL = constants.API.ROOT + constants.API.ACTIONS.MESSAGE;
 function fetchGetConversations(data) {
     return axios.get(CONVERSATIONS_URL, {
         headers: {
-            "Authorization": data
+            "Authorization": data.token 
         }
     });
 }
@@ -56,7 +61,10 @@ function fetchSendingUpdateConversaion(data){;
 
 function* getConversationsWorker(props) {
     try{
-        const { data: { conversations } } = yield call(fetchGetConversations, props.payload);  
+        const { token } = yield call(getToken);
+        
+        const { data: { conversations } } = yield call(fetchGetConversations, { token }); 
+
         const idConversations = conversations.map(item => item._id);
         const conversationItemsArray = {};
         idConversations.forEach((item, index) => {
@@ -66,6 +74,7 @@ function* getConversationsWorker(props) {
         });
         yield put(getConversationsSuccess({ idConversations, conversationItemsArray }));
     }catch(error){
+        yield call(refreshAccessTokenWorker, error.response, props);
         yield put(getConversationsFail(error));
     }
 }
@@ -73,22 +82,25 @@ function* getConversationsWorker(props) {
 
 function* getMessagesOfCurrentConversationsWorker(props){
     try{
-        const { 
-            token,
-            partnerId: _id
-        } = props.payload;
+        const { token } = yield call(getToken);
+        const { partnerId: _id } = props.payload;
+
         const { data: { messages } } = yield call(fetchMessagesOfConversation, {token, _id});
+        
         yield put(getCurrentConversationSuccess(messages));
     }catch(error){
+        yield call(refreshAccessTokenWorker, error.response, props);
         yield put(getCurrentConversationFail(error.message));
     }
 }
 
 function* sendUpdateConversationWorker(props){
     try {
-        yield call(fetchSendingUpdateConversaion,props.payload);
+        const { token } = yield call(getToken);
+        yield call(fetchSendingUpdateConversaion,{ token, ...props.payload });
         yield put(sendUpdateCurrentConversationDone());
     } catch (error) {
+        yield call(refreshAccessTokenWorker, error.response, props);
         yield put(sendUpdateCurrentConversationDone());
     }
 }

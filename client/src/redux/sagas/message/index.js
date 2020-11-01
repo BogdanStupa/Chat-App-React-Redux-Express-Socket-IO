@@ -9,7 +9,8 @@ import {
     addMessageInCurrentConversation
  } from "redux/actions/conversation";
 import constants from "modules/constants";
-
+import { getToken } from "modules/utils";
+import { refreshAccessTokenWorker } from "../saga-utils";
 
 const MESSAGE_URL = constants.API.ROOT + constants.API.ACTIONS.MESSAGE;
 
@@ -41,11 +42,12 @@ function fetchPostMessage(data){
 */
 function* postMessageWorker(props){
     try{
-        const { data } = yield call(fetchPostMessage, props.payload);
+        const { token } = getToken();
+        const { data } = yield call(fetchPostMessage, { token, ...props.payload });
         yield put(postMessageSuccess());
-        const conversationId = props.payload.conversationId;
-        yield put(addMessageInCurrentConversation({ ...data.resultAddMessage, conversationId }));
+        yield put(addMessageInCurrentConversation({ ...data.resultAddMessage, conversationId: props.payload.conversationId }));
     }catch(error){
+        yield call(refreshAccessTokenWorker, error.response, props);
         yield put(postMessageFail());
     }
 }

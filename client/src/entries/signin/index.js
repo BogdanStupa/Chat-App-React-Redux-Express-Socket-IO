@@ -16,9 +16,7 @@ const SignInEntry = ({ history }) => {
         SIGNUP
     } = constants.LABELS.AUTH;
 
-    const onClick = () => {
-        history.push("/signup");
-   }
+    const onClick = () => history.push("/signup");
 
     return (
         <AuthContainer

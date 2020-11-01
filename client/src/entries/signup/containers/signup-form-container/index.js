@@ -36,12 +36,9 @@ const SignUpFormContainer = React.memo((props) => {
     const isFetching = useSelector(state => state.auth.signUp.isFetching);
     const isAuth = useSelector(state => state.auth.isAuth);
 
-    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
-
     useEffect(() => {
-        if(isAuth){
-            props.history.push(redirect);
-        }
+        isAuth && props.history.push("/");
+
         return () => {};
     },[isAuth]);
 
@@ -50,6 +47,7 @@ const SignUpFormContainer = React.memo((props) => {
             nickname: data.nickname,
             password: data.password
         }));
+        props.history.push("/signin");
     }
 
     return (

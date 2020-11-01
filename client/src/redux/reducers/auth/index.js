@@ -7,7 +7,7 @@ import {
     AUTH_SIGNIN_SUCCESS,
     AUTH_SIGNIN_ERROR,
 
-    IS_AUTH
+    SET_IS_AUTH
 } from "redux/constants/auth";
 import { RESET } from "redux/constants/main";
 import Cookies from "js-cookie";
@@ -26,8 +26,6 @@ const initialState = {
     isAuth: Cookies.getJSON(constants.GLOBAL.USER_COOKIE_NAME) || null
 }
 
-console.log(Cookies.getJSON(constants.GLOBAL.TOKEN_COOKIE_NAME));
-
 const authReducer = (state = initialState, action) => {
     switch(action.type){
         //-------SIGN UP ----------------
@@ -44,8 +42,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 signUp: {
-                    isFetching: false,
-                    data: action.payload
+                    isFetching: false
                 }
             };
 
@@ -85,11 +82,11 @@ const authReducer = (state = initialState, action) => {
                 }
             };
         
-        case IS_AUTH:
+        case SET_IS_AUTH:
             return {
                 ...state,
                 ...initialState,
-                 isAuth: Cookies.getJSON(constants.GLOBAL.USER_COOKIE_NAME) || null
+                 isAuth: action.payload || null
             }    
         
         case RESET:

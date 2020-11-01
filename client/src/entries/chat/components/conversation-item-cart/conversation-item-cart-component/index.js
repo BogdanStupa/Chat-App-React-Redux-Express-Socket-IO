@@ -7,7 +7,6 @@ const ConversationItemCart = props => {
     const {
         onClickItem,
         id,
-        token,
         profile,
         partnerId,
         nickname,
@@ -21,8 +20,7 @@ const ConversationItemCart = props => {
                                     nickname,
                                     profileColor: profile.backgroundColor,
                                     partnerId: partnerId,
-                                    unreadMessages,
-                                    token
+                                    unreadMessages
                                 });
 
     const styles = classNames({

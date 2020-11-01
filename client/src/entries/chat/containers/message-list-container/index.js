@@ -8,8 +8,7 @@ import {
     sendUpdateCurrentConversationRequest
  } from "redux/actions/conversation";
 import {
-    currentConversationItemSelector,
-    unreadMessagesSelector          
+    currentConversationItemSelector          
 } from "selectors";
 
 
@@ -17,8 +16,7 @@ import {
 
 const MessageListContainer = props => {
     const { 
-        userId,
-        token
+        userId
      } = props;
 
     const conversationId = useSelector(state => currentConversationItemSelector(state, "conversationId"));
@@ -55,8 +53,7 @@ const MessageListContainer = props => {
         dispatch(setUnreadMessagesInCurrentConversationRequest({ conversationId, unreadMessages: unreadMessagesCount }));
         dispatch(sendUpdateCurrentConversationRequest({
             partnerId, 
-            unreadMessages: unreadMessagesCount,
-            token
+            unreadMessages: unreadMessagesCount
         }));
     }
 

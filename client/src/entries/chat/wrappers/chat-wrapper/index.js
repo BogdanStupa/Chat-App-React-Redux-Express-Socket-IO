@@ -7,11 +7,6 @@ import {
     MessageListContainer,
     InputTextMessage
 } from "entries/chat/containers";
-
-import {
-    getUser,
-    getToken
-} from "modules/utils";
 import constants from "modules/constants";
 import {
     postMessageRequest
@@ -26,9 +21,8 @@ import {
 
 
 
-const ChatWrapper = () => {
-    const { _id } = getUser() || {};
-    const { token } = getToken() || {};
+const ChatWrapper = ({ user }) => {
+    const { _id } = user || {};
 
     const isActive = useSelector(state => currentConversationItemSelector(state, "isActive"));
     const isFetching = useSelector(state => isFetchingOfConversationsSelector(state));
@@ -36,9 +30,9 @@ const ChatWrapper = () => {
 
     const dispatch = useDispatch();
 
-    const handleSendMessage = (partnerId, message, token, conversationId) => {
+    const handleSendMessage = (partnerId, message, conversationId) => {
         if(message){
-            dispatch(postMessageRequest({ partnerId, message, token, conversationId }));
+            dispatch(postMessageRequest({ partnerId, message, conversationId }));
         }    
     }
 
@@ -72,7 +66,6 @@ const ChatWrapper = () => {
                                 <section className="chat-conversation">
                                     <MessageListContainer
                                         userId={_id}
-                                        token={token}
                                     />
 
                                 </section>
@@ -85,7 +78,6 @@ const ChatWrapper = () => {
                                         keyDown={handleSendMessage}
                                         sendMessage
                                         autoFocus
-                                        token={token}
                                     />
                                 </footer>
                             </>

@@ -19,10 +19,11 @@ import {
 } from "redux/constants/conversation";
 
 
-export const getConversationsRequest = token => {
+export const getConversationsRequest = data => {
     return {
         type: GET_CONVERSATIONS_REQUEST,
-        payload: token
+        payload: data,
+        actionCreator: getConversationsRequest
     };
 }
 
@@ -44,7 +45,8 @@ export const getConversationsFail = error => {
 export const getCurrentConversationRequest = conversation => {
     return {
         type: GET_CURRENT_CONVERSATION_REQUEST,
-        payload: conversation
+        payload: conversation,
+        actionCreator: getCurrentConversationRequest
     };
 }
 
@@ -116,7 +118,8 @@ export const incrementUnreadMessagesInCurrentConversation = () => {
 export const sendUpdateCurrentConversationRequest = data => {
     return {
         type: SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
-        payload: data
+        payload: data,
+        actionCreator: sendUpdateCurrentConversationRequest
     };
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
     InputFormComponent
@@ -11,7 +11,6 @@ import {
 
 const InputTextMessage = props => {
     const {
-        token,
         keyDown
     } = props;
 
@@ -21,7 +20,7 @@ const InputTextMessage = props => {
     const [message, setMessage] = useState("");
 
     const onKeyDown = () => {
-        keyDown(partnerId, message, token, conversationId);
+        keyDown(partnerId, message, conversationId);
         setMessage("");
     }
 

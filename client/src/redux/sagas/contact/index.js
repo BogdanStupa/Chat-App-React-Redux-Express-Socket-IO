@@ -8,7 +8,7 @@ import {
     getContactsFail
 } from "redux/actions/contact";
 import constants from "modules/constants";
-
+import { refreshAccessToken } from "../saga-utils";
 
 const CONTACT_URL = constants.API.ROOT + constants.API.ACTIONS.CONTACT;
 

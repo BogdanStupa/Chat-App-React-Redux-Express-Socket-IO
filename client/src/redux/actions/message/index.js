@@ -7,7 +7,8 @@ import {
 export const postMessageRequest = data => {
     return {
         type: POST_MESSAGE_REQUEST,
-        payload: data
+        payload: data,
+        actionCreator: postMessageRequest
     };
 }
 

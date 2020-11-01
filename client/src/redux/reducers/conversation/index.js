@@ -166,7 +166,6 @@ const conversationsReducer = (state = initialState, action) => {
             };
         
         case ADD_PARTNER_MESSAGE_TO_CONVERSATION:
-            console.log(action.payload);
             return {
                 ...state,
                 conversationItemsArray: {

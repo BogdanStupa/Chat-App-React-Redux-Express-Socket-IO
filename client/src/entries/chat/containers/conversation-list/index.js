@@ -11,8 +11,7 @@ import {
 const ConversationList = props => {
     const {
         onClickItem,
-        onDeleteItem,
-        token
+        onDeleteItem
     } = props;
     /*
     *   items: [
@@ -45,7 +44,6 @@ const ConversationList = props => {
                                 key={item}
                                 id={item}
                                 onClickItem={onClickItem}
-                                token={token}
                         /> 
                     )
                 

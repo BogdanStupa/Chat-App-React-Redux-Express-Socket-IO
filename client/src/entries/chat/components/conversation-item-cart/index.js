@@ -11,8 +11,7 @@ import ConversationItemCart from "./conversation-item-cart-component";
 const ConversationItemCartContainer = props => {
     const {
         onClickItem,
-        id,
-        token
+        id
     } = props;
     const activeConversationId = useSelector(state => currentConversationItemSelector(state,"conversationId"));
     const item = useSelector(state => conversationItemSelector(state, id)) || {};
@@ -38,7 +37,6 @@ const ConversationItemCartContainer = props => {
             nickname={item.partner.nickname}
             onClickItem={onClickItem}
             isActive={item._id === activeConversationId ? true : false}
-            token={token}
         /> 
     );
 }   

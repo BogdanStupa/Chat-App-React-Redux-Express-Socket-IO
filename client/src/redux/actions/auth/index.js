@@ -7,7 +7,10 @@ import {
     AUTH_SIGNIN_SUCCESS,
     AUTH_SIGNIN_ERROR,
 
-    IS_AUTH
+    AUTH_LOGOUT_REQUEST,
+    AUTH_LOGOUT_DONE,
+
+    SET_IS_AUTH
 } from "redux/constants/auth";
 
 
@@ -61,8 +64,26 @@ export const signInError = (error) => {
 
 //---------------------IS AUTH------------------
 
-export const isAuth = (data) => {
+export const setIsAuth = data => {
     return {
-        type: IS_AUTH
+        type: SET_IS_AUTH,
+        payload: data
     };
 }
+
+
+
+//----------------------LOGOUT-------------------
+export const logoutRequest = data => {
+    return {
+        type: AUTH_LOGOUT_REQUEST,
+        payload: data
+    };
+}
+
+export const doneLogout = () => {
+    return {
+        type: AUTH_LOGOUT_DONE
+    };
+}
+

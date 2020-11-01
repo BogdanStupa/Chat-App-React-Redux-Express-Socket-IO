@@ -1,7 +1,8 @@
 {
     "GLOBAL":{
         "USER_COOKIE_NAME": "user",
-        "USER_COOKIE_TOKEN":"token",
+        "TOKEN_COOKIE_NAME":"token",
+        "REFRESH_TOKEN_COOKIE": "refreshToken",
         "EXPIRES": 3,
         "DOMAIN": "localhost"
     },
@@ -46,9 +47,11 @@
         "ACTIONS":{
             "AUTH_SIGNUP":"/auth/signup",
             "AUTH_SIGNIN":"/auth/signin",
+            "AUTH_LOGOUT":"/auth/logout",
             "CONVERSATION": "/secure/conversation",
             "CONTACT": "/secure/contact",
-            "MESSAGE": "/secure/message"
+            "MESSAGE": "/secure/message",
+            "REFRESH_TOKEN": "/auth/token"
         }       
     }
 }

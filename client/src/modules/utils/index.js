@@ -11,14 +11,13 @@ const getCookieJson = name => Cookies.getJSON(name);
 const removeCookie = name => Cookies.remove(name);
 
 
-export const setUser = user => setCookie(constants.GLOBAL.USER_COOKIE_NAME, user, constants.GLOBAL.EXPIRES);
+const setUser = user => setCookie(constants.GLOBAL.USER_COOKIE_NAME, user, constants.GLOBAL.EXPIRES);
 
-export const setToken = token => setCookie(constants.GLOBAL.USER_COOKIE_TOKEN, token, constants.GLOBAL.EXPIRES);
+export const setToken = token => setCookie(constants.GLOBAL.TOKEN_COOKIE_NAME, token, constants.GLOBAL.EXPIRES);
 
-export const removeUser = () => removeCookie(constants.GLOBAL.USER_COOKIE_NAME);
+const removeUser = () => removeCookie(constants.GLOBAL.USER_COOKIE_NAME);
 
-export const removeToken = () => removeCookie(constants.GLOBAL.USER_COOKIE_TOKEN);
-
+const removeToken = () => removeCookie(constants.GLOBAL.TOKEN_COOKIE_NAME);
 
 export const getUser = () => getCookieJson(constants.GLOBAL.USER_COOKIE_NAME);
 
@@ -32,11 +31,11 @@ const resetRedux = () => {
 export const logout = async () => {
     await removeUser();
     await removeToken();
-    await resetRedux();
+    return await resetRedux();
 }
 
-export const login = async (user, token) => {
-    await setToken(token);
+export const login = async (user, tokens) => {
+    await setToken({token: tokens.token, refreshToken: tokens.refreshToken });
     return await setUser(user);
 }
 
