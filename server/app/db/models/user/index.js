@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
         {
             type: contactSchema
         }
+    ],
+    refreshTokens: [
+        {
+            type: String
+        }
     ]
 });
 

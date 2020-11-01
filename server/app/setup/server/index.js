@@ -2,7 +2,6 @@ import http from "http";
 import bodyParser from "body-parser";
 import cors from "cors";
 import socketIO from "socket.io";
-import jwt from "jsonwebtoken";
 
 import constants from "../../modules/constants";
 import logger from "../../modules/winston";
@@ -22,15 +21,6 @@ export default (app) => {
     
     expressRoutes(app);
 
-    app.get("/", (req, res) => {
-        res.send({response:  "test app" }).status(200);
-    });
-
-    app.post("/test", (req, res) => {
-        console.log(req.headers);
-        res.send();
-    });
-    
     global.io = socketIO(server);
 
     global.io.on("connection", (socket) => {

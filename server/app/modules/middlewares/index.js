@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import constants from "../constants";
 
+
 const isAuth = (req, res, next) => {
     try{
         if(!req.headers.authorization){
@@ -15,7 +16,7 @@ const isAuth = (req, res, next) => {
                 next();
                 return;
             }catch(error){
-                return res.status(401)
+                return res.status(403)
                             .json({
                                 success: false,
                                 errors: constants.VALIDATION_MESSAGES.INVALID_TOKEN
@@ -28,7 +29,7 @@ const isAuth = (req, res, next) => {
                         errors: constants.VALIDATION_MESSAGES.TOKEN_IS_NOT_SUPPLIED
                     });
     }catch(error){
-        return res.status(401)
+        return res.status(500)
                     .json({
                         success: false,
                         errors: error.message

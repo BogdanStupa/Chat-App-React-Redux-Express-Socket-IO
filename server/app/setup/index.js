@@ -1,8 +1,8 @@
 import setupServer from "./server";
-import setupMongoose from "./mongoose";
+import setupMongooseChat from "./mongoose";
 
 
 export default (app) => {
     setupServer(app);
-    setupMongoose();
+    setupMongooseChat();
 }

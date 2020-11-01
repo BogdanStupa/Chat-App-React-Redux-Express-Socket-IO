@@ -4,7 +4,7 @@ import constants from "../../modules/constants";
 
 
 export default () => {
-    const URI =  constants.MONGOOSE.URL + constants.MONGOOSE.DB;
+    const URI =  constants.MONGOOSE.URL + constants.MONGOOSE.DB_CHAT;
     mongoose.connect(URI,{ 
         useCreateIndex: true,
         useNewUrlParser: true,
@@ -12,26 +12,26 @@ export default () => {
     });
 
     mongoose.connection.on("connected", () => {
-        logger.info("Mongoose: connected");
+        logger.info("Mongoose chat: connected");
     });
 
     mongoose.connection.on("open", () => {
-        logger.info("Mongoose: Connection is open");
+        logger.info("Mongoose chat: Connection is open");
     });
 
     mongoose.connection.on("reconnected", () => {
-        logger.info("Mongoose: reconnecting");
+        logger.info("Mongoose chat: reconnecting");
     });
 
     mongoose.connection.on("disconnected", () => {
-        logger.info("Mongoose: disconnect");
+        logger.info("Mongoose chat: disconnect");
     });
 
     mongoose.connection.on("close", () => {
-        logger.info("Mongoose: close seccessfully the connection");
+        logger.info("Mongoose chat: close seccessfully the connection");
     });
 
     mongoose.connection.on("error", (error) => {
-        logger.error(`Mongoose: Error. ${error}`);
+        logger.error(`Mongoose chat: Error. ${error}`);
     });
 }

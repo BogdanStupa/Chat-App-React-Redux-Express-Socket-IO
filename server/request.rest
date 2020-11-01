@@ -1,11 +1,21 @@
 
 @host=http://0.0.0.0:7000
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY3NTJiMTRiOGY1NjM3ZjBlMjBkNmM0IiwiaWF0IjoxNjA0MDEwMjU1LCJleHAiOjE2MDQwMTM4NTV9.i60u55WMRSlJTpyf_z2BtcFpF5gq1rVEonSra313CJw
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY5ZWM5NzFjNGJkNjE2NGNkZWFiODYwIiwiaWF0IjoxNjA0MjYzNDQyLCJleHAiOjE2MDQyNjcwNDJ9.xPbQcwKCm8iN9Nw8sgaRW9_yBCyfNRADC6Z2McTkkyg
 
 @name=vasyl
 
 @id=5f752b14b8f5637f0e20d6c4
+
+
+
+
+
+
+
+
+
+
 ################# Auth Route BEGIN ###################################
 
 GET {{host}}/dev/auth 
@@ -40,6 +50,23 @@ Content-Type: application/json
     "nickname": "vadum",
     "password": "vadum"
 }
+
+
+
+###
+
+POST {{host}}/auth/token
+Content-Type: application/json
+
+{
+    "refreshToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY5ZWM5NzFjNGJkNjE2NGNkZWFiODYwIiwiaWF0IjoxNjA0MjQ1MzA0fQ.MlC0qdf1sZTIhKqjgi26c9pyHZnmBRu8bO8TGLXz2ts",
+    "_id": "5f9ec971c4bd6164cdeab860"
+}
+
+###
+
+DELETE {{host}}/auth/logout/:id/:refreshToken
+Content-Type: application/json
 
 ################# Auth Route BEND ###################################
 
@@ -111,8 +138,8 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-    "_id":"5f752b14b8f5637f0e20d6c4",
-    "message": "vk;jnncdkknlkndvkcndkl))))))"
+    "_id":"5f9ec93c0f105e644f915775",
+    "message": "helloe"
 }
 
 

@@ -1,9 +1,12 @@
 import {
     addUser,
     findOneUser,
-    getAllUsers
+    getAllUsers,
+    findUserById,
+    findUserByIdAndUpdate
 } from "../../../db/repositories/user";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import constants from "../../../modules/constants";
 import { createJwtToken } from "../../../modules/utils";
 import randomColor  from "../../../modules/random-color"; 
@@ -34,21 +37,9 @@ export const postSignUp = async (req, res) => {
                 password: hashedPassword,
                 profileColor: randomColor()
             });
-            const token =  createJwtToken({
-                    nickname,
-                    _id: newUser._id
-                });
+
             if(newUser){
-                res.status(200).json({
-                    success: true,
-                    errors: {},
-                    token: `Bearer ${token}`,
-                    user: { 
-                        nickname: newUser.nickname,
-                        _id: newUser._id,
-                        profileColor: newUser.profileColor
-                    }
-                });
+                res.sendStatus(201);
             }else{
                 res.status(401).json({
                     success: false,
@@ -83,22 +74,35 @@ export const postSignIn = async (req, res) => {
             nickname,
             password
         } = req.body;
+        const user = await findOneUser({ nickname });
 
-        const user = await findOneUser({
-            nickname: nickname
-        });
         if(!user){
             throw new Error(constants.VALIDATION_MESSAGES.SUCH_USER_DOESNT_EXIST);
         }
         if(user._id && await bcrypt.compare(password, user.password)){
-            const token =  createJwtToken({
+            const accessToken =  createJwtToken({
                 nickname,
                 _id: user._id
             });
+            const refreshToken = jwt.sign({
+                nickname,
+                _id: user._id
+            }, process.env.REFRESH_TOKEN_SECRET);
+
+            //push refresh token in database 
+            await findUserByIdAndUpdate(user._id, 
+                { 
+                    $push: {
+                        refreshTokens: refreshToken
+                    } 
+                }
+            );
+            
             res.status(200).send({
                 success: true,
                 errors: {},
-                token: `Bearer ${token}`,
+                token: `Bearer ${accessToken}`,
+                refreshToken: `Bearer ${refreshToken}`,
                 user: {
                     nickname: user.nickname,
                     _id: user._id,
@@ -117,6 +121,56 @@ export const postSignIn = async (req, res) => {
             errors: error.message
         });
     } 
+}
+
+
+export const postRefreshUserToken = async (req, res) => {
+    try{
+        const { refreshToken, _id } = req.body;
+        
+        if(!refreshToken) return res.sendStatus(401);
+
+        const token = refreshToken.split(" ")[1];
+
+        const { refreshTokens } = await findUserById(_id);
+        
+        if(!refreshTokens.includes(token))return res.sendStatus(403);
+        
+        try{
+            const decode = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+            const accessToken = createJwtToken({ 
+                nickname: decode.nickname,
+                _id: decode._id
+             });
+             return res.status(201).json({ token: `Bearer ${accessToken}` });
+        }catch(error){
+            return res.sendStatus(403);
+        }
+
+    }catch(error){
+        res.sendStatus(500);
+    }
+}
+
+
+export const deleteRefreshToken = async (req, res) => {
+    try {
+        const { refreshToken, _id } = req.params;
+
+        const token = refreshToken.split(" ")[1];
+
+        const user = await findUserByIdAndUpdate(_id,
+            {
+                $pull: {
+                    refreshTokens: token
+                }
+            }
+        );
+
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(500);
+    }
 }
 
 
