@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import { compose } from "redux";
 
@@ -18,9 +18,9 @@ const InputFormComponent = (props, ref) => {
         multiline,
         placeholder,
         sendMessage,
-        
+        searchContact,
+
         errors,
-        search,
         
         iconComponent,
   
@@ -34,14 +34,14 @@ const InputFormComponent = (props, ref) => {
 
     const inputStyle = classNames({
         "input-error":errors,
-        "disabled": isFetching,
-        "search": search
+        "disabled": isFetching
     });
 
     const onKeyDown = event => {
-        if(sendMessage && event.key === "Enter" && !event.shiftKey){
+        if(event.key === "Enter" && !event.shiftKey){
             event.preventDefault();
-            keyDown();
+            sendMessage && keyDown();
+            searchContact && keyDown(event.target.value);
             return false;
         }
         return true;

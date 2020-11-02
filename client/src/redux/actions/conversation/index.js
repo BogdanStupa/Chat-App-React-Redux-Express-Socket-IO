@@ -5,7 +5,7 @@ import {
     GET_CURRENT_CONVERSATION_REQUEST,
     GET_CURRENT_CONVERSATION_SUCCESS,
     GET_CURRENT_CONVERSATION_FAIL,
-    GET_CURRENT_CONVERSATION_NO,
+    CLOSE_ACTIVE_CURRENT_CONVERSATION,
 
     SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
     SET_IS_SCROLLING_IN_CONVERSATIONS,
@@ -64,9 +64,9 @@ export const getCurrentConversationFail = error => {
     };
 }
 
-export const getCurrentConversationNo = () => {
+export const closeActiveCurrentConversation = () => {
     return {
-        type: GET_CURRENT_CONVERSATION_NO
+        type: CLOSE_ACTIVE_CURRENT_CONVERSATION
     };
 }
 
@@ -123,9 +123,10 @@ export const sendUpdateCurrentConversationRequest = data => {
     };
 }
 
-export const sendUpdateCurrentConversationDone = () => {
+export const sendUpdateCurrentConversationDone = data => {
     return {
-        type: SEND_UPDATE_CURRENT_CONVERSATION_DONE
+        type: SEND_UPDATE_CURRENT_CONVERSATION_DONE,
+        payload: data
     };
 }
 

@@ -6,20 +6,24 @@ import {
 
 
 
-const InputSearchComponent = props => {
+const InputSearchComponent = props  => {
     const {
-        fontSize
+        fontSize,
+        autoFocus,
+        keyDown
     } = props;
-    const onChange = () => {}
 
+    
     return (
         <InputFormComponent
             type="text"
             maxLength={12}
-            onChange={onChange}
             height="2.5rem"
             paddingLeft={35}
             fontSize={fontSize}
+            autoFocus={autoFocus}
+            searchContact
+            keyDown={keyDown}
             iconComponent={() => (
                 <IconComponent
                     fill="#555657"
@@ -31,6 +35,6 @@ const InputSearchComponent = props => {
             )}
         />
     );
-}
+};
 
 export default InputSearchComponent;

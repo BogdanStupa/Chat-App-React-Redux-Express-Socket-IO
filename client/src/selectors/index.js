@@ -7,6 +7,7 @@ const getConversationItems = (state) => state.conversations.conversationItemsArr
 const getIdConversations = state => state.conversations.idConversations;
 const getCurrentConversation = state => state.conversations.currentConversation;
 const getCurrentConversationItem = (state, item) => state.conversations.currentConversation[item];
+const getNewConversation = (state) => state.conversations.newConversation;
 
 export const isFetchingOfConversationsSelector = createSelector(
     [getIsFetchingOfConversations],
@@ -35,6 +36,12 @@ export const conversationItemsSelector = createSelector(
 );
 
 
+export const newConversationSelector = createSelector(
+    [getNewConversation],
+    res => res
+);
+
+
 const getIsSendingMessage = state => state.message.isSendingMessage
 
 export const isSendingMessageSelector = createSelector(
@@ -50,3 +57,27 @@ export const unreadMessagesSelector = createSelector(
     res => res
 );
 
+
+const getIsFetchingOfSearchongNewContact = state => state.contact.isFetching;
+const getContactItemSearchedContact = state => state.contact.contactItem;
+
+export const isFetchingOfSearchongNewContactSelector = createSelector(
+    [getIsFetchingOfSearchongNewContact],
+    res => res
+);
+
+export const contactItemSearchedContactSelector = createSelector(
+    [getContactItemSearchedContact],
+    res => res
+);
+
+
+
+
+
+export const isDrawerOpenSelector = createSelector(
+    [ 
+        (state,drawerName) => state.drawer[drawerName] || { [drawerName]: { isOpen: false }}
+    ],
+    drawerNames => drawerNames.isOpen || false
+);

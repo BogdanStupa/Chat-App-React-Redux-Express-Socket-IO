@@ -109,38 +109,25 @@ export const deleteContact = async (req, res) => {
         body:{}
     }
 */
-export const getContacts = async (req, res) => {
+export const getContact = async (req, res) => {
     try{
-        const { _id } = req.currentUser;
+        const { nickname } = req.params;
 
-        const user = await findUserById(_id);
-
-        if(user && user._id){
-            const contacts = await findUser({
-                    _id: { $in: user.contacts.map(item => item.contactUserId) }
-                },{
-                    password: false,
-                    contacts: false
-                }
-            );
-            res.status(200)
-                .json({
-                    success: true,
-                    result: contacts
-                });
-        }else{
-            res.status(500)
-                .json({
-                    success: false,
-                    errors:{}
-                });    
-        }    
-    }catch(error){
-        res.status(500)
+        const contact = await findOneUser({ nickname }, 
+            { 
+                refreshTokens: false,
+                password: false,
+                contacts: false, 
+                __v: false 
+            }
+        );
+        res.status(200)
             .json({
-                success: false,
-                errors: error.message
-            });
+                success: true,
+                contact
+            });    
+    }catch(error){
+        return res.sendStatus(500);
     }
 }
 

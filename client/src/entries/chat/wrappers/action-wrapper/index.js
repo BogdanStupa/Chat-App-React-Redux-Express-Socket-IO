@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createSelector } from "reselect";
+import { useDispatch } from "react-redux";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import {
@@ -8,13 +7,13 @@ import {
     InputSearchComponent
 } from "entries/chat/components";
 import {
-    ConversationList
+    ConversationList,
+    DrawerComponentContainer
 } from "entries/chat/containers";
 import {
     ButtonComponent,
     DropDownMenuComponent,
     IconComponent,
-    DrawerComponent
 } from "shared/components";
 import constants from "modules/constants";
 import { openDrawer } from "redux/actions/drawer";
@@ -38,29 +37,10 @@ const ActionWrapper = ({ user }) => {
     useEffect(() => {
         dispatch(getConversationsRequest());
     },[]);
-   // const { conversationItems, isFetching } = useSelector(state => conversationSelector(state));
-    /*
-    *   items: [
-    *       {
-    *           unreadMesages: int,
-    *           messages: array [],
-    *           _id: string,
-    *           partner: {
-    *               partnerId: string,
-    *               nickname: string,
-    *               profileColor: string,
-    *               lastMessage: {
-    *                   dataTime: data,
-    *                   message: string,
-    *                   _id: string
-    *               }
-    *           }
-    *       }
-    *   ]
-    */
+
     const handleLogout = () => dispatch(logoutRequest({ _id }));
     
-    const handleOpenCotactDrawer = () => dispatch(openDrawer(drawerNames.contactList));
+    const handleOpenContactDrawer = () => dispatch(openDrawer(drawerNames.contactList));
 
     const handleOpenSearchCotactDrawer = () => dispatch(openDrawer(drawerNames.searchContact));
     
@@ -115,7 +95,7 @@ const ActionWrapper = ({ user }) => {
                             width="2rem"
                             height="2rem"
                             link
-                            onClick={handleOpenCotactDrawer}
+                            onClick={handleOpenContactDrawer}
                         >
                             <IconComponent
                                 fill="#555657"
@@ -149,27 +129,28 @@ const ActionWrapper = ({ user }) => {
             <div>
                 <InputSearchComponent
                     fontSize={20}
+                    autoFocus
                 />
             </div>
             <ConversationList
                 onClickItem={handleClickConversaionItem}
                 onDeleteItem={handleDeleteConversationItem}
             />
-            <DrawerComponent
-                drawerName={drawerNames.contactList}
-                title={constants.LABELS.CHAT.CONTACTS}
-                icon="arrow-left"
-            >
-                
-            </DrawerComponent>
 
-            <DrawerComponent
-                drawerName={drawerNames.searchContact}
-                title={constants.LABELS.CHAT.SEARCH_CONTACT}
-                icon="arrow-left"
-            >
-                
-            </DrawerComponent>
+            <DrawerComponentContainer
+                drawerOption={{
+                    drawerName: drawerNames.searchContact,
+                    title: constants.LABELS.CHAT.SEARCH_CONTACT,
+                    icon: "arrow-left"
+                }}
+                inputOption={{
+                    fontSize: 25,
+                    autoFocus: true
+                }}
+                searchNewContact
+                handleClickContactItem={handleClickConversaionItem}
+            />
+            
 
         </div>
     )

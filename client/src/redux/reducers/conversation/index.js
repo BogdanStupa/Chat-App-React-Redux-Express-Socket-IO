@@ -4,16 +4,14 @@ import {
     GET_CONVERSATIONS_FAIL,
     
     SET_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
-    SET_IS_SCROLLING_IN_CONVERSATIONS,
 
     GET_CURRENT_CONVERSATION_REQUEST,
     GET_CURRENT_CONVERSATION_SUCCESS,
     GET_CURRENT_CONVERSATION_FAIL,
-    GET_CURRENT_CONVERSATION_NO,
+    CLOSE_ACTIVE_CURRENT_CONVERSATION,
 
     ADD_MESSAGE_TO_CURRENT_CONVERSATION,
     ADD_PARTNER_MESSAGE_TO_CONVERSATION,
-    INCREMENT_UNREAD_MESSAGES_IN_CURRENT_CONVERSATION,
 
     SEND_UPDATE_CURRENT_CONVERSATION_REQUEST,
     SEND_UPDATE_CURRENT_CONVERSATION_DONE
@@ -185,7 +183,7 @@ const conversationsReducer = (state = initialState, action) => {
                         }
                     }
                 },
-                currentConversation: state.currentConversation.conversationId == action.payload.conversationId ? {
+                currentConversation: state.currentConversation.conversationId === action.payload.conversationId ? {
                     ...state.currentConversation,
                     unreadMessages: action.payload.unreadMessages,
                     conversationMessages: [...state.currentConversation.conversationMessages, { 
@@ -207,21 +205,18 @@ const conversationsReducer = (state = initialState, action) => {
                 }
             };
         case SEND_UPDATE_CURRENT_CONVERSATION_DONE:
-                return {
-                    ...state, 
-                    currentConversation: {
-                        ...state.currentConversation,
-                        isUpdating: false
-                    }
-                };
+            return {
+                ...state, 
+                currentConversation: {
+                    ...state.currentConversation,
+                    isUpdating: false,
+                }
+            };
 
-        case GET_CURRENT_CONVERSATION_NO: 
+        case CLOSE_ACTIVE_CURRENT_CONVERSATION: 
             return {
                 ...state,
-                currentConversation: {
-                    isFetching: false,
-                    isActive: false
-                }
+                currentConversation: initialState.currentConversation
             }; 
 
         case RESET:

@@ -48,7 +48,8 @@ function fetchSendingUpdateConversaion(data){;
             _id: data.partnerId,
             conversation:{  
                 unreadMessages: data.unreadMessages
-            }
+            },
+            makeChat: data.makeChat
         },
         {
             headers: {

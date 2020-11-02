@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     UserInfoComponent
@@ -11,6 +11,9 @@ import constants from "modules/constants";
 import {
     postMessageRequest
 } from "redux/actions/message";
+import {
+    closeActiveCurrentConversation
+} from "redux/actions/conversation";
 import { 
     currentConversationProfileInfoSelector
  } from "./selector";
@@ -30,6 +33,19 @@ const ChatWrapper = ({ user }) => {
 
     const dispatch = useDispatch();
 
+    const escapeHandler = event => {
+        if(event.code === "Escape"){
+            dispatch(closeActiveCurrentConversation());
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("keydown",escapeHandler);
+        return () => {
+            window.removeEventListener("keydown", escapeHandler);
+        }
+    },[]);
+
     const handleSendMessage = (partnerId, message, conversationId) => {
         if(message){
             dispatch(postMessageRequest({ partnerId, message, conversationId }));
@@ -38,7 +54,9 @@ const ChatWrapper = ({ user }) => {
 
     console.log("CHAT WRAPPER");
     return (
-        <div className="chat-wrapper">
+        <div 
+            className="chat-wrapper"
+        >
             {   
                 isActive
                 ? (<div className="chat-container">

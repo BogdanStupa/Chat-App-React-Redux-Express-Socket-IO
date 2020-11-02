@@ -1,25 +1,28 @@
 import {
-    GET_CONTACTS_REQUEST,
-    GET_CONTACTS_SUCCESS,
-    GET_CONTACTS_FAIL
+    SEARCH_NEW_CONTACT_REQUEST,
+    SEARCH_NEW_CONTACT_DONE,
+    CLEAR_SEARCH_BUFFER
 } from "redux/constants/contact";
 
-export const getContactsRequest = () => {
+export const searchNewContactRequest = data => {
     return {
-        type: GET_CONTACTS_REQUEST
+        type: SEARCH_NEW_CONTACT_REQUEST,
+        payload: data,
+        actionCreator: searchNewContactRequest
     };
 }
 
-export const getContactsSuccess = data => {
+export const searchNewContactDone = data => {
     return {
-        type: GET_CONTACTS_SUCCESS,
+        type: SEARCH_NEW_CONTACT_DONE,
         payload: data
     };
 }
 
-export const getContactsFail = error => {
+export const clearSearchBuffer = () => {
     return {
-        type: GET_CONTACTS_FAIL,
-        payload: error
+        type: CLEAR_SEARCH_BUFFER
     };
 }
+
+

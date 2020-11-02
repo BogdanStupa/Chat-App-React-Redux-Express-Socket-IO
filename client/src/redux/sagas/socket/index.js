@@ -9,8 +9,7 @@ import {
     serverOff
  } from "redux/actions/socket";
  import {
-    addPartnerMessageInConversation,
-    addMessageInCurrentConversation
+    addPartnerMessageInConversation
  } from "redux/actions/conversation";
 import constants from "modules/constants";
 
@@ -54,6 +53,7 @@ function* read(socket) {
 
 function* startChat(socket, userId) {
     try{
+        console.log("SOKEN START CHAT USER_ID", userId);
         yield socket.emit("start-chat", userId);
     } finally{
 

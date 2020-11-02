@@ -50,7 +50,7 @@ export const postMessage = async (req, res) => {
             }
         );
         
-        const partnerConversation =  await findConversationAndUpdate({
+        let partnerConversation =  await findConversationAndUpdate({
                 ownerId: receivedId,
                 partnerId: senderId,
             },{
@@ -65,6 +65,9 @@ export const postMessage = async (req, res) => {
                 }
             }
         );
+        if(!partnerConversation){
+            partnerConversation = await getConversationOfUser({ ownerId: receivedId, partnerId: senderId });
+        }
 
         global.io.to(receivedId).emit("message.new",{
             senderId,

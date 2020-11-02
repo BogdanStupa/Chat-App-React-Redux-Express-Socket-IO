@@ -9,5 +9,4 @@ export const getConversationsOfUser = model => ConversationModel.find(model);
 
 export const getConversationOfUser = model => ConversationModel.findOne(model);
 
-
 export const findConversationAndDelete = model => ConversationModel.findOneAndDelete(model);

@@ -42,7 +42,7 @@ function fetchPostMessage(data){
 */
 function* postMessageWorker(props){
     try{
-        const { token } = getToken();
+        const { token } = yield getToken();
         const { data } = yield call(fetchPostMessage, { token, ...props.payload });
         yield put(postMessageSuccess());
         yield put(addMessageInCurrentConversation({ ...data.resultAddMessage, conversationId: props.payload.conversationId }));

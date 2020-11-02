@@ -2,7 +2,8 @@ import constants from "../../../modules/constants";
 import {
     findConversationAndUpdate,
     getConversationsOfUser,
-    findConversationAndDelete
+    findConversationAndDelete,
+    getConversationOfUser
 } from "../../repositories/conversation";
 import {
     deleteUserMessage,
@@ -18,7 +19,8 @@ import _ from "lodash";
     req = {
         body: {
             _id,
-            conversation
+            conversation,
+            makeChat
         }
     }
 */
@@ -26,12 +28,19 @@ export const updateConversation = async (req, res) => {
     try {
         const { 
             _id: partnerId,
-            conversation
+            conversation,
+            makeChat
         } = req.body;
         const { _id: ownerId } = req.currentUser;
-
-        await findConversationAndUpdate({ ownerId, partnerId }, { ...conversation });
-
+        let result;
+        if(makeChat){
+            result = await getConversationOfUser({ ownerId, partnerId });
+            if(!result){
+                await findConversationAndUpdate({ ownerId, partnerId }, { ...conversation });
+            }
+        }else{
+            await findConversationAndUpdate({ ownerId, partnerId }, { ...conversation });
+        }
         res.status(201).json({
             success: true
         });

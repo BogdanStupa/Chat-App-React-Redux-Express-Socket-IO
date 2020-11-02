@@ -1,4 +1,4 @@
-import React, { useEffect, createRef, useState } from "react";
+import React, { useEffect, createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 import { toConversationDate } from "modules/utils";

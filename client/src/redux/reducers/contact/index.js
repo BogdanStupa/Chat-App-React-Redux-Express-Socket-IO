@@ -1,48 +1,32 @@
 import {
-    GET_CONTACTS_REQUEST,
-    GET_CONTACTS_SUCCESS,
-    GET_CONTACTS_FAIL 
+    SEARCH_NEW_CONTACT_REQUEST,
+    SEARCH_NEW_CONTACT_DONE,
+    CLEAR_SEARCH_BUFFER
 } from "redux/constants/contact";
-import {
-    RESET
-} from "redux/constants/main";
 
 
 const initialState = {
     isFetching: false,
-    contactsItems: []
+    contactItem: null
 }
 
 const contactsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CONTACTS_REQUEST:
+        case SEARCH_NEW_CONTACT_REQUEST:
             return {
                 ...state,
-                contacts: {
-                    isFetching: true
-                }
+                isFetching: true
             };
             
-        case GET_CONTACTS_SUCCESS: 
+        case SEARCH_NEW_CONTACT_DONE: 
             return {
                 ...state,
-                contacts: {
-                    isFetching: false,
-                    contactsItems: action.payload
-                }
+                isFetching: false,
+                contactItem: action.payload
             };
 
-        case GET_CONTACTS_FAIL:
-            return {
-                ...state,
-                contacts: {
-                    isFetching: false,
-                    errors: action.payload,
-                    contactsItems: []
-                }
-            }
 
-        case RESET:
+        case CLEAR_SEARCH_BUFFER:
             return initialState;
 
         default:

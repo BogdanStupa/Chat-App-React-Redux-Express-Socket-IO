@@ -5,7 +5,7 @@ import {
     ChatWrapper
  } from "./wrappers";
  import { startChanel } from "redux/actions/socket";
-import { getUser, getToken } from "modules/utils";
+import { getUser } from "modules/utils";
 
 
 

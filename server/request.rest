@@ -1,7 +1,7 @@
 
 @host=http://0.0.0.0:7000
 
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY5ZWM5NzFjNGJkNjE2NGNkZWFiODYwIiwiaWF0IjoxNjA0MjYzNDQyLCJleHAiOjE2MDQyNjcwNDJ9.xPbQcwKCm8iN9Nw8sgaRW9_yBCyfNRADC6Z2McTkkyg
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaWNrbmFtZSI6InZhc3lsIiwiX2lkIjoiNWY5ZjMyZTZkMjFiNWIwNmMzOGRiYTIwIiwiaWF0IjoxNjA0MzE3OTg0LCJleHAiOjE2MDQzMjE1ODR9.7awfo8PvT_yTbu09P3uPcOOOdk1QQXQxCj4ZH9yAz3I
 
 @name=vasyl
 
@@ -22,7 +22,7 @@ GET {{host}}/dev/auth
 
 ###
 
-POST {{host}}/auth/signin
+POST {{host}}/auth/signup
 Content-Type: application/json
 
 {
@@ -94,7 +94,7 @@ Authorization: {{token}}
 
 ###
 
-GET {{host}}/secure/contact
+GET {{host}}/secure/contact/lebwa
 Authorization: {{token}}
 
 
