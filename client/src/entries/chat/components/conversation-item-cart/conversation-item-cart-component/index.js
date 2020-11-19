@@ -51,7 +51,7 @@ const ConversationItemCart = props => {
                     <div style={{fontSize: 16, fontWeight: "bold"}}>{nickname}</div>
                     <div style={{
                             maxWidth:"3rem",
-                            
+                            fontSize: ".7rem"
                         }}
                     >
                         {message.dateTime ? toConversationDate(message.dateTime) : null}
