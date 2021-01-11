@@ -4,6 +4,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,8 +21,9 @@ import { RouterModule } from '@angular/router';
         component: SignUpComponent
       }
     ]),
+    ReactiveFormsModule,
+    CoreModule,
     SharedModule,
-    CoreModule
   ],
   exports:[SignUpComponent]
 })

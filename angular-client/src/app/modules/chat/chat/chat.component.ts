@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { constants } from 'src/app/core/constants';
 
 @Component({
   selector: 'app-chat',
@@ -9,7 +10,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 export class ChatComponent implements OnInit {
 
   constructor() {
-    console.log("CHAT CONSTRUCTOR");
+    console.log("CHAT CONSTRUCTOR", constants);
   }
 
   ngOnInit(): void {

@@ -1,0 +1,24 @@
+// Using
+//.div {
+//   @include _1170 {
+//       @content;
+//   }
+//}
+
+
+@mixin _1024 {
+  @media (max-width: 1024px){
+      @content;
+  }
+}
+@mixin _768 {
+  @media (max-width: 768px){
+      @content;
+  }
+}
+
+@mixin _425{
+  @media (max-width: 425px){
+      @content;
+  }
+}

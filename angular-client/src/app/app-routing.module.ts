@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChatComponent } from './modules/chat/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: "",
-    loadChildren: () => import("./modules/chat/chat.module").then(module => module.ChatModule)
+    component: ChatComponent
   },
   {
     path: "**",

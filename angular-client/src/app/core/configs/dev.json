@@ -1,0 +1,57 @@
+{
+  "GLOBAL":{
+      "USER_COOKIE_NAME": "user",
+      "TOKEN_COOKIE_NAME":"token",
+      "REFRESH_TOKEN_COOKIE": "refreshToken",
+      "EXPIRES": 3,
+      "DOMAIN": "localhost"
+  },
+  "LABELS":{
+      "MAIN":{
+          "APP_NAME": "Chat App"
+      },
+      "CHAT":{
+          "LOGOUT": "Logout",
+          "NEW_CONVERSATION": "New Conversation",
+          "CONTACTS": "Contacts",
+          "SEARCH_CONTACT": "Search contact",
+          "DOTS_TIPPY": "...",
+          "WRITE_MESSAGE_TEXT":"Write a message ..."
+      },
+      "AUTH":{
+          "NICKNAME": "Nickname",
+          "PASSWORD": "Password",
+          "CONFIRM_PASSWORD":"Confirm Password",
+          "ALREADY_HAVE_AN_ACCOUNT": "Already have an account?",
+    "DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
+    "SIGNIN": "Sign In",
+          "SIGNUP": "Sign Up",
+          "MIN_LENGHT_NICKNAME_NUMBER": 5,
+          "MIN_LENGHT_PASSWORD_NUMBER": 5,
+          "NICKNAME_MIN_LENGHT":"Nickname must have at least 5 characters",
+          "PASSWORD_MIN_LENGHT":"Password must have at least 5 characters",
+          "MAX_LENGHT_NICKNAME_NUMBER": 12,
+          "MAX_LENGHT_PASSWORD_NUMBER": 12,
+          "NICKNAME_MAX_LENGHT":"Nickname must have not more 12 characters",
+          "PASSWORD_MAX_LENGHT":"Password must have not more 12 characters",
+    "PASSWORD_REQUIRED": "Password is required",
+          "NICKNAME_REQUIRED": "Nickname is required",
+          "NICKNAME_MATCHES": "Nickname should only consist of A-Z, a-z, 0-9 characters",
+          "PASSWORD_MATCHES": "Pssword should only consist of A-Z, a-z, ()., *, &, ^) characters",
+    "PLEASE_CONFIRM_PASSWORD": "Please, confirm your password",
+    "PASSWORD_DOESNT_MATCH": "Password and confirm password must match"
+      }   
+  },
+  "API":{
+      "ROOT": "http://0.0.0.0:7000",
+      "ACTIONS":{
+          "AUTH_SIGNUP":"/auth/signup",
+          "AUTH_SIGNIN":"/auth/signin",
+          "AUTH_LOGOUT":"/auth/logout",
+          "CONVERSATION": "/secure/conversation",
+          "CONTACT": "/secure/contact",
+          "MESSAGE": "/secure/message",
+          "REFRESH_TOKEN": "/auth/token"
+      }       
+  }
+}

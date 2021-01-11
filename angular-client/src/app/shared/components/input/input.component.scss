@@ -1,0 +1,72 @@
+@import "variables";
+
+
+:host{
+  display: flex;
+  flex-direction: column;
+  
+  .input-container{
+      position: relative;
+      display: flex;
+      align-items: center;
+      input{
+          margin: 0;
+          width: 100%;
+          height: 100%;
+          padding-left: .5rem;
+          padding-right: .5rem;
+          font-size: inherit;
+          box-shadow: none;
+          background-color: $app-border-color;
+          border-radius: 0px;
+          border-color: #ccc;
+          border-style: none none solid none;
+          color: $header-color;
+          transition: all .8s;
+      }
+      input:focus{
+          box-shadow: none;
+          outline: none;
+          border-color: $header-color;
+          font-weight: bold;
+      }
+      input::placeholder{
+          color: $header-color
+      }
+
+      textarea{
+          width: 100%;
+          height: 100%;
+          letter-spacing: 0.1rem;
+          font-size: inherit;
+          box-shadow: none;
+          background-color: $app-border-color;
+          resize:none;
+          overflow: auto;
+          -moz-appearance: none;
+          border:0;
+          padding: 0.25rem;
+          color: $header-color;
+      }
+
+      .input-icon{
+          background-color:$app-border-color;
+          position: absolute;
+      }
+  }
+
+  .input-error{
+      border-color: red;
+      color:red;
+  } 
+  .input-error::placeholder{
+      color:red;
+  }
+  .error-info{
+      overflow-wrap: break-word;
+      color: red;
+      font-size:0.7rem;
+      width:100%;
+      margin-top: .2rem;
+  }
+}

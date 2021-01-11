@@ -1,0 +1,27 @@
+<form [formGroup]="authForm">
+  <ng-container *ngFor="let option of options;">
+    <mat-form-field>
+      <mat-label>{{ option.placeholder }}</mat-label>
+      <input 
+        [type]="option.type" matInput 
+        [formControlName]="option.formControlSettings.formControlName" 
+        [placeholder]="option.placeholder"
+      />
+      <mat-error *ngFor="let error of option.formControlSettings.validators">
+        <ng-container *ngIf="authForm.controls[option.formControlSettings.formControlName].hasError(error.error) && 
+          authForm.controls[option.formControlSettings.formControlName].touched"
+        >
+          {{ error.errorMessage }}
+        </ng-container>
+      </mat-error>
+
+      <mat-error *ngIf="authForm.controls[option.formControlSettings.formControlName].invalid &&
+      !authForm.controls[option.formControlSettings.formControlName].value">
+        Please enter {{ option.placeholder.toLocaleLowerCase() }}
+      </mat-error>
+      
+    </mat-form-field>
+  </ng-container>
+  <button (click)="submit($event)" type="submit" class="mt1" mat-raised-button color="primary">Sign Up</button>
+</form>
+

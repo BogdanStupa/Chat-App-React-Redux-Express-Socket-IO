@@ -1,0 +1,10 @@
+<div>
+  <h1>
+    {{ title }}
+  </h1>
+  <ng-content></ng-content>
+  <section>
+    <label>{{ redirect.redirectLabelText }}</label>
+    <button (click)="redirectTo()" id="signin" mat-button target="_blank">{{ redirect.redirectLinkText }}</button>
+  </section>
+</div>
