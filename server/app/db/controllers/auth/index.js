@@ -39,7 +39,7 @@ export const postSignUp = async (req, res) => {
             });
 
             if(newUser){
-                res.sendStatus(201);
+                res.status(201).send({});
             }else{
                 res.status(401).json({
                     success: false,
@@ -156,18 +156,15 @@ export const postRefreshUserToken = async (req, res) => {
 export const deleteRefreshToken = async (req, res) => {
     try {
         const { refreshToken, _id } = req.params;
-
-        const token = refreshToken.split(" ")[1];
-
-        const user = await findUserByIdAndUpdate(_id,
+        
+        await findUserByIdAndUpdate(_id,
             {
                 $pull: {
-                    refreshTokens: token
+                    refreshTokens: refreshToken
                 }
             }
         );
-
-        res.sendStatus(200);
+        res.status(200).send({});
     } catch (error) {
         res.sendStatus(500);
     }
