@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { AuthOption, FormControls } from './interfaces/auh-form-container.interface';
-import { UserAuthI } from "../../../core/interfaces/user-auth.interface";
+import { ReqAuthUser } from "../../../core/interfaces/user-auth.interface";
 import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
  
 
@@ -12,10 +12,12 @@ import { FormControl, FormGroup, ValidatorFn } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthFormContainerComponent implements OnInit {
+  @Input() title: string;
 
   @Input() options: AuthOption[];
 
-  @Output() submitCallback: EventEmitter<UserAuthI> = new EventEmitter();
+  @Output() submitCallback: EventEmitter<ReqAuthUser> = new EventEmitter();
+  onSubmit(){ this.submitCallback.emit(this.authForm.value); }
 
   authForm: FormGroup;
 
@@ -29,10 +31,6 @@ export class AuthFormContainerComponent implements OnInit {
       formControls[option.formControlSettings.formControlName] = new FormControl("", optionValidators);
     });
     this.authForm = new FormGroup(formControls);
-  }
-
-  submit(event: Event){
-
   }
 
 }

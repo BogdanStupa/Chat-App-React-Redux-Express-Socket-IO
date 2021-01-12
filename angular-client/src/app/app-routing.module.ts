@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthentivationGuard } from './core/guards/authentivation.guard';
 import { ChatComponent } from './modules/chat/chat/chat.component';
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: "",
-    component: ChatComponent
+    component: ChatComponent,
+    canActivate: [AuthentivationGuard]
   },
   {
     path: "**",

@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { constants }  from 'src/app/core/constants';
+import { ReqAuthUser } from 'src/app/core/interfaces/user-auth.interface';
 import { AuthOption } from 'src/app/shared/containers/auth-form-container/interfaces/auh-form-container.interface';
 
 
@@ -9,21 +16,23 @@ import { AuthOption } from 'src/app/shared/containers/auth-form-container/interf
   templateUrl: './sign-in.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
 
-  title="Sign In";
+  private _destroy$: Subject<boolean> = new  Subject<boolean>();
+
+  title = "Sign In";
   redirect = {
     redirectLabelText: "Don't have an account ?",
     redirectLinkText:"Sign Up",
     redirectPath: "/signup"
   };
-
+  error: string;
   options: AuthOption[] = [
     {
-      placeholder: "Username",
+      placeholder: "Nickname",
       type: "text",
       formControlSettings: {
-        formControlName: "username",
+        formControlName: "nickname",
         validators: [
           {
             validator: Validators.required,
@@ -69,12 +78,33 @@ export class SignInComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    private _authenticationService: AuthenticationService,
+    private _router: Router
+  ) { 
+    if(this._authenticationService.currentUserValue){
+      this._router.navigateByUrl("");
+    }
+  }
 
   ngOnInit(): void {}
 
-  submitCallback(){
-    console.log("Submit");
+  submitCallback(user: ReqAuthUser){
+    this._authenticationService.login(user)
+      .pipe(
+        takeUntil(this._destroy$)
+      ).subscribe(isOk => {
+        if(isOk){
+          this._router.navigateByUrl("");
+        }else{
+          this.error = "SOME STRANGE ERROR";
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this._destroy$.next(true);
+    this._destroy$.unsubscribe();
   }
   
 }

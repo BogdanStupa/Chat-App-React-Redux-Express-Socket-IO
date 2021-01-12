@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+
+import { ReqAuthUser } from 'src/app/core/interfaces/user-auth.interface';
+import { RegisterService } from 'src/app/core/services/register/register.service';
 
 import { compareValidator } from 'src/app/shared/containers/auth-form-container/directives/compare-validator.directive';
 import { AuthOption } from 'src/app/shared/containers/auth-form-container/interfaces/auh-form-container.interface';
@@ -12,7 +20,9 @@ import { constants } from "../../../core/constants";
   templateUrl: './sign-up.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
+
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   title="Sign Up";
   redirect = {
@@ -20,12 +30,13 @@ export class SignUpComponent implements OnInit {
     redirectLinkText:"Sign In",
     redirectPath: "/signin"
   };
+  error: string;
   options: AuthOption[] = [
     {
-      placeholder: "Username",
+      placeholder: "Nickname",
       type: "text",
       formControlSettings: {
-        formControlName: "username",
+        formControlName: "nickname",
         validators: [
           {
             validator: Validators.required,
@@ -90,12 +101,38 @@ export class SignUpComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(
+    private _authenticationService: AuthenticationService,
+    private _registerService: RegisterService,
+    private _router: Router
+  ) {
+    if(this._authenticationService.currentUserValue){
+      this._router.navigateByUrl("");
+    }
+  }
 
   ngOnInit(): void { }
 
-  submitCallback(){
-
+  submitCallback(value: ReqAuthUser & { confirmPassword: string }){
+    const user: ReqAuthUser  = { 
+      nickname: value.nickname,
+      password: value.password 
+    }
+    this._registerService.register(user)
+      .pipe(
+        takeUntil(this._destroy$)
+      ).subscribe(isOk => {
+        if(isOk){
+          this._router.navigateByUrl("/signin");
+        }else{
+          this.error = "SOME ERROR";
+        }
+      });
   }
 
+  ngOnDestroy() {
+    this._destroy$.next(true);
+    this._destroy$.unsubscribe();
+  }
+  
 }

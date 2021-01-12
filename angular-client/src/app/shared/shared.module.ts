@@ -30,7 +30,8 @@ import { CompareValidatorDirective } from './containers/auth-form-container/dire
     IconComponent,
     InputComponent,
     AuthContainerComponent,
-    AuthFormContainerComponent
+    AuthFormContainerComponent,
+    MatButtonModule
   ]
 })
 export class SharedModule { }

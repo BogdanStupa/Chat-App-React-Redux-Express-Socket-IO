@@ -2,5 +2,9 @@
   [title]="title"
   [redirect]="redirect"
 >
-  <app-auth-form-container [options]="options"></app-auth-form-container>
+  <app-auth-form-container 
+    [options]="options" 
+    (submitCallback)="submitCallback($event)"
+    [title]="title"
+  ></app-auth-form-container>
 </app-auth-container>

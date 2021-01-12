@@ -1,4 +1,4 @@
-<form [formGroup]="authForm">
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let option of options;">
     <mat-form-field>
       <mat-label>{{ option.placeholder }}</mat-label>
@@ -22,6 +22,10 @@
       
     </mat-form-field>
   </ng-container>
-  <button (click)="submit($event)" type="submit" class="mt1" mat-raised-button color="primary">Sign Up</button>
+  <button 
+    type="submit" 
+    class="mt1" 
+    mat-raised-button color="primary"
+    [disabled]="authForm.invalid"
+    >{{ title }}</button>
 </form>
-

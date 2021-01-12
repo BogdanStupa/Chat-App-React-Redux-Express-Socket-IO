@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { constants } from 'src/app/core/constants';
 
 @Component({
@@ -9,12 +10,18 @@ import { constants } from 'src/app/core/constants';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    public authenticationService: AuthenticationService
+  ) {
     console.log("CHAT CONSTRUCTOR", constants);
   }
 
   ngOnInit(): void {
     console.log("CHAT ON INIT");
+  }
+
+  onLogout(){
+    this.authenticationService.logout().subscribe(x => console.log(x));
   }
 
 }
