@@ -85,7 +85,8 @@ function* workerSignIn(props){
 function* workerLogout(props){
     try {
         const { refreshToken } = getToken();
-        yield call(fetchLogout, { refreshToken, ...props.payload });
+        const token = refreshToken.split(" ")[1];
+        yield call(fetchLogout, { token, ...props.payload });
         yield call(logout);
         yield put(setIsAuth(null));
     }catch(error){
