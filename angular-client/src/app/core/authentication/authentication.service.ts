@@ -11,9 +11,7 @@ import { constants } from "../constants";
 
 
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class AuthenticationService {
 
   private readonly CURRENT_USER = "CURRENT_USER";
@@ -35,9 +33,7 @@ export class AuthenticationService {
 
   public login(user: ReqAuthUser): Observable<boolean> {
     return this._http.post<AuthenticatedUser>(`${this._api}${constants.API.ACTIONS.AUTH_SIGNIN}`, user)
-      .pipe(
-        map((user: AuthenticatedUser) => this.doLoginUser(user)),
-        mapTo(true)
+      .pipe(map((user: AuthenticatedUser) => this.doLoginUser(user)),mapTo(true)
       )
   }
 
@@ -47,10 +43,21 @@ export class AuthenticationService {
     }
     const token = this.currentUserValue.refreshToken.split(" ")[1];
     return this._http.delete(`${this._api}${constants.API.ACTIONS.AUTH_LOGOUT}/${this.currentUserValue.user._id}/${token}`)
-      .pipe(
-        tap(() => this.doLogoutUser()),
-        mapTo(true)
-      );
+      .pipe(tap(() => this.doLogoutUser()), mapTo(true));
+  }
+
+  public refreshToken(): Observable<any>{
+    if(!this.currentUserValue){
+      return of(false);
+    }
+    return this._http.post(`${this._api}${constants.API.ACTIONS.REFRESH_TOKEN}`, {
+        refreshToken: this.currentUserValue.refreshToken,
+        _id: this.currentUserValue.user._id
+      }).pipe(map((res: { token: string }) => this.doRefreshToken(res.token)));
+  }
+
+  public f():Observable<any> {
+    return this._http.get(`${this._api}/dev/auth`);
   }
 
 
@@ -65,4 +72,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
     location.reload();
   }
+  private doRefreshToken(token: string):void{
+    this.currentUserSubject.next({ ...this.currentUserValue, token});
+  }   
 }

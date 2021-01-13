@@ -24,4 +24,7 @@ export class ChatComponent implements OnInit {
     this.authenticationService.logout().subscribe(x => console.log(x));
   }
 
+  onF(){
+    this.authenticationService.f().subscribe(x => console.log(x));
+  }
 }

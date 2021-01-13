@@ -16,24 +16,12 @@ const isAuth = (req, res, next) => {
                 next();
                 return;
             }catch(error){
-                return res.status(403)
-                            .json({
-                                success: false,
-                                errors: constants.VALIDATION_MESSAGES.INVALID_TOKEN
-                            });
+                return res.status(401).send(constants.VALIDATION_MESSAGES.INVALID_TOKEN);
             }
         }
-        return res.status(401)
-                    .json({
-                        success: false,
-                        errors: constants.VALIDATION_MESSAGES.TOKEN_IS_NOT_SUPPLIED
-                    });
+        res.status(403).send(constants.VALIDATION_MESSAGES.TOKEN_IS_NOT_SUPPLIED);
     }catch(error){
-        return res.status(500)
-                    .json({
-                        success: false,
-                        errors: error.message
-                    });
+        res.status(500).send(error.message);
     }
 }
 

@@ -1,9 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { EMPTY, of, Subject } from 'rxjs';
+import { catchError, takeUntil } from 'rxjs/operators';
+
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
 import { constants }  from 'src/app/core/constants';
@@ -18,7 +21,7 @@ import { AuthOption } from 'src/app/shared/containers/auth-form-container/interf
 })
 export class SignInComponent implements OnInit, OnDestroy {
 
-  private _destroy$: Subject<boolean> = new  Subject<boolean>();
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   title = "Sign In";
   redirect = {
@@ -26,7 +29,6 @@ export class SignInComponent implements OnInit, OnDestroy {
     redirectLinkText:"Sign Up",
     redirectPath: "/signup"
   };
-  error: string;
   options: AuthOption[] = [
     {
       placeholder: "Nickname",
@@ -78,9 +80,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     },
   ];
 
+
   constructor(
     private _authenticationService: AuthenticationService,
-    private _router: Router
+    private _router: Router,
+    private _toastServise: ToastrService
   ) { 
     if(this._authenticationService.currentUserValue){
       this._router.navigateByUrl("");
@@ -92,12 +96,24 @@ export class SignInComponent implements OnInit, OnDestroy {
   submitCallback(user: ReqAuthUser){
     this._authenticationService.login(user)
       .pipe(
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
+        catchError(err => {
+          if(err instanceof HttpErrorResponse){
+            this._toastServise.error("",err.error, {
+              positionClass: "toast-top-center"
+            });
+            return EMPTY;    
+          }
+          return of(false);
+        })
       ).subscribe(isOk => {
         if(isOk){
           this._router.navigateByUrl("");
         }else{
-          this.error = "SOME STRANGE ERROR";
+          this._toastServise.error("Error", "Something went wrong, please try again", {
+            timeOut: 3000,
+            positionClass: "toast-top-center"
+          });
         }
       });
   }

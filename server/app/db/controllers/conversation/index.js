@@ -41,15 +41,9 @@ export const updateConversation = async (req, res) => {
         }else{
             await findConversationAndUpdate({ ownerId, partnerId }, { ...conversation });
         }
-        res.status(201).json({
-            success: true
-        });
+        res.status(201).send();
     }catch (error){
-        res.status(500)
-                .json({
-                    success: false,
-                    errors: error.message
-                });
+        res.status(500).send(error.message);
     }
 }   
 
@@ -103,11 +97,7 @@ export const getConversations = async (req, res) => {
                 conversations: result 
             });
     } catch(error){
-        res.status(500)
-            .json({
-                success: false,
-                errors: error.message
-            });
+        res.status(500).send(error.message);
     }
 }   
 
@@ -139,10 +129,6 @@ export const deleteConversation = async (req, res) => {
 
         res.status(204).send();
     }catch(error){
-        res.status(500)
-            .json({
-                success: false,
-                errors: error.message
-            });
+        res.status(500).send(error.message);
     }
 }

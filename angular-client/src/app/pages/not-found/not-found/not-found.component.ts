@@ -8,12 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor() {
-    console.log("NOT FOUND CONSTRUCTOR");
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log("NOT FOUND ON INIT");
-  }
+  ngOnInit(): void {}
 
 }

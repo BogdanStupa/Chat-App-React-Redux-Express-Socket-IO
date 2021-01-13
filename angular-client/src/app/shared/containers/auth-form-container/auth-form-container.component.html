@@ -14,11 +14,6 @@
           {{ error.errorMessage }}
         </ng-container>
       </mat-error>
-
-      <mat-error *ngIf="authForm.controls[option.formControlSettings.formControlName].invalid &&
-      !authForm.controls[option.formControlSettings.formControlName].value">
-        Please enter {{ option.placeholder.toLocaleLowerCase() }}
-      </mat-error>
       
     </mat-form-field>
   </ng-container>

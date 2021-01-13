@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, OnChanges, DoCheck } from '@angular/core';
 
 import { AuthOption, FormControls } from './interfaces/auh-form-container.interface';
 import { ReqAuthUser } from "../../../core/interfaces/user-auth.interface";
@@ -15,6 +15,7 @@ export class AuthFormContainerComponent implements OnInit {
   @Input() title: string;
 
   @Input() options: AuthOption[];
+
 
   @Output() submitCallback: EventEmitter<ReqAuthUser> = new EventEmitter();
   onSubmit(){ this.submitCallback.emit(this.authForm.value); }

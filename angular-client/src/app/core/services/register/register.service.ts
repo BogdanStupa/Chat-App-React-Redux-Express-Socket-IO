@@ -6,9 +6,7 @@ import { constants } from '../../constants';
 import { ReqAuthUser } from '../../interfaces/user-auth.interface';
 import { BASE_API_URL } from '../api-url/api-url.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RegisterService {
 
   constructor(

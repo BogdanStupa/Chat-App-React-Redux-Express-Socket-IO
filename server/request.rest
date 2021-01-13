@@ -18,7 +18,8 @@
 
 ################# Auth Route BEGIN ###################################
 
-GET {{host}}/dev/auth 
+GET {{host}}/dev/auth
+Authorization: {{token}} 
 
 ###
 

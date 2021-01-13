@@ -85,11 +85,7 @@ export const postMessage = async (req, res) => {
             });
 
     }catch(error){
-        res.status(500)
-            .json({
-                success: false,
-                errors: error.message
-            });
+        res.status(500).send(error.message);
     }
 }
 
@@ -124,11 +120,7 @@ export const getMessages = async (req, res) => {
             });
 
     } catch(error){
-        res.status(500)
-            .json({
-                success: false,
-                errors: error.message
-            });
+        res.status(500).send(error.message);
     }
 }   
 
@@ -172,10 +164,6 @@ export const deleteMessage = async (req, res) => {
         res.status(204).send();
 
     } catch (error) {
-        res.status(500)
-            .json({
-                success: false,
-                errors: error.message
-            });
+        res.status(500).send(error.message);
     }
 }

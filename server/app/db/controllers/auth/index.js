@@ -39,24 +39,15 @@ export const postSignUp = async (req, res) => {
             });
 
             if(newUser){
-                res.status(201).send({});
+                res.status(201).json({});
             }else{
-                res.status(401).json({
-                    success: false,
-                    errors: constants.VALIDATION_MESSAGES.INVALID_USER_DATA
-                });
+                res.status(404).send(constants.VALIDATION_MESSAGES.INVALID_USER_DATA);
             }
         }else{
-            res.status(401).json({
-                success: false,
-                errors: constants.VALIDATION_MESSAGES.USER_ALREADY_EXIST
-            });
+            res.status(404).send(constants.VALIDATION_MESSAGES.USER_ALREADY_EXIST);
         }
     } catch(error){
-        res.status(500).json({
-            success: false,
-            errors: error.message
-        });
+        res.status(500).send(error.message);
     } 
 }
 
@@ -77,7 +68,7 @@ export const postSignIn = async (req, res) => {
         const user = await findOneUser({ nickname });
 
         if(!user){
-            throw new Error(constants.VALIDATION_MESSAGES.SUCH_USER_DOESNT_EXIST);
+            res.status(404).send(constants.VALIDATION_MESSAGES.SUCH_USER_DOESNT_EXIST);
         }
         if(user._id && await bcrypt.compare(password, user.password)){
             const accessToken =  createJwtToken({
@@ -110,16 +101,10 @@ export const postSignIn = async (req, res) => {
                 }
             });
         }else{
-            res.status(401).json({
-                success: false,
-                errors: constants.VALIDATION_MESSAGES.INCORRECT_PASSWORD
-            });
+            res.status(404).send(constants.VALIDATION_MESSAGES.INCORRECT_PASSWORD);
         }
     } catch(error){
-        res.status(500).send({
-            success: false,
-            errors: error.message
-        });
+        res.status(500).send(error.message);
     } 
 }
 
@@ -127,24 +112,24 @@ export const postSignIn = async (req, res) => {
 export const postRefreshUserToken = async (req, res) => {
     try{
         const { refreshToken, _id } = req.body;
-        
-        if(!refreshToken) return res.sendStatus(401);
+
+        if(!refreshToken) return res.sendStatus(403);
 
         const token = refreshToken.split(" ")[1];
 
         const { refreshTokens } = await findUserById(_id);
         
         if(!refreshTokens.includes(token))return res.sendStatus(403);
-        
+
         try{
             const decode = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
             const accessToken = createJwtToken({ 
                 nickname: decode.nickname,
                 _id: decode._id
              });
-             return res.status(201).json({ token: `Bearer ${accessToken}` });
+             res.status(201).json({ token: `Bearer ${accessToken}` });
         }catch(error){
-            return res.sendStatus(403);
+            res.sendStatus(403);
         }
 
     }catch(error){
